@@ -14,7 +14,7 @@
 
 namespace TiActor {
 
-enum {
+enum actor_type_t {
     ACTOR_TYPE_UNKNOWN = 0,
     ACTOR_TYPE_START = 0,
     ACTOR_TYPE_PARALLEL_PI,
@@ -23,7 +23,7 @@ enum {
 
 typedef uint32_t message_type;
 
-enum  {
+enum message_type_t {
     UNKNOWN_MESSAGE = (message_type)(-1)
 };
 

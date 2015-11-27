@@ -17,7 +17,7 @@
 
 namespace TiActor {
 
-struct RingQueueHead
+struct RingQueueInfo
 {
     volatile uint32_t head;
     char padding1[TIACTOR_CACHE_LINE_SIZE - sizeof(uint32_t)];
@@ -26,7 +26,7 @@ struct RingQueueHead
     char padding2[TIACTOR_CACHE_LINE_SIZE - sizeof(uint32_t)];
 };
 
-typedef struct RingQueueHead RingQueueHead;
+typedef struct RingQueueInfo RingQueueInfo;
 
 ///////////////////////////////////////////////////////////////////
 // class SmallRingQueueCore<Capacity>
@@ -44,7 +44,7 @@ public:
     static const bool       kIsAllocOnHeap  = false;
 
 public:
-    RingQueueHead       info;
+    RingQueueInfo       info;
     item_type           queue[kCapacityCore];
 };
 
@@ -65,7 +65,7 @@ public:
     static const bool kIsAllocOnHeap = true;
 
 public:
-    RingQueueHead       info;
+    RingQueueInfo       info;
     item_type *         queue;
 };
 
