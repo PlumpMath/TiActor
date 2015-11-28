@@ -38,9 +38,12 @@ struct boolean_if {
     enum { value = type::value };
 };
 
+//
+// is_pow_of_2 = (N && ((N & (N - 1)) == 0);  // here, N must is unsigned number
+//
 template <size_t N>
 struct is_pow_of_2 {
-    enum { value = boolean_if<(N && ((N & (N - 1)) == 0))>::value };
+    enum { value = boolean_if<((N & (N - 1)) == 0)>::value };
 };
 
 template <>
@@ -49,6 +52,34 @@ struct is_pow_of_2<0> {
 };
 
 #if 1
+
+#define ROUND_UP_TO_POW2_DEF(N)
+
+template <size_t N>
+struct next_is_pow_of_2 {
+    enum { value = boolean_if<((N & (N + 1)) == 0)>::value };
+};
+
+template <bool is_pow2, size_t N>
+struct round_up_to_pow2_impl {
+    enum {
+        isPow2 = is_pow_of_2<N>::value,
+        nextIsPow2 = next_is_pow_of_2<N>::value
+    };
+    static const size_t value = (isPow2 == 1) ? N : round_up_to_pow2_impl<(nextIsPow2 == 1), N + 1>::value;
+};
+
+template <size_t N>
+struct round_up_to_pow2_impl<true, N> {
+    static const size_t value = N;
+};
+
+template <size_t N>
+struct round_up_to_pow2 {
+    static const size_t value = round_up_to_pow2_impl<(is_pow_of_2<N>::value == 1), N>::value;
+};
+
+#elif 1
 
 #define ROUND_UP_TO_POW2_DEF(N)         \
 template <>                             \
@@ -157,6 +188,30 @@ struct round_up_to_pow2<4294967295UL> {
 #endif
 
 #undef ROUND_UP_TO_POW2_DEF
+
+template <size_t N>
+struct front_is_pow_of_2 {
+    enum { value = boolean_if<(((N - 1) & (N - 2)) == 0)>::value };
+};
+
+template <bool is_pow2, size_t N>
+struct round_down_to_pow2_impl {
+    enum {
+        isPow2 = is_pow_of_2<N>::value,
+        frontIsPow2 = front_is_pow_of_2<N>::value
+    };
+    static const size_t value = (isPow2 == 1) ? N : round_down_to_pow2_impl<(frontIsPow2 == 1), N - 1>::value;
+};
+
+template <size_t N>
+struct round_down_to_pow2_impl<true, N> {
+    static const size_t value = N;
+};
+
+template <size_t N>
+struct round_down_to_pow2 {
+    static const size_t value = round_down_to_pow2_impl<(is_pow_of_2<N>::value == 1), N>::value;
+};
 
 }  /* namespace utils */
 

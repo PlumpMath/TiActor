@@ -20,14 +20,29 @@ int main(int argn, char * argv[])
 
     std::cout << std::endl;
 
-    size_t pow2_a = TiActor::utils::round_up_to_pow2<33>::value;
-    std::cout << "pow2(33) = " << pow2_a << std::endl;
+    {
+        size_t pow2_a = TiActor::utils::round_up_to_pow2<33>::value;
+        std::cout << "pow2(33) = " << pow2_a << std::endl;
 
-    size_t pow2_b = TiActor::utils::round_up_to_pow2<213>::value;
-    std::cout << "pow2(213) = " << pow2_b << std::endl;
+        size_t pow2_b = TiActor::utils::round_up_to_pow2<213>::value;
+        std::cout << "pow2(213) = " << pow2_b << std::endl;
 
-    size_t pow2_c = TiActor::utils::round_up_to_pow2<256>::value;
-    std::cout << "pow2(256) = " << pow2_c << std::endl;
+        size_t pow2_c = TiActor::utils::round_up_to_pow2<256>::value;
+        std::cout << "pow2(256) = " << pow2_c << std::endl;
+    }
+
+    std::cout << std::endl;
+
+    {
+        size_t pow2_a = TiActor::utils::round_down_to_pow2<33>::value;
+        std::cout << "pow2(33) = " << pow2_a << std::endl;
+
+        size_t pow2_b = TiActor::utils::round_down_to_pow2<213>::value;
+        std::cout << "pow2(213) = " << pow2_b << std::endl;
+
+        size_t pow2_c = TiActor::utils::round_down_to_pow2<256>::value;
+        std::cout << "pow2(256) = " << pow2_c << std::endl;
+    }
 
     std::cout << std::endl;
     ::system("pause");
