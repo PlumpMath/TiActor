@@ -15,7 +15,7 @@ namespace TiActor {
 
 class ActorPath;
 
-class Message : public MessageBase {
+class Message : public MessageBase<Message> {
 private:
     //
 

@@ -75,7 +75,7 @@ int getPhysicalProcessors() {
 #endif
 }
 
-} // namespace Runtime */
+} // namespace Runtime
 
 } // namespace TiActor
 

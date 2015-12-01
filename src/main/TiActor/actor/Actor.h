@@ -25,7 +25,7 @@ public:
     Actor() : ActorBase() {
     }
 
-    Actor(const std::string & name) : ActorBase(name) {
+    Actor(const std::string & name, ActorSystem * parent = nullptr) : ActorBase(name, parent) {
     }
 
     Actor(const Actor & src) {

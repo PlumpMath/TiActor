@@ -6,37 +6,30 @@
 #pragma once
 #endif
 
-#include "TiActor/basic/stddef.h"
 #include <string>
 
-#include "TiActor/actor/ActorRef.h"
+//#include "TiActor/actor/ActorRef.h"
 #include "TiActor/actor/MessageObject.h"
+#include "TiActor/actor/IMessage.h"
 
 namespace TiActor {
 
-enum actor_type_t {
-    ACTOR_TYPE_UNKNOWN = 0,
-    ACTOR_TYPE_START = 0,
-    ACTOR_TYPE_PARALLEL_PI,
-    ACTOR_TYPE_LAST
-};
+class IActorRef;
 
-typedef uint32_t message_type;
+template <typename T, message_type _MsgType = message_type_t::UnknownMessage>
+class MessageBase : public IMessage {
+public:
+    typedef T * object_type;
 
-enum message_type_t {
-    UNKNOWN_MESSAGE = (message_type)(-1)
-};
-
-class MessageBase {
 private:
     message_type type_;
-    MessageObject object_;
+    object_type object_;
 
     IActorRef * sender_;
     IActorRef * receiver_;
 
 public:
-    MessageBase() : type_(UNKNOWN_MESSAGE),
+    MessageBase() : type_(_MsgType),
         object_(nullptr),
         sender_(nullptr),
         receiver_(nullptr) {
@@ -48,16 +41,45 @@ public:
         return type_;
     }
 
+    void setType(message_type type) {
+        type_ = type;
+    }
+
+    object_type setTypeEx(message_type type) {
+        type_ = type;
+        return static_cast<object_type>(this);
+    }
+
     MessageObject getObject() const {
+        return reinterpret_cast<MessageObject>(object_);
+    }
+
+    void setObject(MessageObject object) {
+        object_ = reinterpret_cast<object_type>(object);
+    }
+
+    object_type getObjectEx() const {
         return object_;
+    }
+
+    void setObjectEx(object_type object) {
+        object_ = object;
     }
 
     IActorRef * getSender() const {
         return sender_;
     }
-
+    
+    void setSender(IActorRef * sender) {
+        sender_ = sender;
+    }
+    
     IActorRef * getReceiver() const {
         return receiver_;
+    }
+
+    void setReceiver(IActorRef * receiver) {
+        receiver_ = receiver;
     }
 };
 

@@ -10,12 +10,16 @@
 #include <unordered_map>
 
 #include "TiActor/basic/stddef.h"
+#include "TiActor/config/ActorConfig.h"
 #include "TiActor/config/Config.h"
 #include "TiActor/config/ConfigurationFactory.h"
 #include "TiActor/actor/ActorRef.h"
 #include "TiActor/actor/Props.h"
 #include "TiActor/actor/IActorRefFactory.h"
 #include "TiActor/actor/IDisposable.h"
+
+#include "TiActor/actor/Message.h"
+#include "TiActor/queue/RingQueue.h"
 
 namespace TiActor {
 
@@ -31,6 +35,8 @@ public:
     typedef std::unordered_map<std::string, Actor *>::const_iterator    const_actor_iter;
     typedef std::pair<std::string, Actor *>                             actor_pair_type;
 
+    typedef RingQueue<Message *, 8192>    queue_type;
+
 private:
     std::string name_;
     Config config_;
@@ -38,6 +44,7 @@ private:
 public:
     static actorsystem_map_type actorsystem_map_;
     static actor_map_type       actor_map_;
+    static queue_type           msg_queue_;
 
 public:
     ActorSystem(const std::string & name) {

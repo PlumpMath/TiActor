@@ -173,6 +173,7 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ICanTell.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IDisposable.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IInternalActorRef.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IMessage.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\INoSerializationVerificationNeeded.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ISurrogated.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ISystemMessage.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\Config.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\ConfigurationFactory.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\static_link.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\ActorConfig.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\Mailbox.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\queue\portable.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\queue\RingQueue.h" />

@@ -34,7 +34,7 @@ public:
         initActor("default");
     }
 
-    ActorBase(const std::string & name)
+    ActorBase(const std::string & name, ActorSystem * parent = nullptr)
      : clearedSelf_(nullptr), context_(nullptr) {
         initActor(name);
     }

@@ -27,15 +27,13 @@
 #include <TiActor/actor/ActorRef.ipp>
 #include <TiActor/actor/ActorSystem.ipp>
 
-//#include <TiActor/config/static_link.h>
-
 using namespace TiActor;
 
-class Calculate {
+class Calculate : public MessageBase<Calculate> {
     //
 };
 
-class Work {
+class Work : public MessageBase<Work> {
 private:
     int start_;
     int numOfElements_;
@@ -55,7 +53,7 @@ public:
     }
 };
 
-class Result {
+class Result : public MessageBase<Result> {
 private:
     double value_;
 
@@ -69,7 +67,7 @@ public:
     }
 };
 
-class PiApproximation {
+class PiApproximation : public MessageBase<PiApproximation> {
 private:
     double pi_;
     double duration_;
@@ -101,11 +99,11 @@ double calulatePiFor(int start, int numOfElements) {
 class Worker : public UntypedActor {
 public:
     struct InnerMessage {
-        enum { Work };
+        enum { Dummy = 0, Work };
     };
 
 public:
-    void onReceive(MessageBase * message) {
+    void onReceive(IMessage * message) {
         message_type msgType = message->getType();
         if (msgType == InnerMessage::Work) {
             //Work * work = dynamic_cast<Work *>(message->getObject());
@@ -132,11 +130,11 @@ private:
 
 public:
     struct InnerMessage {
-        enum { Calculate, Result };
+        enum { Dummy = 0, Calculate, Result };
     };
 
 public:
-    Master(int numOfWorkers, int numOfMessages, int numOfElements, ActorRef * listener)
+    Master(int numOfWorkers, int numOfMessages, int numOfElements, IActorRef * listener)
         : UntypedActor() {
         this->numOfMessages_ = numOfMessages;
         this->numOfElements_ = numOfElements;
@@ -169,13 +167,14 @@ public:
         }
     }
 
-    void onReceive(MessageBase * message) {
+    void onReceive(IMessage * message) {
         message_type msgType = message->getType();
         if (msgType == InnerMessage::Calculate) {
             if (workerRouter_) {
                 for (int start = 0; start < numOfMessages_; ++start) {
-                    Work work(start, numOfElements_);
-                    workerRouter_->tell(&work, this->getSelf());
+                    Work * work = new Work(start, numOfElements_);
+                    work->setType(Worker::InnerMessage::Work);
+                    workerRouter_->tell(work, this->getSelf());
                 }
             }
         }
@@ -191,16 +190,23 @@ public:
 class Listener : public UntypedActor {
 public:
     struct InnerMessage {
-        enum { PiApproximation };
+        enum { Dummy = 0, PiApproximation };
     };
 public:
-    void OnReceive(MessageObject message) {
+    void OnReceive(IMessage * message) {
         if (InnerMessage::PiApproximation) {
             PiApproximation * approximation = reinterpret_cast<PiApproximation *>(message);
             if (approximation) {
                 std::cout << std::endl << "Pi approximation: \t\t" << approximation->getPi()
                     << "\n\tCalculation time: \t" << approximation->getDuration();
-                this->getContext()->getSystem()->shutdown();
+
+                IActorContext * context = this->getContext();
+                if (context) {
+                    ActorSystem * system = context->getSystem();
+                    if (system) {
+                        system->shutdown();
+                    }
+                }
                 delete approximation;
             }
         }
@@ -229,9 +235,20 @@ public:
             IActorRef * listener = system->actorOf(new Props(new Listener()), "listener");
             if (listener) {
                 // Create the master
-                IActorRef * master = system->actorOf(new Props(new UntypedActorFactory()), "master");
-                if (master) {
-                    master->tell(new Calculate());
+                Actor * masterActor = new Master(numOfWorkers, numOfMessages, numOfElements, listener);
+                if (masterActor) {
+                    IActorRef * master = system->actorOf(new Props(masterActor), "master");
+                    if (master) {
+#if 1
+                        master->tell((new Calculate())->setTypeEx(Master::InnerMessage::Calculate));
+#else
+                        Calculate * calculate = new Calculate();
+                        if (calculate) {s
+                            calculate->setType(Master::InnerMessage::Calculate);
+                            master->tell(calculate);
+                        }
+#endif
+                    }
                 }
             }
         }

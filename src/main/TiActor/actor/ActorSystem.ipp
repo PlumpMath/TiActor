@@ -16,8 +16,9 @@ namespace TiActor {
 
 class Config;
 
-ActorSystem::actorsystem_map_type ActorSystem::actorsystem_map_;
-ActorSystem::actor_map_type ActorSystem::actor_map_;
+ActorSystem::actorsystem_map_type	ActorSystem::actorsystem_map_;
+ActorSystem::actor_map_type			ActorSystem::actor_map_;
+ActorSystem::queue_type				ActorSystem::msg_queue_(true, true);
 
 IActorRef * ActorSystem::findActorRef(const std::string & name) {
     IActorRef * actorRef = nullptr;

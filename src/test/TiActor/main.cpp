@@ -12,10 +12,24 @@
 #include "Pi.h"
 
 #include <TiActor/basic/stddef.h>
-#include <TiActor/utils/PowOf2.h>
 #include <TiActor/queue/RingQueue.h>
 
 #include <TiActor/config/static_link.h>
+
+void RingQueue_simple_test()
+{
+    uint64_t value = 1, ret, *ret_val;
+
+    std::cout << "push value: " << value << std::endl;
+
+    RingQueue<uint64_t, 32> queue;
+    queue.capacity();
+    queue.push(&value);
+    ret_val = queue.pop();
+    ret = *ret_val;
+
+    std::cout << "pop  value: " << ret << std::endl;
+}
 
 int main(int argn, char * argv[])
 {
@@ -42,17 +56,7 @@ int main(int argn, char * argv[])
 
     Pi::main(argn, argv);
 
-    uint64_t value = 1, ret, * ret_val;
-
-    std::cout << "push value: " << value << std::endl;
-
-    RingQueue<uint64_t, 32> queue;
-    queue.capacity();
-    queue.push(&value);
-    ret_val = queue.pop();
-    ret = *ret_val;
-
-    std::cout << "pop  value: " << ret << std::endl;
+    RingQueue_simple_test();
 
     std::cout << std::endl;
     system("pause");

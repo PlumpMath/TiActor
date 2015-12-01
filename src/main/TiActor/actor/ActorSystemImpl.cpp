@@ -22,7 +22,7 @@ ActorSystem * ActorSystemImpl::createAndStartSystemImpl(const std::string & name
 IActorRef * ActorSystemImpl::actorOf(const Props * props, const std::string & name) {
     IActorRef * actorNew = ActorSystem::findActorRef(props, name);
     if (actorNew == nullptr) {
-        Actor * actor = new Actor(name);
+        Actor * actor = new Actor(name, this);
         if (actor) {
             ActorSystem::addActor(name, actor);
             actorNew = actor->getSelf();

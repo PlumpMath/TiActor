@@ -14,6 +14,7 @@ namespace TiActor {
 
 class Router;
 class Actor;
+class UntypedActor;
 
 class Props {
 private:
@@ -49,7 +50,10 @@ public:
 
     Props(const Actor * actor) : Props() {
         actor_ = const_cast<Actor * >(actor);
-        inputType_ = 0;
+    }
+
+    Props(const UntypedActor * actor) : Props() {
+        //actor_ = dynamic_cast<Actor * >(const_cast<UntypedActor *>(actor));
     }
 
     ~Props();
