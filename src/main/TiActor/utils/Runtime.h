@@ -6,13 +6,16 @@
 #pragma once
 #endif
 
-#if defined(_WIN32) || defined(_WIN64) || defined(_WINDOWS) || defined(WINDOWS)
+#if defined(_MSC_VER) || defined(__INTEL_COMPILER)  || defined(__ICC) \
+    || defined(__MINGW32__) || defined(__CYGWIN__) || defined(__MSYS__)
+#  ifndef WIN32_LEAN_AND_MEAN
+#    define WIN32_LEAN_AND_MEAN
+#  endif
 #include <windows.h>
-#elif defined(__MINGW32__) || defined(__CYGWIN__) || defined(__MSYS__)
-#include <sys/sysinfo.h>    // For get_nprocs()
-#elif defined(__linux__) || defined(LINUX) || defined(SOLARIS) || defined(AIX)
-#include <sys/sysinfo.h>    // For get_nprocs()
-#else
+#elif defined(__linux__) || defined(__GUNC__) \
+    || defined(__clang__) || defined(__APPLE__) || defined(__FreeBSD__) \
+    || defined(LINUX) || defined(SOLARIS) || defined(AIX)
+#include <sys/sysinfo.h>    // For get_nprocs() & get_nprocs_conf()
 #include <unistd.h>         // For sysconf()
 #endif
 
@@ -30,35 +33,45 @@ namespace Runtime {
 
 static
 int getAvailableProcessors() {
-#if defined(_WIN32) || defined(_WIN64) || defined(_WINDOWS) || defined(WINDOWS)
+#if defined(_MSC_VER) || defined(__INTEL_COMPILER)  || defined(__ICC) \
+    || defined(__MINGW32__) || defined(__CYGWIN__) || defined(__MSYS__)
     SYSTEM_INFO si;
     GetSystemInfo(&si);
     return si.dwNumberOfProcessors;
-#elif defined(__MINGW32__) || defined(__CYGWIN__) || defined(__MSYS__)
-    return get_nprocs();    // GNU fuction
-#elif defined(__linux__) || defined(LINUX) || defined(SOLARIS) || defined(AIX)
-    return get_nprocs();    // GNU fuction
-#elif defined(__APPLE__)
-    return sysconf(_SC_NPROCESSORS_ONLN);
+#elif defined(__linux__) || defined(__GUNC__) \
+    || defined(__clang__) || defined(__APPLE__) || defined(__FreeBSD__) \
+    || defined(LINUX) || defined(SOLARIS) || defined(AIX)
+    int nprocs = -1;
+  #ifdef _SC_NPROCESSORS_ONLN
+    nprocs = sysconf(_SC_NPROCESSORS_ONLN);
+  #else
+    nprocs = get_nprocs();    // GNU fuction
+  #endif
+    return nprocs;
 #else
-    return 0;
+    return 1;
 #endif
 }
 
 static
 int getPhysicalProcessors() {
-#if defined(_WIN32) || defined(_WIN64) || defined(_WINDOWS) || defined(WINDOWS)
+#if defined(_MSC_VER) || defined(__INTEL_COMPILER)  || defined(__ICC) \
+    || defined(__MINGW32__) || defined(__CYGWIN__) || defined(__MSYS__)
     SYSTEM_INFO si;
     GetSystemInfo(&si);
     return si.dwNumberOfProcessors;
-#elif defined(__MINGW32__) || defined(__CYGWIN__) || defined(__MSYS__)
-    return get_nprocs_conf();    // GNU fuction
-#elif defined(__linux__) || defined(LINUX) || defined(SOLARIS) || defined(AIX)
-    return get_nprocs_conf();    // GNU fuction
-#elif defined(__APPLE__)
-    return sysconf(_SC_NPROCESSORS_CONF);
+#elif defined(__linux__) || defined(__GUNC__) \
+    || defined(__clang__) || defined(__APPLE__) || defined(__FreeBSD__) \
+    || defined(LINUX) || defined(SOLARIS) || defined(AIX)
+    int nprocs = -1;
+  #ifdef _SC_NPROCESSORS_CONF
+    nprocs = sysconf(_SC_NPROCESSORS_CONF);
+  #else
+    nprocs = get_nprocs_conf();     // GNU fuction
+  #endif
+    return nprocs;
 #else
-    return 0;
+    return 1;
 #endif
 }
 

@@ -140,7 +140,7 @@ ROUND_UP_TO_POW2_DEF(1 << 29)
 ROUND_UP_TO_POW2_DEF(1 << 30)
 ROUND_UP_TO_POW2_DEF(1 << 31)
 
-#if defined(_WIN64)
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_AMD64) || defined(_M_IA64) || defined(__amd64__) || defined(__x86_64__)
 ROUND_UP_TO_POW2_DEF(1ULL << 32)
 ROUND_UP_TO_POW2_DEF(1ULL << 33)
 ROUND_UP_TO_POW2_DEF(1ULL << 34)
@@ -175,7 +175,7 @@ ROUND_UP_TO_POW2_DEF(1ULL << 62)
 ROUND_UP_TO_POW2_DEF(1ULL << 63)
 #endif
 
-#if defined(_WIN64)
+#if defined(_WIN64) || defined(_M_X64) || defined(_M_AMD64) || defined(_M_IA64) || defined(__amd64__) || defined(__x86_64__)
 template <>
 struct round_up_to_pow2<18446744073709551615> {
     enum { value = 0 };

@@ -174,50 +174,50 @@
 #include <windows.h>
 #include <intrin.h>
 
-#define ti_val_compare_and_swap32(destPtr, oldValue, newValue)        \
+#define ti_val_compare_and_swap32(destPtr, oldValue, newValue)          \
     (int32_t)(InterlockedCompareExchange((volatile LONG *)(destPtr),    \
                             (LONG)(newValue), (LONG)(oldValue)))
 
-#define ti_val_compare_and_swap32u(destPtr, oldValue, newValue)       \
+#define ti_val_compare_and_swap32u(destPtr, oldValue, newValue)         \
     (uint32_t)(InterlockedCompareExchange((volatile LONG *)(destPtr),   \
                             (LONG)(newValue), (LONG)(oldValue)))
 
-#define ti_val_compare_and_swap64(destPtr, oldValue, newValue)           \
+#define ti_val_compare_and_swap64(destPtr, oldValue, newValue)              \
     (int64_t)(InterlockedCompareExchange64((volatile LONG64 *)(destPtr),   \
                             (LONG64)(newValue), (LONG64)(oldValue)))
 
-#define ti_val_compare_and_swap64u(destPtr, oldValue, newValue)          \
+#define ti_val_compare_and_swap64u(destPtr, oldValue, newValue)             \
     (uint64_t)(InterlockedCompareExchange64((volatile LONG64 *)(destPtr),  \
                             (LONG64)(newValue), (LONG64)(oldValue)))
 
-#define ti_bool_compare_and_swap32(destPtr, oldValue, newValue)       \
+#define ti_bool_compare_and_swap32(destPtr, oldValue, newValue)         \
     (InterlockedCompareExchange((volatile LONG *)(destPtr),             \
                             (LONG)(newValue), (LONG)(oldValue))         \
                                 == (LONG)(oldValue))
 
-#define ti_bool_compare_and_swap64(destPtr, oldValue, newValue)       \
+#define ti_bool_compare_and_swap64(destPtr, oldValue, newValue)         \
     (InterlockedCompareExchange64((volatile LONG64 *)(destPtr),         \
                             (LONG64)(newValue), (LONG64)(oldValue))     \
                                 == (LONG64)(oldValue))
 
-#define ti_lock_test_and_set32(destPtr, newValue)                     \
+#define ti_lock_test_and_set32(destPtr, newValue)                       \
     (int32_t)(InterlockedExchange((volatile LONG *)(destPtr), (LONG)(newValue)))
 
-#define ti_lock_test_and_set32u(destPtr, newValue)                    \
+#define ti_lock_test_and_set32u(destPtr, newValue)                      \
     (uint32_t)(InterlockedExchange((volatile LONG *)(destPtr), (LONG)(newValue)))
 
-#define ti_lock_test_and_set64(destPtr, newValue)                     \
+#define ti_lock_test_and_set64(destPtr, newValue)                       \
     (int64_t)(InterlockedExchange64((volatile LONGLONG *)(destPtr),     \
                                     (LONGLONG)(newValue)))
 
-#define ti_lock_test_and_set64u(destPtr, newValue)                    \
+#define ti_lock_test_and_set64u(destPtr, newValue)                      \
     (uint64_t)(InterlockedExchange64((volatile LONGLONG *)(destPtr),    \
                                     (LONGLONG)(newValue)))
 
-#define ti_fetch_and_add32(destPtr, addValue)                         \
+#define ti_fetch_and_add32(destPtr, addValue)                           \
     (uint32_t)(InterlockedExchangeAdd((volatile LONG *)(destPtr), (LONG)(addValue)))
 
-#define ti_fetch_and_add64(destPtr, addValue)                         \
+#define ti_fetch_and_add64(destPtr, addValue)                           \
     (uint64_t)(InterlockedExchangeAdd64((volatile LONGLONG *)(destPtr), \
                                         (LONGLONG)(addValue)))
 
@@ -225,107 +225,107 @@
    || defined(__clang__) || defined(__APPLE__) || defined(__FreeBSD__) \
    || defined(__CYGWIN__) || defined(__MINGW32__)
 
-#define ti_val_compare_and_swap32(destPtr, oldValue, newValue)       \
+#define ti_val_compare_and_swap32(destPtr, oldValue, newValue)          \
     __sync_val_compare_and_swap((volatile int32_t *)(destPtr),         \
                             (int32_t)(oldValue), (int32_t)(newValue))
 
-#define ti_val_compare_and_swap32u(destPtr, oldValue, newValue)       \
+#define ti_val_compare_and_swap32u(destPtr, oldValue, newValue)         \
     __sync_val_compare_and_swap((volatile uint32_t *)(destPtr),         \
                             (uint32_t)(oldValue), (uint32_t)(newValue))
 
-#define ti_val_compare_and_swap64(destPtr, oldValue, newValue)        \
+#define ti_val_compare_and_swap64(destPtr, oldValue, newValue)          \
     __sync_val_compare_and_swap((volatile int64_t *)(destPtr),          \
                             (int64_t)(oldValue), (int64_t)(newValue))
 
-#define ti_val_compare_and_swap64u(destPtr, oldValue, newValue)       \
+#define ti_val_compare_and_swap64u(destPtr, oldValue, newValue)         \
     __sync_val_compare_and_swap((volatile uint64_t *)(destPtr),         \
                             (uint64_t)(oldValue), (uint64_t)(newValue))
 
-#define ti_val_compare_and_swap(destPtr, oldValue, newValue)          \
+#define ti_val_compare_and_swap(destPtr, oldValue, newValue)            \
     __sync_val_compare_and_swap((destPtr), (oldValue), (newValue))
 
-#define ti_bool_compare_and_swap32(destPtr, oldValue, newValue)       \
+#define ti_bool_compare_and_swap32(destPtr, oldValue, newValue)         \
     __sync_bool_compare_and_swap((volatile uint32_t *)(destPtr),        \
                             (uint32_t)(oldValue), (uint32_t)(newValue))
 
-#define ti_bool_compare_and_swap64(destPtr, oldValue, newValue)       \
+#define ti_bool_compare_and_swap64(destPtr, oldValue, newValue)         \
     __sync_bool_compare_and_swap((volatile uint64_t *)(destPtr),        \
                             (uint64_t)(oldValue), (uint64_t)(newValue))
 
-#define ti_bool_compare_and_swap(destPtr, oldValue, newValue)         \
+#define ti_bool_compare_and_swap(destPtr, oldValue, newValue)           \
     __sync_bool_compare_and_swap((destPtr), (oldValue), (newValue))
 
-#define ti_lock_test_and_set32(destPtr, newValue)                     \
+#define ti_lock_test_and_set32(destPtr, newValue)                       \
     __sync_lock_test_and_set((volatile int32_t *)(destPtr),             \
                              (int32_t)(newValue))
 
-#define ti_lock_test_and_set32u(destPtr, newValue)                    \
+#define ti_lock_test_and_set32u(destPtr, newValue)                      \
     __sync_lock_test_and_set((volatile uint32_t *)(destPtr),            \
                              (uint32_t)(newValue))
 
-#define ti_lock_test_and_set64(destPtr, newValue)                     \
+#define ti_lock_test_and_set64(destPtr, newValue)                       \
     __sync_lock_test_and_set((volatile int64_t *)(destPtr),             \
                              (int64_t)(newValue))
 
-#define ti_lock_test_and_set64u(destPtr, newValue)                    \
+#define ti_lock_test_and_set64u(destPtr, newValue)                      \
     __sync_lock_test_and_set((volatile uint64_t *)(destPtr),            \
                              (uint64_t)(newValue))
 
-#define ti_fetch_and_add32(destPtr, addValue)                         \
+#define ti_fetch_and_add32(destPtr, addValue)                           \
     __sync_fetch_and_add((volatile uint32_t *)(destPtr),                \
                          (uint32_t)(addValue))
 
-#define ti_fetch_and_add64(destPtr, addValue)                         \
+#define ti_fetch_and_add64(destPtr, addValue)                           \
     __sync_fetch_and_add((volatile uint64_t *)(destPtr),                \
                          (uint64_t)(addValue))
 
 #else
 
-#define ti_val_compare_and_swap32(destPtr, oldValue, newValue)        \
+#define ti_val_compare_and_swap32(destPtr, oldValue, newValue)          \
     __internal_val_compare_and_swap32((volatile uint32_t *)(destPtr),   \
                                 (uint32_t)(oldValue), (uint32_t)(newValue))
 
-#define ti_val_compare_and_swap64(destPtr, oldValue, newValue)        \
+#define ti_val_compare_and_swap64(destPtr, oldValue, newValue)          \
     __internal_val_compare_and_swap64((volatile uint64_t *)(destPtr),   \
                                 (uint64_t)(oldValue), (uint64_t)(newValue))
 
-#define ti_bool_compare_and_swap32(destPtr, oldValue, newValue)       \
+#define ti_bool_compare_and_swap32(destPtr, oldValue, newValue)         \
     __internal_bool_compare_and_swap32((volatile int32_t *)(destPtr),   \
                                 (int32_t)(oldValue), (int32_t)(newValue))
 
-#define ti_bool_compare_and_swap32u(destPtr, oldValue, newValue)      \
+#define ti_bool_compare_and_swap32u(destPtr, oldValue, newValue)        \
     __internal_bool_compare_and_swap32((volatile uint32_t *)(destPtr),  \
                                 (uint32_t)(oldValue), (uint32_t)(newValue))
 
-#define ti_bool_compare_and_swap64(destPtr, oldValue, newValue)       \
+#define ti_bool_compare_and_swap64(destPtr, oldValue, newValue)         \
     __internal_bool_compare_and_swap64((volatile int64_t *)(destPtr),   \
                                 (int64_t)(oldValue), (int64_t)(newValue))
 
-#define ti_bool_compare_and_swap64u(destPtr, oldValue, newValue)      \
+#define ti_bool_compare_and_swap64u(destPtr, oldValue, newValue)        \
     __internal_bool_compare_and_swap64((volatile uint64_t *)(destPtr),  \
                                 (uint64_t)(oldValue), (uint64_t)(newValue))
 
-#define ti_lock_test_and_set32(destPtr, newValue)                     \
+#define ti_lock_test_and_set32(destPtr, newValue)                       \
     __internal_lock_test_and_set32((volatile int32_t *)(destPtr),       \
                                 (int32_t)(newValue))
 
-#define ti_lock_test_and_set32u(destPtr, newValue)                    \
+#define ti_lock_test_and_set32u(destPtr, newValue)                      \
     __internal_lock_test_and_set32((volatile uint32_t *)(destPtr),      \
                                 (uint32_t)(newValue))
 
-#define ti_lock_test_and_set64(destPtr, newValue)                     \
+#define ti_lock_test_and_set64(destPtr, newValue)                       \
     __internal_lock_test_and_set64((volatile int64_t *)(destPtr),       \
                                 (int64_t)(newValue))
 
-#define ti_lock_test_and_set64u(destPtr, newValue)                    \
+#define ti_lock_test_and_set64u(destPtr, newValue)                      \
     __internal_lock_test_and_set64u((volatile uint64_t *)(destPtr),     \
                                 (uint64_t)(newValue))
 
-#define ti_fetch_and_add32(destPtr, addValue)                         \
+#define ti_fetch_and_add32(destPtr, addValue)                           \
     __internal_fetch_and_add32((volatile uint32_t *)(destPtr),          \
                                 (uint32_t)(addValue))
 
-#define ti_fetch_and_add64(destPtr, addValue)                         \
+#define ti_fetch_and_add64(destPtr, addValue)                           \
     __internal_fetch_and_add64((volatile uint64_t *)(destPtr),          \
                                 (uint64_t)(addValue))
 
@@ -339,8 +339,10 @@
 #include "TiActor/basic/msvc/targetver.h"
 #include <windows.h>
 #elif defined(__linux__) || defined(__GUNC__) \
-   || defined(__clang__) || defined(__APPLE__) || defined(__FreeBSD__)
-#include <unistd.h>
+    || defined(__clang__) || defined(__APPLE__) || defined(__FreeBSD__) \
+    || defined(LINUX) || defined(SOLARIS) || defined(AIX)
+#include <unistd.h>         // For sysconf()
+#include <sys/sysinfo.h>    // For get_nprocs()
 #endif
 
 #ifdef __cplusplus
@@ -351,21 +353,20 @@ static TIC_INLINE
 int get_num_of_processors(void)
 {
 #if defined(_MSC_VER) || defined(__INTEL_COMPILER)  || defined(__ICC) \
- || defined(__MINGW32__) || defined(__CYGWIN__)
-
+    || defined(__MINGW32__) || defined(__CYGWIN__)
     SYSTEM_INFO si;
     GetSystemInfo(&si);
     return si.dwNumberOfProcessors;
-
 #elif defined(__linux__) || defined(__GUNC__) \
-   || defined(__clang__) || defined(__APPLE__) || defined(__FreeBSD__)
-
+    || defined(__clang__) || defined(__APPLE__) || defined(__FreeBSD__) \
+    || defined(LINUX) || defined(SOLARIS) || defined(AIX)
     int nprocs = -1;
   #ifdef _SC_NPROCESSORS_ONLN
     nprocs = sysconf(_SC_NPROCESSORS_ONLN);
+  #else
+    nprocs = get_nprocs();    // GNU fuction
   #endif
     return nprocs;
-
 #else
     return 1;
 #endif

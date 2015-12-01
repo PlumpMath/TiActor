@@ -62,21 +62,21 @@ protected:
 
 public:
     // For IActorContext
-    Props * getProps() const { return getContext()->getProps(); }
+    Props * getProps() const        { return ((getContext() != nullptr) ? getContext()->getProps() : nullptr); }
     IActorRef * getSelf() const {
-        return (hasBeenCleared() ? clearedSelf_ : getContext()->getSelf());
+        return (hasBeenCleared() ? clearedSelf_ : ((getContext() != nullptr) ? getContext()->getSelf() : nullptr));
     }
-    IActorRef * getSender() const { return getContext()->getSender(); }
-    IActorRef * getParent() const { return getContext()->getParent(); }
-    IActorRef * getChild() const { return getContext()->getChild(); }
-    ActorSystem * getSystem() const { return getContext()->getSystem(); }
+    IActorRef * getSender() const   { return ((getContext() != nullptr) ? getContext()->getSender() : nullptr); }
+    IActorRef * getParent() const   { return ((getContext() != nullptr) ? getContext()->getParent() : nullptr); }
+    IActorRef * getChild() const    { return ((getContext() != nullptr) ? getContext()->getChild()  : nullptr); }
+    ActorSystem * getSystem() const { return ((getContext() != nullptr) ? getContext()->getSystem() : nullptr); }
     
     // For call IActorContext
     IActorContext * getContext() const { return context_; }
     void setContext(IActorContext * context) { context_ = context; }
 
     // IInternalActor
-    virtual IActorContext * getActorContext() const {
+    IActorContext * getActorContext() const override {
         return this->getContext();
     }
 
