@@ -6,7 +6,8 @@
 #include <iostream>
 #include <string>
 
-#include "TiActor/utils/PowOf2.h"
+#include <TiActor/utils/PowOf2.h>
+#include <TiActor/config/static_link.h>
 
 int main(int argn, char * argv[])
 {

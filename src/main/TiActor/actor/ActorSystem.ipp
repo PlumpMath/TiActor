@@ -14,10 +14,10 @@
 
 namespace TiActor {
 
+class Config;
+
 ActorSystem::actorsystem_map_type ActorSystem::actorsystem_map_;
 ActorSystem::actor_map_type ActorSystem::actor_map_;
-
-class Config;
 
 IActorRef * ActorSystem::findActorRef(const std::string & name) {
     IActorRef * actorRef = nullptr;
@@ -37,8 +37,8 @@ ActorSystem * ActorSystem::createAndStartSystem(const std::string & name, const 
     if (system == nullptr) {
         system = new ActorSystemImpl(name, withFallBack);
         if (system) {
-			std::pair<std::string, ActorSystem *> pair(name, system);
-			actorsystem_map_.insert(pair);
+			actorsystem_pair_type system_pair(name, system);
+			actorsystem_map_.insert(system_pair);
             system->start();
         }
     }

@@ -23,9 +23,6 @@
 #define MUTEX_MAX_SPIN_COUNT        1
 #define SPIN_YIELD_THRESHOLD        1
 
-//#define ti_wsleep(n)        ::Sleep(n)
-//#define ti_yield()          ::SwitchToThread()
-
 namespace TiActor {
 
 #pragma pack(push, 1)

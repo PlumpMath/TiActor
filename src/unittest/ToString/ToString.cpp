@@ -10,6 +10,7 @@
 #include <TiActor/utils/ToString.h>
 
 #include <TiActor/actor/ActorSystem.ipp>
+#include <TiActor/config/static_link.h>
 
 using namespace TiActor;
 

@@ -5,7 +5,8 @@
 #include <iostream>
 #include <string>
 
-#include "TiActor/utils/StringUtils.h"
+#include <TiActor/utils/StringUtils.h>
+#include <TiActor/config/static_link.h>
 
 using namespace TiActor;
 

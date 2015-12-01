@@ -56,6 +56,8 @@ public:
 
     static void staticInit() {
         if (!staticInited) {
+            if (defaultDeploy)
+                delete defaultDeploy;
             defaultDeploy = new Deploy();
             staticInited = true;
         }

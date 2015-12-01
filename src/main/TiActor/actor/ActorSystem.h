@@ -21,13 +21,15 @@ namespace TiActor {
 
 class ActorSystem : public IActorRefFactory, public IDisposable {
 public:
-    typedef std::unordered_map<std::string, ActorSystem *>                    actorsystem_map_type;
-    typedef std::unordered_map<std::string, ActorSystem *>::iterator          actorsystem_iter;
-    typedef std::unordered_map<std::string, ActorSystem *>::const_iterator    const_actorsystem_iter;
+    typedef std::unordered_map<std::string, ActorSystem *>                  actorsystem_map_type;
+    typedef std::unordered_map<std::string, ActorSystem *>::iterator        actorsystem_iter;
+    typedef std::unordered_map<std::string, ActorSystem *>::const_iterator  const_actorsystem_iter;
+    typedef std::pair<std::string, ActorSystem *>                           actorsystem_pair_type;
 
     typedef std::unordered_map<std::string, Actor *>                    actor_map_type;
     typedef std::unordered_map<std::string, Actor *>::iterator          actor_iter;
     typedef std::unordered_map<std::string, Actor *>::const_iterator    const_actor_iter;
+    typedef std::pair<std::string, Actor *>                             actor_pair_type;
 
 private:
     std::string name_;
@@ -70,6 +72,10 @@ public:
         return createAndStartSystem(name, config);
     }
 
+    ActorSystem * create() {
+        return ActorSystem::create(name_, config_);
+    }
+
     static void destroyAll();
 
     static ActorSystem * findActorSystem(const std::string & name) {
@@ -90,6 +96,11 @@ public:
     }
 
     static IActorRef * findActorRef(const std::string & name);
+
+    static void addActor(const std::string & name, Actor * actor) {
+        actor_pair_type actor_pair(name, actor);
+        actor_map_.insert(actor_pair);
+    }
 
     static void removeActor(const std::string & name) {
         actor_map_.erase(name);
