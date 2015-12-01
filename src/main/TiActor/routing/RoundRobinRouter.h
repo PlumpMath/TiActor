@@ -27,6 +27,6 @@ public:
     }
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ROUTING_ROUNDROBINROUTER_H */

@@ -8,21 +8,67 @@
 
 #include <string>
 
+#include "TiActor/actor/Actor.h"
 #include "TiActor/actor/ActorSystem.h"
 #include "TiActor/actor/ActorSystemImpl.h"
 
 namespace TiActor {
 
+ActorSystem::actorsystem_map_type ActorSystem::actorsystem_map_;
+ActorSystem::actor_map_type ActorSystem::actor_map_;
+
 class Config;
 
+IActorRef * ActorSystem::findActorRef(const std::string & name) {
+    IActorRef * actorRef = nullptr;
+    Actor * actor;
+    const_actor_iter actorIter = actor_map_.find(name);
+    if (actorIter != actor_map_.end()) {
+        actor = actorIter->second;
+        if (actor) {
+            actorRef = actor->getSelf();
+        }
+    }
+    return actorRef;
+}
+
 ActorSystem * ActorSystem::createAndStartSystem(const std::string & name, const Config & withFallBack) {
-    ActorSystem * system = new ActorSystemImpl(name, withFallBack);
-    if (system) {
-        system->start();
+    ActorSystem * system = findActorSystem(name);
+    if (system == nullptr) {
+        system = new ActorSystemImpl(name, withFallBack);
+        if (system) {
+			std::pair<std::string, ActorSystem *> pair(name, system);
+			actorsystem_map_.insert(pair);
+            system->start();
+        }
     }
     return system;
 }
 
-}  /* namespace TiActor */
+void ActorSystem::destroyAll() {
+    // Actor HashMap
+    actor_iter ait = actor_map_.begin();
+    for (ait = actor_map_.begin(); ait != actor_map_.end(); ++ait) {
+        Actor * actor = ait->second;
+        actor_map_.erase(ait);
+        if (actor) {
+            delete actor;
+        }
+    }
+    actor_map_.clear();
+
+    // ActorSystem HashMap
+    actorsystem_iter it = actorsystem_map_.begin();
+    for (it = actorsystem_map_.begin(); it != actorsystem_map_.end(); ++it) {
+        ActorSystem * system = it->second;
+        actorsystem_map_.erase(it);
+        if (system) {
+            delete system;
+        }
+    }
+    actorsystem_map_.clear();
+}
+
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_ACTORSYSTEM_IPP_ */

@@ -11,6 +11,6 @@ namespace TiActor {
 typedef void * MessageObject;
 typedef MessageObject message_object_t;
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_MESSAGEOBJECT_H */

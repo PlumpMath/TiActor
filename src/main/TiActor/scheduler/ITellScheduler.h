@@ -22,6 +22,6 @@ public:
     virtual void ScheduleTellRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, ICanTell * receiver, MessageObject * message, IActorRef * sender, ICancelable * cancelable) = 0;
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_SCHEDULER_ITELLSCHEDULER_H */

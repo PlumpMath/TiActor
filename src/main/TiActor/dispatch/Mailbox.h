@@ -44,6 +44,6 @@ public:
     void Dispose() { /* TODO: */ }
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_DISPATCH_MAILBOX_H */

@@ -31,6 +31,6 @@ void ActorRefBase::tell(MessageObject message, const IActorRef * sender) {
     this->tellInternal(message, sender);
 }
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_ACTORREF_IPP_ */

@@ -18,7 +18,8 @@ namespace TiActor {
 
 namespace StringUtils {
 
-static TIACTOR_THREAD_LOCAL std::string * tlsFormatStr = nullptr;
+static TI_THREAD_LOCAL std::string * tlsFormatStr = nullptr;
+static thread_local std::string * tlsFormatStr2 = nullptr;
 
 static
 std::size_t
@@ -58,8 +59,8 @@ format(char * buffer, std::size_t size_in_bytes,
     return buffer;
 }
 
-}  /* namespace StringUtils */
+} // namespace StringUtils
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_UTILS_STRINGUTILS_H */

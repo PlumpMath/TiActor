@@ -12,8 +12,11 @@
 
 #include "Pi.h"
 
-#include "TiActor/utils/PowOf2.h"
-#include "TiActor/queue/RingQueue.h"
+#include <TiActor/basic/stddef.h>
+#include <TiActor/utils/PowOf2.h>
+#include <TiActor/queue/RingQueue.h>
+
+#include <TiActor/config/static_link.h>
 
 int main(int argn, char * argv[])
 {
@@ -40,25 +43,17 @@ int main(int argn, char * argv[])
 
     Pi::main(argn, argv);
 
-    int a, b, c;
-    a = b = c = 1;
-    const char * text = StringUtils::format(128, "a = %d, b = %d, c = %d.\n", a, b, c);
-    std::cout << text << std::endl;
+    uint64_t value = 1, ret, * ret_val;
 
-    text = StringUtils::format(128, "c = %d, b = %d, a = %d.\n", c, b, a);
-    std::cout << text << std::endl;
+    std::cout << "push value: " << value << std::endl;
 
-    RingQueueBase<uint64_t, 32> queue;
+    RingQueue<uint64_t, 32> queue;
     queue.capacity();
+    queue.push(&value);
+    ret_val = queue.pop();
+    ret = *ret_val;
 
-    int isPow2 = TiActor::utils::is_pow_of_2<121>::value;
-    std::cout << "isPow2(121) = " << isPow2 << std::endl;
-
-    isPow2 = TiActor::utils::is_pow_of_2<128>::value;
-    std::cout << "isPow2(128) = " << isPow2 << std::endl;
-
-    size_t pow2 = TiActor::utils::round_up_to_pow2<33>::value;
-    std::cout << "pow2(33) = " << pow2 << std::endl;
+    std::cout << "pop  value: " << ret << std::endl;
 
     std::cout << std::endl;
     system("pause");

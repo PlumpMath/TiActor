@@ -20,6 +20,6 @@ public:
     virtual void ScheduleRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, Action * action) = 0;
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_SCHEDULER_IACTIONSCHEDULER_H */

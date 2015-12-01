@@ -18,6 +18,6 @@ public:
     virtual ActorPath * getPath() const = 0;
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_IACTORREF_H */

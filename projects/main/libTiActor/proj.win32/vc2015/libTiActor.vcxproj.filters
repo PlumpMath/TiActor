@@ -43,6 +43,9 @@
     <Filter Include="src\queue">
       <UniqueIdentifier>{d78e3ac0-a191-4912-abdd-15e0a93fa6ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\system">
+      <UniqueIdentifier>{098b1cc6-4517-432b-ac15-67d6c44b44fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\stddef.h">
@@ -183,9 +186,6 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\threadlocal.h">
       <Filter>src\basic</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.ipp">
-      <Filter>src\actor</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.ipp">
       <Filter>src\actor</Filter>
     </ClInclude>
@@ -201,6 +201,24 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\utils\PowOf2.h">
       <Filter>src\utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\queue\portable.h">
+      <Filter>src\queue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\msvc\targetver.h">
+      <Filter>src\basic\msvc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\msvc\vld.h">
+      <Filter>src\basic\msvc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\system\sleep.h">
+      <Filter>src\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\static_link.h">
+      <Filter>src\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.ipp">
+      <Filter>src\actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.cpp">
@@ -209,5 +227,13 @@
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystemImpl.cpp">
       <Filter>src\actor</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\system\sleep.c">
+      <Filter>src\system</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\src\main\TiActor\actor\Props.ipp">
+      <Filter>src\actor</Filter>
+    </None>
   </ItemGroup>
 </Project>

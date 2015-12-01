@@ -1,4 +1,5 @@
 
+#include "TiActor/actor/Actor.h"
 #include "TiActor/actor/ActorSystem.h"
 #include "TiActor/actor/ActorSystemImpl.h"
 
@@ -8,4 +9,4 @@ namespace TiActor {
 
 //
 
-}  /* namespace TiActor */
+} // namespace TiActor

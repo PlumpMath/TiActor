@@ -34,6 +34,6 @@ public:
 	}
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_CONFIG_CONFIGURATIONFACTORY_H */

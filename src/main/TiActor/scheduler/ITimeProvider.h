@@ -17,6 +17,6 @@ public:
     virtual uint64_t HighResMonotonicClock() const = 0;
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_SCHEDULER_ITIMEPROVIDER_H */

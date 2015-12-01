@@ -22,6 +22,6 @@ public:
     virtual ActorSelection * getActorSelection(const std::string & actorPath) const = 0;
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_IACTORREFFACTORY_H */

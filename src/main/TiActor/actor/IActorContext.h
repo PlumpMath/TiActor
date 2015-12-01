@@ -57,6 +57,6 @@ public:
     virtual void release() = 0;
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_IACTORCONTEXT_H */

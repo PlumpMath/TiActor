@@ -29,6 +29,6 @@ public:
     }
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_UNTYPEDACTOR_H */

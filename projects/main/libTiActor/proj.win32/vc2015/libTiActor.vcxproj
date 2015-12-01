@@ -186,6 +186,8 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\msvc\inttypes.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\msvc\stdbool.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\msvc\stdint.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\msvc\targetver.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\msvc\vld.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\stdbool.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\stddef.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\stdint.h" />
@@ -193,7 +195,9 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\threadlocal.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\Config.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\ConfigurationFactory.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\static_link.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\Mailbox.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\queue\portable.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\queue\RingQueue.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\routing\RoundRobinRouter.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\routing\Router.h" />
@@ -203,6 +207,7 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\scheduler\IScheduler.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\scheduler\ITellScheduler.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\scheduler\ITimeProvider.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\system\sleep.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\utils\MinMax.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\utils\PowOf2.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\utils\Runtime.h" />
@@ -212,6 +217,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystemImpl.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\system\sleep.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.ipp">
@@ -222,6 +228,9 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.ipp">
       <FileType>Document</FileType>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\src\main\TiActor\actor\Props.ipp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

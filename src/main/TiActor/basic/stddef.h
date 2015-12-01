@@ -17,8 +17,8 @@
 #define TIACTOR_API        extern "C" static
 #endif
 
-#ifndef TIACTOR_CACHE_LINE_SIZE
-#define TIACTOR_CACHE_LINE_SIZE    64
+#ifndef TI_CACHE_LINE_SIZE
+#define TI_CACHE_LINE_SIZE      64
 #endif
 
 #endif  /* TIACTOR_BASIC_STDDEF_H */

@@ -226,6 +226,6 @@ public:
     }
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_ACTORREF_H */

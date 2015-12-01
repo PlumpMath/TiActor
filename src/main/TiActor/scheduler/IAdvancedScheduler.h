@@ -15,6 +15,6 @@ public:
     virtual IAdvancedScheduler * getAdvanced() const = 0;
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_SCHEDULER_IADVANCEDSCHEDULER_H */

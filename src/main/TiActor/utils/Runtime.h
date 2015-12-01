@@ -62,8 +62,8 @@ int getPhysicalProcessors() {
 #endif
 }
 
-}  /* namespace Runtime */
+} // namespace Runtime */
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_UTILS_RUNTIME_H */

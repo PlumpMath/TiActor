@@ -51,6 +51,6 @@ public:
     }
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_ACTOR_H */

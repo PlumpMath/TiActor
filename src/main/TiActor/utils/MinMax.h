@@ -8,12 +8,12 @@
 
 #define NOMINMAX
 
-#define TIACTOR_MIN(x, y)  ((x) <= (y) ? (x) : (y))
-#define TIACTOR_MAX(x, y)  ((x) >= (y) ? (x) : (y))
+#define TI_MIN(x, y)  ((x) <= (y) ? (x) : (y))
+#define TI_MAX(x, y)  ((x) >= (y) ? (x) : (y))
 
 namespace TiActor {
 
-namespace utils {
+namespace math {
 
 template <typename _Ty>
 _Ty (min)(const _Ty & x, const _Ty & y) {
@@ -35,8 +35,18 @@ _Ty max2(const _Ty x, const _Ty y) {
     return (x >= y) ? x : y;
 }
 
-}  /* namespace utils */
+template <typename T, T M, T N>
+struct mininum {
+    enum { value = ((M <= N) ? M : N) };
+};
 
-}  /* namespace TiActor */
+template <typename T, T M, T N>
+struct maxinum {
+    enum { value = ((M >= N) ? M : N) };
+};
+
+} // namespace math
+
+} // namespace TiActor
 
 #endif  /* TIACTOR_UTILS_MINMAX_H */

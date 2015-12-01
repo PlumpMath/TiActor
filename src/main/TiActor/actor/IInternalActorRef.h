@@ -30,6 +30,6 @@ public:
     virtual void sendSystemMessage(const ISystemMessage * message, const IActorRef * sender = nullptr) = 0;
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_IINTERNALACTOR_H */

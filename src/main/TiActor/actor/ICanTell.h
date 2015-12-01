@@ -17,6 +17,6 @@ public:
     virtual void tell(MessageObject message, const IActorRef * sender = nullptr) = 0;
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_ICANTELL_H */

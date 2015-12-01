@@ -13,6 +13,6 @@ public:
     virtual void Dispose() = 0;
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_IDISPOSABLE_H */

@@ -15,6 +15,6 @@ public:
     virtual ISurrogated * toSurrogate(const ActorSystem * system) = 0;
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_ISURROGATED_H */

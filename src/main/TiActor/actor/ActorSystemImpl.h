@@ -44,7 +44,7 @@ protected:
 public:
     // IActorRefFactory
     IActorRef * actorOf(const Props * props, const std::string & name = "") {
-        IActorRef * actorNew = ActorSystem::findActor(props, name);
+        IActorRef * actorNew = ActorSystem::findActorRef(props, name);
         if (actorNew) {
             //
         }
@@ -86,6 +86,6 @@ public:
     }
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_ACTORSYSTEMIMPL_H */

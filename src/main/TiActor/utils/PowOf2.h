@@ -10,7 +10,7 @@
 
 namespace TiActor {
 
-namespace utils {
+namespace math {
 
 struct false_type {
     typedef false_type type;
@@ -213,8 +213,8 @@ struct round_down_to_pow2 {
     static const size_t value = round_down_to_pow2_impl<(is_pow_of_2<N>::value == 1), N>::value;
 };
 
-}  /* namespace utils */
+} // namespace math
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_UTILS_POWOF2_H */

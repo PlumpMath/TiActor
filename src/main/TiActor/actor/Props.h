@@ -19,6 +19,7 @@ class Props {
 private:
     std::string name_;
     Deploy * deploy_;
+    Actor * actor_;
     uint32_t inputType_;
     uint32_t outputType_;
 
@@ -27,7 +28,8 @@ public:
     static Deploy * defaultDeploy;
 
 protected:
-    Props() : Props(*defaultDeploy, 0) {
+    Props() : deploy_(nullptr), actor_(nullptr), inputType_(0), outputType_(0) {
+        deploy_ = defaultDeploy;
     }
 
     Props(const Props & src) {
@@ -35,26 +37,22 @@ protected:
     }
 
 public:
-    Props(const Deploy & deploy, uint32_t inputType) {
-        *deploy_ = deploy;
+    Props(const Deploy & deploy, uint32_t inputType) : Props() {
+        deploy_ = const_cast<Deploy * >(&deploy);
         inputType_ = inputType;
     }
 
-    Props(const Deploy * deploy, uint32_t inputType) {
+    Props(const Deploy * deploy, uint32_t inputType) : Props() {
         deploy_ = const_cast<Deploy * >(deploy);
         inputType_ = inputType;
     }
 
-    Props(const Actor * actor) {
-        deploy_ = nullptr;
+    Props(const Actor * actor) : Props() {
+        actor_ = const_cast<Actor * >(actor);
         inputType_ = 0;
     }
 
-    ~Props() {
-        if (deploy_ && deploy_ != defaultDeploy) {
-            deploy_->destroy();
-        }
-    }
+    ~Props();
 
     static void staticInit() {
         if (!staticInited) {
@@ -107,6 +105,6 @@ private:
     //
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_PROPS_H */

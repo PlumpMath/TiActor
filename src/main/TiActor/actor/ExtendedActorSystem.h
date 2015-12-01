@@ -35,6 +35,6 @@ public:
     virtual IActorRef * systemActorOf(const Props * props, const std::string & name) = 0;
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_EXTENDEDACTORSYSTEM_H */

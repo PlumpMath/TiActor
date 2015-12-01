@@ -27,6 +27,6 @@ public:
     ~Message() { }
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_MESSAGE_H */

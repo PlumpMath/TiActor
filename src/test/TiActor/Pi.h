@@ -23,8 +23,11 @@
 #include <TiActor/routing/RoundRobinRouter.h>
 #include <TiActor/utils/Runtime.h>
 
+#include <TiActor/actor/Props.ipp>
 #include <TiActor/actor/ActorRef.ipp>
 #include <TiActor/actor/ActorSystem.ipp>
+
+//#include <TiActor/config/static_link.h>
 
 using namespace TiActor;
 

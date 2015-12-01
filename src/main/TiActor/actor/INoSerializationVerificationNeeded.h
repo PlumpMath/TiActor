@@ -11,6 +11,6 @@ namespace TiActor {
 class INoSerializationVerificationNeeded {
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_INOSERIALIZATIONVERIFICATIONNEEDED_H */

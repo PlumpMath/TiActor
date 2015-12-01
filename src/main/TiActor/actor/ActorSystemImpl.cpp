@@ -17,4 +17,4 @@ ActorSystem * ActorSystemImpl::createAndStartSystemImpl(const std::string & name
 	return system;
 }
 
-}  /* namespace TiActor */
+} // namespace TiActor

@@ -25,6 +25,6 @@ public:
     }
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ROUTING_ROUTERCONFIG_H */

@@ -83,7 +83,7 @@ struct ToStringWrapper<false> {
     }
 };
 
-}  /* namespace detail */
+} // namespace detail */
 
 template<typename T>
 std::string toString(const T & x) {
@@ -95,8 +95,8 @@ std::string toString2(const T & x) {
     return detail::ToStringWrapper<detail::HasToStringFunction<T>::value>::toString(x);
 }
 
-}  /* namespace StringUtils */
+} // namespace StringUtils
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_UTILS_TOSTRING_H */

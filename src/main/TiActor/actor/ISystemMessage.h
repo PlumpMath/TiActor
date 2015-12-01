@@ -45,6 +45,6 @@ public:
     IActorRef * getActor() const { return actor_; }
 };
 
-}  /* namespace TiActor */
+} // namespace TiActor
 
 #endif  /* TIACTOR_ACTOR_ISYSTEMMESSAGE_H */
