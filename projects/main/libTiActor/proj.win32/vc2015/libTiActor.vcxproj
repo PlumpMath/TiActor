@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Actor.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorBase.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorCell.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorPath.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.h" />
@@ -171,12 +172,15 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IActorRefFactory.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IActorRefScope.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ICanTell.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ICell.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IDisposable.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IInternalActorRef.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IMessage.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\INoSerializationVerificationNeeded.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\InternalCurrentActorCellKeeper.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ISurrogated.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ISystemMessage.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IUntypedActorContext.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Message.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\MessageBase.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\MessageObject.h" />

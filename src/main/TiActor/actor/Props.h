@@ -53,7 +53,7 @@ public:
     }
 
     Props(const UntypedActor * actor) : Props() {
-        //actor_ = dynamic_cast<Actor * >(const_cast<UntypedActor *>(actor));
+        actor_ = reinterpret_cast<Actor * >(const_cast<UntypedActor *>(actor));
     }
 
     ~Props();

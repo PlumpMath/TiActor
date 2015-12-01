@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\src\test\TiActor\main.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\test\TiActor\Pi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\src\test\TiActor\Pi.h" />

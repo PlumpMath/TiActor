@@ -6,32 +6,44 @@
 #pragma once
 #endif
 
-#include "TiActor/basic/stddef.h"
 #include <string>
+
+#include "TiActor/actor/IDisposable.h"
 
 namespace TiActor {
 
-class ActorPath;
-
-struct IDisposable {
-    virtual void Dispose() = 0;
-};
+class IActorRef;
+class IMessage;
+class ActorCell;
+class MessageDispatcher;
 
 class Mailbox : public IDisposable {
-private:
-    std::string name_;
 
 public:
-    Mailbox() {
-        initMailbox("default");
+    enum MailboxStatus {
+        Idle = 0, Busy,
+    };
+
+private:
+    std::string name_;
+    volatile ActorCell * actorCell_;
+
+protected:
+    int status_;
+    MessageDispatcher * dispather_;
+
+public:
+    Mailbox() : status_(MailboxStatus::Busy) {
+        initMailbox("Mailbox Default");
     }
 
-    Mailbox(const std::string & name) {
+    Mailbox(const std::string & name) : status_(MailboxStatus::Busy) {
         initMailbox(name);
     }
 
     Mailbox(const Mailbox & src) {
         this->name_ = src.name_;
+        this->status_ = src.status_;
     }
 
 private:
@@ -39,9 +51,38 @@ private:
         name_ = name;
     }
 
+protected:
+    virtual void post(IActorRef * receiver, IMessage * message) = 0;
+    virtual int getNumberOfMessages() const = 0;
+    virtual void schedule() = 0;
+
+    volatile ActorCell * getActorCell() const {
+        return actorCell_;
+    }
+
+    void setActorCell(ActorCell * actorCell) {
+        actorCell_ = actorCell;
+    }
+
 public:
-    // Interface IDisposable
-    void Dispose() { /* TODO: */ }
+    // IDisposable
+    void dispose() { /* TODO: */ }
+
+    int getStatus() const {
+        return status_;
+    }
+
+    void setStatus(int status) {
+        status_ = status;
+    }
+
+    bool hasMessages() const {
+        return (getNumberOfMessages() > 0);
+    }
+
+    int numberOfMessages() const {
+        return getNumberOfMessages();
+    }    
 };
 
 } // namespace TiActor

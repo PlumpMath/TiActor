@@ -14,10 +14,10 @@ class ICancelable;
 
 class IActionScheduler {
 public:
-    virtual void ScheduleOnce(TimeSpan * delay, Action * action, ICancelable * cancelable) = 0;
-    virtual void ScheduleOnce(TimeSpan * delay, Action * action) = 0;
-    virtual void ScheduleRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, Action * action, ICancelable * cancelable) = 0;
-    virtual void ScheduleRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, Action * action) = 0;
+    virtual void scheduleOnce(TimeSpan * delay, Action * action, ICancelable * cancelable) = 0;
+    virtual void scheduleOnce(TimeSpan * delay, Action * action) = 0;
+    virtual void scheduleRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, Action * action, ICancelable * cancelable) = 0;
+    virtual void scheduleRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, Action * action) = 0;
 };
 
 } // namespace TiActor

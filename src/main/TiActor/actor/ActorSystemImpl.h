@@ -54,7 +54,7 @@ public:
     }
 
     // IDisposable
-    void Dispose() {
+    void dispose() {
         //
     }
 

@@ -2,8 +2,13 @@
 #include "TiActor/actor/Actor.h"
 #include "TiActor/actor/ActorSystem.h"
 #include "TiActor/actor/ActorSystemImpl.h"
+#include "TiActor/actor/ActorCell.h"
+
+#include "TiActor/basic/threadlocal.h"
 
 namespace TiActor {
+
+TI_THREAD_LOCAL ActorCell * InternalCurrentActorCellKeeper::current_ = nullptr;
 
 ActorSystem * ActorSystemImpl::createSystemImpl(const std::string & name, const Config & config) {
 	ActorSystem * system = new ActorSystemImpl(name, config);
@@ -26,6 +31,7 @@ IActorRef * ActorSystemImpl::actorOf(const Props * props, const std::string & na
         if (actor) {
             ActorSystem::addActor(name, actor);
             actorNew = actor->getSelf();
+            actor->start();
         }
     }
     return actorNew;

@@ -23,10 +23,6 @@
 #include <TiActor/routing/RoundRobinRouter.h>
 #include <TiActor/utils/Runtime.h>
 
-#include <TiActor/actor/Props.ipp>
-#include <TiActor/actor/ActorRef.ipp>
-#include <TiActor/actor/ActorSystem.ipp>
-
 using namespace TiActor;
 
 class Calculate : public MessageBase<Calculate> {
@@ -103,20 +99,7 @@ public:
     };
 
 public:
-    void onReceive(IMessage * message) {
-        message_type msgType = message->getType();
-        if (msgType == InnerMessage::Work) {
-            //Work * work = dynamic_cast<Work *>(message->getObject());
-            Work * work = reinterpret_cast<Work *>(message->getObject());
-            if (work) {
-                double result = calulatePiFor(work->getStart(), work->getNumOfElements());
-                this->getSender()->tell((MessageObject)new Result(result), getSelf());
-            }
-        }
-        else {
-            Unhandle("", message);
-        }
-    }
+    void onReceive(IMessage * message);
 };
 
 class Master : public UntypedActor {
@@ -193,13 +176,13 @@ public:
         enum { Dummy = 0, PiApproximation };
     };
 public:
-    void OnReceive(IMessage * message) {
-        if (InnerMessage::PiApproximation) {
+    void onReceive(IMessage * message) {
+        message_type msgType = message->getType();
+        if (msgType == InnerMessage::PiApproximation) {
             PiApproximation * approximation = reinterpret_cast<PiApproximation *>(message);
             if (approximation) {
                 std::cout << std::endl << "Pi approximation: \t\t" << approximation->getPi()
                     << "\n\tCalculation time: \t" << approximation->getDuration();
-
                 IActorContext * context = this->getContext();
                 if (context) {
                     ActorSystem * system = context->getSystem();

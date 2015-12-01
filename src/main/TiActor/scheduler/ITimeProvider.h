@@ -13,8 +13,8 @@ namespace TiActor {
 class ITimeProvider {
 public:
     virtual uint64_t now() const = 0;
-    virtual uint64_t MonotonicClock() const = 0;
-    virtual uint64_t HighResMonotonicClock() const = 0;
+    virtual uint64_t monotonicClock() const = 0;
+    virtual uint64_t highResMonotonicClock() const = 0;
 };
 
 } // namespace TiActor

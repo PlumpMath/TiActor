@@ -13,6 +13,8 @@
 #include "TiActor/actor/IInternalActorRef.h"
 #include "TiActor/actor/IActorContext.h"
 #include "TiActor/actor/IActorRef.h"
+#include "TiActor/actor/InternalCurrentActorCellKeeper.h"
+#include "TiActor/actor/ActorCell.h"
 
 namespace TiActor {
 
@@ -72,7 +74,21 @@ public:
     ActorSystem * getSystem() const { return ((getContext() != nullptr) ? getContext()->getSystem() : nullptr); }
     
     // For call IActorContext
-    IActorContext * getContext() const { return context_; }
+    IActorContext * getContext() const {
+        ActorCell * actorCell = const_cast<ActorCell *>(InternalCurrentActorCellKeeper::getCurrent());
+        if (actorCell != nullptr) {
+            IActorContext * context = static_cast<IActorContext *>(actorCell);
+            if (context == nullptr) {
+                //
+            }
+            else {
+                //
+            }
+            return actorCell->getActorHasBeenCleared() ? nullptr : context;
+        }
+        return nullptr;
+        
+    }
     void setContext(IActorContext * context) { context_ = context; }
 
     // IInternalActor

@@ -11,8 +11,6 @@
 namespace TiActor {
 
 class IAdvancedScheduler : public IActionScheduler {
-public:
-    virtual IAdvancedScheduler * getAdvanced() const = 0;
 };
 
 } // namespace TiActor

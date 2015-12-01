@@ -10,7 +10,7 @@ namespace TiActor {
 
 class IDisposable {
 public:
-    virtual void Dispose() = 0;
+    virtual void dispose() = 0;
 };
 
 } // namespace TiActor

@@ -16,10 +16,10 @@ class ICancelable;
 
 class ITellScheduler {
 public:
-    virtual void ScheduleTellOnce(TimeSpan * delay, ICanTell * receiver, MessageObject message, IActorRef * sender) = 0;
-    virtual void ScheduleTellOnce(TimeSpan * delay, ICanTell * receiver, MessageObject message, IActorRef * sender, ICancelable * cancelable) = 0;
-    virtual void ScheduleTellRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, ICanTell * receiver, MessageObject * message, IActorRef * sender) = 0;
-    virtual void ScheduleTellRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, ICanTell * receiver, MessageObject * message, IActorRef * sender, ICancelable * cancelable) = 0;
+    virtual void scheduleTellOnce(TimeSpan * delay, ICanTell * receiver, MessageObject message, IActorRef * sender) = 0;
+    virtual void scheduleTellOnce(TimeSpan * delay, ICanTell * receiver, MessageObject message, IActorRef * sender, ICancelable * cancelable) = 0;
+    virtual void scheduleTellRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, ICanTell * receiver, MessageObject message, IActorRef * sender) = 0;
+    virtual void scheduleTellRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, ICanTell * receiver, MessageObject message, IActorRef * sender, ICancelable * cancelable) = 0;
 };
 
 } // namespace TiActor

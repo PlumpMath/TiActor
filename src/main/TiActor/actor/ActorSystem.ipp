@@ -38,6 +38,11 @@ ActorSystem * ActorSystem::createAndStartSystem(const std::string & name, const 
     if (system == nullptr) {
         system = new ActorSystemImpl(name, withFallBack);
         if (system) {
+			ActorCell * actorCell = InternalCurrentActorCellKeeper::getCurrent();
+			if (actorCell == nullptr) {
+				ActorCell * cellNew = new ActorCell();
+				InternalCurrentActorCellKeeper::setCurrent(cellNew);
+			}
 			actorsystem_pair_type system_pair(name, system);
 			actorsystem_map_.insert(system_pair);
             system->start();
