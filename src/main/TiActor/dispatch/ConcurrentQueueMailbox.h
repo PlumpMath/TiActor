@@ -10,6 +10,7 @@
 #include "TiActor/actor/ISystemMessage.h"
 #include "TiActor/dispatch/Mailbox.h"
 #include "TiActor/queue/RingQueue.h"
+#include "TiActor/dispatch/MessageDispatcher.h"
 
 namespace TiActor {
 
@@ -39,12 +40,18 @@ private:
     void run() {
         if (isClosed_)
             return;
+
+        if (systemMessages_.sizes() > 0 || (!isSuspended && userMessages_.sizes() > 0)) {
+            hasUnscheduledMessages = true;
+
+            schedule();
+        }
     }
 
 public:
     virtual void schedule() {
         if (this->dispatcher) {
-            this->dispatcher.schedule(run);
+            this->dispatcher->schedule(run);
         }
     }
 

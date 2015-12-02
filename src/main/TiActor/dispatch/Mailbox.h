@@ -18,14 +18,20 @@ class ActorCell;
 class MessageDispatcher;
 
 class Mailbox : public IDisposable {
-
 public:
     enum MailboxStatus {
         Idle = 0, Busy,
     };
 
+    enum MailboxSuspendStatus {
+        NotSuspended = 0,
+        Supervision,
+        AwaitingTask
+    };
+
 private:
     volatile ActorCell * actorCell_;
+    volatile MailboxSuspendStatus suspendStatus_;
 
 protected:
     int status_;
@@ -36,7 +42,8 @@ private:
     std::string name_;
 
 public:
-    Mailbox() : actorCell_(nullptr), status_(MailboxStatus::Busy), dispatcher(nullptr),
+    Mailbox() : actorCell_(nullptr), suspendStatus_(MailboxSuspendStatus::NotSuspended),
+        status_(MailboxStatus::Busy), dispatcher(nullptr),
         hasUnscheduledMessages(false) {
         initMailbox("Mailbox Default");
     }
@@ -86,6 +93,10 @@ public:
     void start() {
         status_ = MailboxStatus::Idle;
         schedule();
+    }
+
+    bool isSuspended() const {
+        return 0;
     }
 
     int getStatus() const {
