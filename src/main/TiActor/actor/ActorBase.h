@@ -64,25 +64,46 @@ protected:
 
 public:
     // For IActorContext
-    Props * getProps() const        { return ((getContext() != nullptr) ? getContext()->getProps() : nullptr); }
-    IActorRef * getSelf() const {
-        return (hasBeenCleared() ? clearedSelf_ : ((getContext() != nullptr) ? getContext()->getSelf() : nullptr));
+    Props * getProps() const {
+        IActorContext * context = this->getContext();
+        return ((context != nullptr) ? context->getProps() : nullptr);
     }
-    IActorRef * getSender() const   { return ((getContext() != nullptr) ? getContext()->getSender() : nullptr); }
-    IActorRef * getParent() const   { return ((getContext() != nullptr) ? getContext()->getParent() : nullptr); }
-    IActorRef * getChild() const    { return ((getContext() != nullptr) ? getContext()->getChild()  : nullptr); }
-    ActorSystem * getSystem() const { return ((getContext() != nullptr) ? getContext()->getSystem() : nullptr); }
+
+    IActorRef * getSelf() const {
+        IActorContext * context = this->getContext();
+        return (hasBeenCleared() ? clearedSelf_ : ((context != nullptr) ? context->getSelf() : nullptr));
+    }
+
+    IActorRef * getSender() const   {
+        IActorContext * context = this->getContext();
+        return ((context != nullptr) ? context->getSender() : nullptr);
+    }
+
+    IActorRef * getParent() const   {
+        IActorContext * context = this->getContext();
+        return ((context != nullptr) ? context->getParent() : nullptr);
+    }
+
+    IActorRef * getChild() const    {
+        IActorContext * context = this->getContext();
+        return ((context != nullptr) ? context->getChild()  : nullptr);
+    }
+
+    ActorSystem * getSystem() const {
+        IActorContext * context = this->getContext();
+        return ((context != nullptr) ? context->getSystem() : nullptr);
+    }
     
     // For call IActorContext
-    IActorContext * getContext() const {
-        ActorCell * actorCell = const_cast<ActorCell *>(InternalCurrentActorCellKeeper::getCurrent());
+    static IActorContext * getContext() {
+        ActorCell * actorCell = InternalCurrentActorCellKeeper::getCurrent();
         if (actorCell != nullptr) {
             IActorContext * context = static_cast<IActorContext *>(actorCell);
-            if (context == nullptr) {
-                //
+            if (context != nullptr) {
+                // Normal
             }
             else {
-                //
+                // Error
             }
             return actorCell->getActorHasBeenCleared() ? nullptr : context;
         }

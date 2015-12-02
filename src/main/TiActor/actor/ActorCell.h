@@ -8,6 +8,7 @@
 
 #include <string>
 
+#include "TiActor/basic/stdint.h"
 #include "TiActor/actor/IUntypedActorContext.h"
 #include "TiActor/actor/ICell.h"
 //#include "TiActor/actor/ActorBase.h"
@@ -21,20 +22,29 @@ class Props;
 class ActorPath;
 class IActorRef;
 class ActorSelection;
+class ActorSystemImpl;
+class Mailbox;
 
 class ActorCell : public IUntypedActorContext, public ICell {
 private:
     IInternalActorRef * self_;
+    IInternalActorRef * parent_;
+    Props * props_;
     ActorBase * actor_;
+    Mailbox * mailbox_;
+    ActorSystemImpl * systemImpl_;
+    uint64_t uid_;
     bool actorHasBeenCleared_;
 
 public:
-    ActorCell() : self_(nullptr), actor_(nullptr), actorHasBeenCleared_(false) {
+    ActorCell() : self_(nullptr), props_(nullptr), actor_(nullptr), mailbox_(nullptr),
+        systemImpl_(nullptr), uid_(0), actorHasBeenCleared_(false) {
     }
 
     ActorCell(ActorSystemImpl * system, IInternalActorRef * self, Props * props,
         MessageDispatcher * dispatcher, IInternalActorRef * parent = nullptr)
-        : self_(nullptr), actor_(nullptr), actorHasBeenCleared_(false) {
+        : self_(self), props_(props), actor_(nullptr), mailbox_(nullptr),
+          systemImpl_(system), uid_(0), actorHasBeenCleared_(false) {
     }
 
     ActorCell(const ActorCell & src) {
@@ -49,12 +59,20 @@ private:
         //
     }
 
+    void setParent(IInternalActorRef * parent) {
+        parent_ = parent;
+    }
+
 protected:
     void cloneActorCell(const ActorCell & src) {
         //
     }
 
 public:
+    IInternalActorRef * getParent() {
+        return parent_;
+    }
+
     bool getActorHasBeenCleared() const {
         return actorHasBeenCleared_;
     }
@@ -67,7 +85,7 @@ public:
     virtual Props * getProps() const { return nullptr; }
     virtual IActorRef * getSelf() const { return reinterpret_cast<IActorRef *>(self_); }
     virtual IActorRef * getSender() const { return nullptr; }
-    virtual IActorRef * getParent() const { return nullptr; }
+    virtual IActorRef * getParent() const { return static_cast<IActorRef *>(parent_->getParent()); }
     virtual IActorRef * getChild() const { return nullptr; }
     virtual ActorSystem * getSystem() const { return nullptr; }
 

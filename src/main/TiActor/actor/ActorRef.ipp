@@ -14,14 +14,18 @@
 namespace TiActor {
 
 // class Nobody
-Nobody *	Nobody::instance_ = nullptr;
+Nobody *	Nobody::instance_ = new Nobody();
 
 // class ActorRefs
-Nobody *    ActorRefs::nobody_ = nullptr;
+Nobody *    ActorRefs::nobody_ = Nobody::instance_;
 IActorRef * ActorRefs::nosender_ = nullptr;
 
 void Nobody::initNobody() {
     Nobody::instance_ = new Nobody();
+}
+
+IInternalActorRef * MinimalActorRef::getParent() const {
+    return reinterpret_cast<IInternalActorRef *>(ActorRefs::getNobody());
 }
 
 void ActorRefBase::tell(MessageObject message, const IActorRef * sender) {

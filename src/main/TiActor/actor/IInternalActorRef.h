@@ -14,7 +14,7 @@ namespace TiActor {
 class IActorRefProvider;
 class ISystemMessage;
 
-class IInternalActorRef : /* public IActorRef, */ public IActorRefScope {
+class IInternalActorRef : public IActorRef, public IActorRefScope {
 public:
     virtual IInternalActorRef * getParent() const = 0;
     virtual IActorRefProvider * getProvider() const = 0;

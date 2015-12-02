@@ -22,8 +22,6 @@
 
 namespace TiActor {
 
-class ActorRef;
-
 class ILocalRef : public IActorRefScope {
 public:
     bool isLocal() const { return true; }
@@ -86,11 +84,11 @@ public:
 
     void sendSystemMessage(const ISystemMessage * message, const IActorRef * sender /* = nullptr */) {
         int msgType = message->getType();
-        if (msgType == ISystemMessage::LocalMessage::Terminate) {
+        if (msgType == ISystemMessage::InnerMessage::Terminate) {
             stop();
         }
         else if (message != nullptr) {
-            this->tell((MessageObject)nullptr, nullptr);
+            this->ActorRefBase::tell((MessageObject)message, sender);
         }
     }
 
@@ -101,6 +99,8 @@ public:
 class MinimalActorRef : public InternalActorRefBase, public ILocalRef {
 public:
     // IInternalActorRef
+    virtual IInternalActorRef * getParent() const;
+
     virtual bool isTerminated() const { return false; }
     virtual IActorRef * getChild(const std::string & name) const {
         return nullptr;
@@ -145,6 +145,15 @@ public:
 
     ActorPath * getPath() const { return path_; }
     IActorRefProvider * getProvider() const { return nullptr; }
+
+    // ICanTell
+    void tell(MessageObject message, const IActorRef * sender) {
+    }
+
+    // ISurrogated
+    ISurrogated * toSurrogate(const ActorSystem * system) {
+        return nullptr;
+    }
 };
 
 class ActorRefs {

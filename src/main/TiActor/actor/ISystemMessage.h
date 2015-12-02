@@ -8,15 +8,17 @@
 
 #include "TiActor/actor/INoSerializationVerificationNeeded.h"
 
+#define ISYSTEMMESSAGE_FIRST    60000
+
 namespace TiActor {
 
 class IActorRef;
 
 class ISystemMessage : public INoSerializationVerificationNeeded {
 public:
-    struct LocalMessage {
+    struct InnerMessage {
         enum {
-            Terminate
+            Terminate = ISYSTEMMESSAGE_FIRST
         };
     };
 

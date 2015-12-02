@@ -218,7 +218,7 @@ public:
             IActorRef * listener = system->actorOf(new Props(new Listener()), "listener");
             if (listener) {
                 // Create the master
-                Actor * masterActor = new Master(numOfWorkers, numOfMessages, numOfElements, listener);
+                UntypedActor * masterActor = new Master(numOfWorkers, numOfMessages, numOfElements, listener);
                 if (masterActor) {
                     IActorRef * master = system->actorOf(new Props(masterActor), "master");
                     if (master) {
@@ -226,7 +226,7 @@ public:
                         master->tell((new Calculate())->setTypeEx(Master::InnerMessage::Calculate));
 #else
                         Calculate * calculate = new Calculate();
-                        if (calculate) {s
+                        if (calculate) {
                             calculate->setType(Master::InnerMessage::Calculate);
                             master->tell(calculate);
                         }
