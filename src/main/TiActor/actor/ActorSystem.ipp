@@ -18,7 +18,6 @@ class Config;
 
 ActorSystem::actorsystem_map_type	ActorSystem::actorsystem_map_;
 ActorSystem::actor_map_type			ActorSystem::actor_map_;
-ActorSystem::queue_type				ActorSystem::msg_queue_(true, true);
 
 IActorRef * ActorSystem::findActorRef(const std::string & name) {
     IActorRef * actorRef = nullptr;
@@ -38,7 +37,7 @@ ActorSystem * ActorSystem::createAndStartSystem(const std::string & name, const 
     if (system == nullptr) {
         system = new ActorSystemImpl(name, withFallBack);
         if (system) {
-			ActorCell * actorCell = InternalCurrentActorCellKeeper::getCurrent();
+			ActorCell * actorCell = (ActorCell *)InternalCurrentActorCellKeeper::getCurrent();
 			if (actorCell == nullptr) {
 				ActorCell * cellNew = new ActorCell();
 				InternalCurrentActorCellKeeper::setCurrent(cellNew);

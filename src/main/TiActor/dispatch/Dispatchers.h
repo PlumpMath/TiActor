@@ -1,6 +1,6 @@
 
-#ifndef TIACTOR_ACTOR_DISPATCHERS_H
-#define TIACTOR_ACTOR_DISPATCHERS_H
+#ifndef TIACTOR_DISPATCH_DISPATCHERS_H
+#define TIACTOR_DISPATCH_DISPATCHERS_H
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1020)
 #pragma once
@@ -76,4 +76,4 @@ const char Dispatchers::kDefaultDispatcherName[] = "TiActor.actor.default-dispat
 
 } // namespace TiActor
 
-#endif  /* TIACTOR_ACTOR_DISPATCHERS_H */
+#endif  /* TIACTOR_DISPATCH_DISPATCHERS_H */

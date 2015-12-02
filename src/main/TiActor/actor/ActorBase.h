@@ -97,16 +97,16 @@ public:
     
     // For call IActorContext
     static IActorContext * getContext() {
-        ActorCell * actorCell = InternalCurrentActorCellKeeper::getCurrent();
+        ActorCell * actorCell = (ActorCell *)InternalCurrentActorCellKeeper::getCurrent();
         if (actorCell != nullptr) {
-            IActorContext * context = static_cast<IActorContext *>(actorCell);
+            IActorContext * context = static_cast<IActorContext *>((IActorContext *)actorCell);
             if (context != nullptr) {
                 // Normal
             }
             else {
                 // Error
             }
-            return actorCell->getActorHasBeenCleared() ? nullptr : context;
+            return (actorCell->getActorHasBeenCleared()) ? nullptr : context;
         }
         return nullptr;
         

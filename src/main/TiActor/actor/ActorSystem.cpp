@@ -14,6 +14,6 @@ namespace TiActor {
 Deploy * Deploy::local_ = new Deploy();
 Deploy * Deploy::none_ = new Deploy();
 
-TI_THREAD_LOCAL ActorCell * InternalCurrentActorCellKeeper::current_ = nullptr;
+volatile TI_THREAD_LOCAL ActorCell * InternalCurrentActorCellKeeper::current_ = nullptr;
 
 } // namespace TiActor

@@ -25,26 +25,36 @@ public:
     };
 
 private:
-    std::string name_;
     volatile ActorCell * actorCell_;
 
 protected:
     int status_;
-    MessageDispatcher * dispather_;
+    MessageDispatcher * dispatcher;
+    volatile bool hasUnscheduledMessages;
+
+private:
+    std::string name_;
 
 public:
-    Mailbox() : status_(MailboxStatus::Busy) {
+    Mailbox() : actorCell_(nullptr), status_(MailboxStatus::Busy), dispatcher(nullptr),
+        hasUnscheduledMessages(false) {
         initMailbox("Mailbox Default");
     }
 
-    Mailbox(const std::string & name) : status_(MailboxStatus::Busy) {
+    Mailbox(const std::string & name)
+        : actorCell_(nullptr), status_(MailboxStatus::Busy), dispatcher(nullptr),
+          hasUnscheduledMessages(false) {
         initMailbox(name);
     }
 
     Mailbox(const Mailbox & src) {
-        this->name_ = src.name_;
+        this->actorCell_ = src.actorCell_;
         this->status_ = src.status_;
+        this->dispatcher = src.dispatcher;
+        this->name_ = src.name_;
     }
+
+    ~Mailbox() { }
 
 private:
     void initMailbox(const std::string & name) {
@@ -52,9 +62,8 @@ private:
     }
 
 protected:
-    virtual void post(IActorRef * receiver, IMessage * message) = 0;
-    virtual int getNumberOfMessages() const = 0;
     virtual void schedule() = 0;
+    virtual int getNumberOfMessages() const = 0;
 
     volatile ActorCell * getActorCell() const {
         return actorCell_;
@@ -65,8 +74,19 @@ protected:
     }
 
 public:
+    virtual void post(IActorRef * receiver, IMessage * message) = 0;
+
     // IDisposable
-    void dispose() { /* TODO: */ }
+    void dispose() { }
+
+    void setup(MessageDispatcher * dispatcher) {
+        this->dispatcher = dispatcher;
+    }
+
+    void start() {
+        status_ = MailboxStatus::Idle;
+        schedule();
+    }
 
     int getStatus() const {
         return status_;

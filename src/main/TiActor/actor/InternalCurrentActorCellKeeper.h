@@ -17,7 +17,7 @@ namespace TiActor {
 
 class InternalCurrentActorCellKeeper {
 private:
-    static TI_THREAD_LOCAL ActorCell * current_;
+    static volatile TI_THREAD_LOCAL ActorCell * current_;
 
 public:
     InternalCurrentActorCellKeeper() {
@@ -26,7 +26,7 @@ public:
     ~InternalCurrentActorCellKeeper() {
     }
 
-    static ActorCell * getCurrent() {
+    static volatile ActorCell * getCurrent() {
         return current_;
     }
 
@@ -35,7 +35,7 @@ public:
     }
 
     static IActorContext * getCurrentContext() {
-        IActorContext * context = static_cast<IActorContext *>(current_);
+        IActorContext * context = reinterpret_cast<IActorContext *>((ActorCell *)current_);
         return context;
     }
 };

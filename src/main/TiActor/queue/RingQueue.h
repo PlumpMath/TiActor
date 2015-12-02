@@ -37,6 +37,7 @@ struct spin_mutex_t
     volatile uint32_t thread_id;
     volatile uint32_t reserve;
     char padding3[TI_CACHE_LINE_SIZE - 4 * sizeof(uint32_t)];
+    char padding4[TI_CACHE_LINE_SIZE];
 };
 
 typedef struct spin_mutex_t spin_mutex_t;
@@ -50,6 +51,8 @@ struct RingQueueInfo
 
     volatile uint32_t tail;
     char padding3[TI_CACHE_LINE_SIZE - sizeof(uint32_t)];
+
+    char padding4[TI_CACHE_LINE_SIZE];
 };
 
 typedef struct RingQueueInfo RingQueueInfo;

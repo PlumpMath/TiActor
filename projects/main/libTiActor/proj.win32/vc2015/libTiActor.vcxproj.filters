@@ -249,6 +249,18 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\Dispatchers.h">
       <Filter>src\dispatch</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\Mailboxes.h">
+      <Filter>src\dispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\MessageQueueMailbox.h">
+      <Filter>src\dispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\IMessageQueue.h">
+      <Filter>src\dispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\ConcurrentQueueMailbox.h">
+      <Filter>src\dispatch</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.cpp">

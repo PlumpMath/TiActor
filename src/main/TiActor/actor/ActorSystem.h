@@ -39,24 +39,18 @@ public:
     typedef std::unordered_map<std::string, Actor *>::const_iterator    const_actor_iter;
     typedef std::pair<std::string, Actor *>                             actor_pair_type;
 
-    typedef RingQueue<Message *, 8192>    queue_type;
-
 private:
     //
 
 public:
     static actorsystem_map_type actorsystem_map_;
     static actor_map_type       actor_map_;
-    static queue_type           msg_queue_;
 
 public:
     ActorSystem(const std::string & name) {}
     ActorSystem(const std::string & name, const Config & withFallBack) {}
     ~ActorSystem() {
     }
-
-private:
-    //
 
 protected:
     static ActorSystem * createAndStartSystem(const std::string & name, const Config & withFallBack);

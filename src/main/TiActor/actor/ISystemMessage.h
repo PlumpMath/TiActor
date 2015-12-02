@@ -8,7 +8,7 @@
 
 #include "TiActor/actor/INoSerializationVerificationNeeded.h"
 
-#define ISYSTEMMESSAGE_FIRST    60000
+#define SYSTEM_MESSAGE_START    60000
 
 namespace TiActor {
 
@@ -18,7 +18,7 @@ class ISystemMessage : public INoSerializationVerificationNeeded {
 public:
     struct InnerMessage {
         enum {
-            Terminate = ISYSTEMMESSAGE_FIRST
+            Terminate = SYSTEM_MESSAGE_START
         };
     };
 
