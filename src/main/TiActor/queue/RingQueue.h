@@ -45,13 +45,10 @@ typedef struct spin_mutex_t spin_mutex_t;
 struct RingQueueInfo
 {
     char padding1[TI_CACHE_LINE_SIZE];
-
     volatile uint32_t head;
     char padding2[TI_CACHE_LINE_SIZE - sizeof(uint32_t)];
-
     volatile uint32_t tail;
     char padding3[TI_CACHE_LINE_SIZE - sizeof(uint32_t)];
-
     char padding4[TI_CACHE_LINE_SIZE];
 };
 

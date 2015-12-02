@@ -49,7 +49,8 @@ public:
     }
 
     Mailbox(const std::string & name)
-        : actorCell_(nullptr), status_(MailboxStatus::Busy), dispatcher(nullptr),
+        : actorCell_(nullptr), suspendStatus_(MailboxSuspendStatus::NotSuspended),
+          status_(MailboxStatus::Busy), dispatcher(nullptr),
           hasUnscheduledMessages(false) {
         initMailbox(name);
     }

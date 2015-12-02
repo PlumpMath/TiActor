@@ -30,8 +30,10 @@ private:
     volatile bool isClosed_;
 
 public:
-    ConcurrentQueueMailbox() : systemMessages_(true, true),
-        userMessages_(true, true), isClosed_(true) {
+    ConcurrentQueueMailbox()
+        : systemMessages_(true, true),
+          userMessages_(true, true), isClosed_(true) {
+        //
     }
 
     ~ConcurrentQueueMailbox() { }

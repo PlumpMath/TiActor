@@ -211,6 +211,7 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\Mailboxes.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\MessageDispatcher.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\MessageQueueMailbox.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\ThreadPoolDispatcher.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\queue\portable.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\queue\RingQueue.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\routing\RoundRobinRouter.h" />
