@@ -84,7 +84,7 @@ public:
         name_ = name;
     }
 
-    Props * withRouter(const RouterConfig * routerConfig) {
+    Props * withRouter(RouterConfig * routerConfig) {
         Props * copy = new Props();
         if (copy) {
             copy->copyProps(*this);
@@ -93,7 +93,7 @@ public:
         return copy;
     }
 
-    static Props * createWithRouter(const Deploy * deploy, uint32_t inputType, const RouterConfig * routerConfig) {
+    static Props * createWithRouter(Deploy * deploy, uint32_t inputType, RouterConfig * routerConfig) {
         Deploy * deployNew = new Deploy(routerConfig);;
         Props * props = new Props(deployNew, inputType);
         return props;

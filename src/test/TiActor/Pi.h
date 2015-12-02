@@ -127,7 +127,7 @@ public:
         if (router) {
             TiActor::RouterConfig * routerConfig = router->getRouterConfig();
             if (routerConfig) {
-                TiActor::Deploy * deploy = new TiActor::Deploy("Master");
+                TiActor::Deploy * deploy = new TiActor::Deploy();
                 if (deploy) {
                     TiActor::Props * props = TiActor::Props::createWithRouter(deploy, 0, routerConfig);
                     if (props) {
@@ -165,7 +165,7 @@ public:
             //
         }
         else {
-            Unhandle("Master", message);
+            unhandleMessage("Master", message);
         }
     }
 };
@@ -194,7 +194,7 @@ public:
             }
         }
         else {
-            Unhandle("Listener", message);
+            unhandleMessage("Listener", message);
         }
     }
 };

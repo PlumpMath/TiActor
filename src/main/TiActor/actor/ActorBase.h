@@ -15,6 +15,7 @@
 #include "TiActor/actor/IActorRef.h"
 #include "TiActor/actor/InternalCurrentActorCellKeeper.h"
 #include "TiActor/actor/ActorCell.h"
+#include "TiActor/utils/ToString.h"
 
 namespace TiActor {
 
@@ -27,9 +28,9 @@ public:
 
 class ActorBase : public IInternalActor {
 protected:
-    std::string name_;
     IActorRef * clearedSelf_;
     IActorContext * context_;
+    std::string name_;
 
 public:
     ActorBase() : clearedSelf_(nullptr), context_(nullptr) {
@@ -133,16 +134,16 @@ public:
         name_ = name;
     }
 
-    void Unhandle(MessageObject message) {
-        std::cout << ">>> Unhandle Message <<<" << std::endl;
+    void unhandleMessage(MessageObject message) {
+        std::cout << ">>> Unhandle Message, ClassName: " << StringUtils::toString(*this) << "<<<" << std::endl;
         std::cout << "Message Object: " << message << "." << std::endl;
-        std::cout << ">>> ---------------- <<<" << std::endl;
+        std::cout << ">>> ------------------------------------------------------- <<<" << std::endl;
     }
 
-    void Unhandle(const std::string & className, MessageObject message) {
-        std::cout << ">>> Class " << className << " unknown message. <<<" << std::endl;
+    void unhandleMessage(const std::string & className, MessageObject message) {
+        std::cout << ">>> unknown message. ClassName: " << className << " <<<" << std::endl;
         std::cout << "Message Object: " << message << "." << std::endl;
-        std::cout << ">>> ---------------- <<<" << std::endl;
+        std::cout << ">>> ------------------------------------------------------- <<<" << std::endl;
     }
 };
 

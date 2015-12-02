@@ -23,25 +23,75 @@ class ActorPath;
 class IActorRefProvider;
 class IInternalActorRef;
 
-class ActorSystemImpl : public ExtendedActorSystem {
-public:
-	ActorSystemImpl(const std::string & name) : ExtendedActorSystem(name) {
-		//
-	}
+class Mailboxes;
+class Dispatchers;
+class IScheduler;
 
-	ActorSystemImpl(const std::string & name, const Config & config)
-		: ExtendedActorSystem(name, config) {
-		//
+class ActorSystemImpl : public ExtendedActorSystem {
+private:
+    std::string name_;
+    Config config_;
+
+    Dispatchers * dispatchers_;
+    Mailboxes * mailboxes_;
+    IActorRef * deadLetters_;
+    IScheduler * scheduler_;
+
+public:
+    ActorSystemImpl(const std::string & name) : ExtendedActorSystem(name),
+        dispatchers_(nullptr), mailboxes_(nullptr),
+        deadLetters_(nullptr), scheduler_(nullptr) {
+        initActorSystem(name, ConfigurationFactory::load());
+    }
+
+	ActorSystemImpl(const std::string & name, const Config & withFallBack)
+		: ExtendedActorSystem(name, withFallBack),
+          dispatchers_(nullptr), mailboxes_(nullptr),
+          deadLetters_(nullptr), scheduler_(nullptr) {
+        initActorSystem(name, withFallBack);
 	}
 
 	~ActorSystemImpl() {
+        removeActorSystem(name_);
 	}
+
+private:
+    void initActorSystem(const std::string & name, const Config & withFallBack) {
+        actorsystem_map_.rehash(256);
+        actor_map_.rehash(512);
+        name_ = name;
+        config_ = withFallBack;
+    }
 
 protected:
 	ActorSystem * createSystemImpl(const std::string & name, const Config & config);
 	ActorSystem * createAndStartSystemImpl(const std::string & name, const Config & config);
 
 public:
+    virtual std::string getName() const {
+        return name_;
+    }
+
+    virtual void setName(const std::string & name) {
+        name_ = name;
+    }
+
+    virtual Dispatchers * getDispatchers() const {
+        return dispatchers_;
+    }
+
+    virtual Mailboxes * getMailboxes() const {
+        return mailboxes_;
+    }
+
+    virtual IActorRef * getDeadLetters() const {
+        return deadLetters_;
+    }
+
+    virtual ActorSystem * create() {
+        return ActorSystem::create(name_, config_);
+    }
+
     // IActorRefFactory
     IActorRef * actorOf(const Props * props, const std::string & name = "");
 
@@ -77,6 +127,19 @@ public:
     IActorRef * systemActorOf(const Props * props, const std::string & name) {
         //
         return nullptr;
+    }
+
+    // Startup the actor systems
+    virtual int start() {
+        return 0;
+    }
+
+    virtual void stop(IActorRef * actor) {
+        //;
+    }
+
+    virtual void shutdown() {
+        ActorSystem::destroyAll();
     }
 };
 

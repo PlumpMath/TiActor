@@ -24,6 +24,7 @@ class IActorRef;
 class ActorSelection;
 class ActorSystemImpl;
 class Mailbox;
+class IActorState;
 
 class ActorCell : public IUntypedActorContext, public ICell {
 private:
@@ -33,6 +34,7 @@ private:
     ActorBase * actor_;
     Mailbox * mailbox_;
     ActorSystemImpl * systemImpl_;
+    IActorState * state_;
     uint64_t uid_;
     bool actorHasBeenCleared_;
 

@@ -163,6 +163,7 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorCell.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorPath.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRefProvider.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystemImpl.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Deploy.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IActorRef.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IActorRefFactory.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IActorRefScope.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorState.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ICanTell.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ICell.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IDisposable.h" />
@@ -202,7 +204,9 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\ConfigurationFactory.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\static_link.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\ActorConfig.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\Dispatchers.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\Mailbox.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\MessageDispatcher.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\queue\portable.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\queue\RingQueue.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\routing\RoundRobinRouter.h" />

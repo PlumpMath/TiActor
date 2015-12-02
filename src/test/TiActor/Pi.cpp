@@ -15,6 +15,6 @@ void Worker::onReceive(IMessage * message) {
         }
     }
     else {
-        Unhandle("", message);
+        unhandleMessage("Worker", message);
     }
 }

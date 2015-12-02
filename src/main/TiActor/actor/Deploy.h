@@ -8,28 +8,26 @@
 
 #include <string>
 
-#include "TiActor/basic/stddef.h"
-
 namespace TiActor {
 
+class Config;
 class RouterConfig;
 
 class Deploy {
 private:
-    std::string name_;
+    Config * config_;
     RouterConfig * routerConfig_;
 
 public:
-    Deploy() {
-        initDeploy("default");
+    static Deploy * local_;
+    static Deploy * none_;
+
+public:
+    Deploy() : routerConfig_(nullptr) {
     }
 
-    Deploy(const RouterConfig * routerConfig) {
-        initDeploy(routerConfig);
-    }
-
-    Deploy(const std::string & name) {
-        initDeploy(name);
+    Deploy(RouterConfig * routerConfig)
+        : routerConfig_(routerConfig) {
     }
 
     Deploy(const Deploy & src) {
@@ -44,26 +42,14 @@ private:
         routerConfig_ = const_cast<RouterConfig *>(routerConfig);
     }
 
-    void initDeploy(const std::string & name) {
-        name_ = name;
-    }
-
 protected:
     void cloneDeploy(const Deploy & src) {
-        this->name_ = src.name_;
+        this->routerConfig_ = src.routerConfig_;
     }
 
 public:
     void destroy() {
         //
-    }
-
-    std::string getName() const {
-        return name_;
-    }
-
-    void setName(const std::string & name) {
-        name_ = name;
     }
 
     Deploy * withRouterConfig(const RouterConfig * routerConfig) {

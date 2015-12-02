@@ -23,6 +23,10 @@
 
 namespace TiActor {
 
+class Mailboxes;
+class Dispatchers;
+class IScheduler;
+
 class ActorSystem : public IActorRefFactory, public IDisposable {
 public:
     typedef std::unordered_map<std::string, ActorSystem *>                  actorsystem_map_type;
@@ -38,8 +42,7 @@ public:
     typedef RingQueue<Message *, 8192>    queue_type;
 
 private:
-    std::string name_;
-    Config config_;
+    //
 
 public:
     static actorsystem_map_type actorsystem_map_;
@@ -47,30 +50,22 @@ public:
     static queue_type           msg_queue_;
 
 public:
-    ActorSystem(const std::string & name) {
-        initActorSystem(name, ConfigurationFactory::load());
-    }
-
-    ActorSystem(const std::string & name, const Config & withFallBack) {
-        initActorSystem(name, withFallBack);
-    }
-
+    ActorSystem(const std::string & name) {}
+    ActorSystem(const std::string & name, const Config & withFallBack) {}
     ~ActorSystem() {
-        removeActorSystem(name_);
     }
 
 private:
-    void initActorSystem(const std::string & name, const Config & withFallBack) {
-        actorsystem_map_.rehash(512);
-        actor_map_.rehash(2048);
-        name_ = name;
-        config_ = withFallBack;
-    }
+    //
 
 protected:
     static ActorSystem * createAndStartSystem(const std::string & name, const Config & withFallBack);
 
 public:
+    virtual Dispatchers * getDispatchers() const = 0;
+    virtual Mailboxes * getMailboxes() const = 0;
+    virtual IActorRef * getDeadLetters() const = 0;
+
     static ActorSystem * create(const std::string & name) {
         return createAndStartSystem(name, ConfigurationFactory::load());
     }
@@ -79,9 +74,7 @@ public:
         return createAndStartSystem(name, config);
     }
 
-    ActorSystem * create() {
-        return ActorSystem::create(name_, config_);
-    }
+    virtual ActorSystem * create() = 0;
 
     static void destroyAll();
 
@@ -113,22 +106,12 @@ public:
         actor_map_.erase(name);
     }
 
-    std::string getName() const {
-        return name_;
-    }
+    virtual std::string getName() const = 0;
+    virtual void setName(const std::string & name) = 0;
 
-    void setName(const std::string & name) {
-        name_ = name;
-    }
-
-    // Startup the actor systems
-    int start() {
-        return 0;
-    }
-
-    void shutdown() {
-        ActorSystem::destroyAll();
-    }
+    virtual int start() = 0;
+    virtual void stop(IActorRef * actor) = 0;
+    virtual void shutdown() = 0;
 };
 
 } // namespace TiActor
