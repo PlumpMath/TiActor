@@ -26,9 +26,17 @@ public:
     virtual void setType(int type) = 0;
 };
 
-class DeathWatchNotification : public ISystemMessage {
+class SystemMessage : public ISystemMessage {
 private:
     int type_;
+
+public:
+    int getType() const { return type_; }
+    void setType(int type) { type_ = type; }
+};
+
+class DeathWatchNotification : public SystemMessage {
+private:
     IActorRef * actor_;
 
 private:
@@ -41,10 +49,12 @@ public:
         actor_ = actor;
     }
 
-    int getType() const { return type_; }
-    void setType(int type) { type_ = type; }
-
     IActorRef * getActor() const { return actor_; }
+};
+
+
+class CreateSystemMessage : public SystemMessage {
+    //
 };
 
 } // namespace TiActor

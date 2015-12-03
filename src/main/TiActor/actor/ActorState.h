@@ -12,8 +12,8 @@ namespace TiActor {
 
 class IActorState {
 public:
-    virtual IActorState * ClearWatching() = 0;
-    virtual IActorState * ClearTerminated() = 0;
+    virtual IActorState * clearWatching() = 0;
+    virtual IActorState * clearTerminated() = 0;
     virtual IActorState * clearBehaviorStack() = 0;
 };
 

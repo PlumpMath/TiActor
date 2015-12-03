@@ -74,16 +74,16 @@ protected:
     virtual void schedule() = 0;
     virtual int getNumberOfMessages() const = 0;
 
+public:
+    virtual void post(IActorRef * receiver, Envelope * envelope) = 0;
+
     volatile ActorCell * getActorCell() const {
         return actorCell_;
     }
 
-    void setActorCell(ActorCell * actorCell) {
-        actorCell_ = actorCell;
+    void setActorCell(const ActorCell * actorCell) {
+        actorCell_ = const_cast<ActorCell *>(actorCell);
     }
-
-public:
-    virtual void post(IActorRef * receiver, Envelope * envelope) = 0;
 
     // IDisposable
     void dispose() { }

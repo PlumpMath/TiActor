@@ -15,10 +15,10 @@ class IInternalActorRef;
 
 class ICell {
 public:
-    virtual IActorRef * getSelf2() const = 0;
-    virtual ActorSystem * getSystem2() const = 0;
+    virtual IActorRef * getSelf() const = 0;
+    virtual ActorSystem * getSystem() const = 0;
     virtual ActorSystemImpl * getSystemImpl() const = 0;
-    virtual IInternalActorRef * getParent2() const = 0;
+    virtual IInternalActorRef * getInternalParent() const = 0;
 };
 
 } // namespace TiActor

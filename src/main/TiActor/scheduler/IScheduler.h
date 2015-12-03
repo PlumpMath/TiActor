@@ -12,6 +12,7 @@
 namespace TiActor {
 
 class IAdvancedScheduler;
+class IAdvancedScheduler;
 
 class IScheduler : public ITellScheduler, public ITimeProvider {
 public:

@@ -55,6 +55,11 @@ protected:
             return nullptr;
     }
     virtual IActorRef * getChild(const std::string & name) const { return nullptr; }
+
+    virtual void tellInternal(MessageObject message, IActorRef * sender)
+    {
+        cell_->post(sender, message);
+    }
 };
 
 } // namespace TiActor

@@ -11,7 +11,7 @@
 #include "TiActor/basic/stdint.h"
 #include "TiActor/actor/IUntypedActorContext.h"
 #include "TiActor/actor/ICell.h"
-//#include "TiActor/actor/ActorBase.h"
+#include "TiActor/dispatch/MessageDispatcher.h"
 
 namespace TiActor {
 
@@ -33,6 +33,7 @@ private:
     Props * props_;
     ActorBase * actor_;
     Mailbox * mailbox_;
+    MessageDispatcher * dispatcher_;
     ActorSystemImpl * systemImpl_;
     IActorState * state_;
     uint64_t uid_;
@@ -40,13 +41,13 @@ private:
 
 public:
     ActorCell() : self_(nullptr), props_(nullptr), actor_(nullptr), mailbox_(nullptr),
-        systemImpl_(nullptr), uid_(0), actorHasBeenCleared_(false) {
+        dispatcher_(nullptr), systemImpl_(nullptr), uid_(0), actorHasBeenCleared_(false) {
     }
 
     ActorCell(ActorSystemImpl * system, IInternalActorRef * self, Props * props,
         MessageDispatcher * dispatcher, IInternalActorRef * parent = nullptr)
         : self_(self), props_(props), actor_(nullptr), mailbox_(nullptr),
-          systemImpl_(system), uid_(0), actorHasBeenCleared_(false) {
+          dispatcher_(dispatcher), systemImpl_(system), uid_(0), actorHasBeenCleared_(false) {
     }
 
     ActorCell(const ActorCell & src) {
@@ -61,6 +62,8 @@ private:
         //
     }
 
+    ActorBase * newActor();
+
     void setParent(IInternalActorRef * parent) {
         parent_ = parent;
     }
@@ -70,10 +73,13 @@ protected:
         //
     }
 
+    void prepareForNewActor();
+
 public:
-    IInternalActorRef * getParent() {
-        return parent_;
-    }
+    void init();
+
+    void useThreadContext(action_type action);
+    virtual ActorBase * createNewActorInstance();
 
     bool getActorHasBeenCleared() const {
         return actorHasBeenCleared_;
@@ -86,22 +92,22 @@ public:
     virtual bool isTerminated() const { return false; }
 
     // IActorCntext
-    virtual Props * getProps() const { return nullptr; }
+    virtual Props * getProps() const { return props_; }
     virtual IActorRef * getSelf() const { return reinterpret_cast<IActorRef *>(self_); }
     virtual IActorRef * getSender() const { return nullptr; }
-    virtual IActorRef * getParent() const { return static_cast<IActorRef *>(parent_->getParent()); }
+    virtual IActorRef * getParent() const { return reinterpret_cast<IActorRef *>(parent_); }
     virtual IActorRef * getChild() const { return nullptr; }
-    virtual ActorSystem * getSystem() const { return nullptr; }
+    virtual ActorSystem * getSystem() const { return reinterpret_cast<ActorSystem *>(systemImpl_);; }
 
-    virtual void setProps(Props * props) {}
-    virtual void setSelf(IActorRef * self) {}
-    virtual void setSender(IActorRef * sender) {}
-    virtual void setParent(IActorRef * parent) {}
-    virtual void setChild(IActorRef * child) {}
-    virtual void setSystem(ActorSystem * system) {}
+    virtual void IActorContext::setProps(Props * props) {}
+    virtual void IActorContext::setSelf(IActorRef * self) {}
+    virtual void IActorContext::setSender(IActorRef * sender) {}
+    virtual void IActorContext::setParent(IActorRef * parent) {}
+    virtual void IActorContext::setChild(IActorRef * child) {}
+    virtual void IActorContext::setSystem(ActorSystem * system) {}
 
     // IActorRefFactory
-    virtual IActorRef * actorOf(const Props * props, const std::string & name = "") { return nullptr; }
+    virtual IActorRef * actorOf(Props * props, const std::string & name = "") { return nullptr; }
     virtual ActorSelection * getActorSelection(const ActorPath * actorPath) const { return nullptr; }
     virtual ActorSelection * getActorSelection(const std::string & actorPath) const { return nullptr; }
 
@@ -110,16 +116,22 @@ public:
     virtual void stop(IActorRef * child) {}
     virtual void release() {}
 
+    virtual void preStart() {}
+
+    virtual void start();
+
     // IUntypedActorContext
     virtual void become(UntypedReceive * receive) {
         //
     };
 
     // ICell
-    virtual IActorRef * getSelf2() const { return nullptr; }
-    virtual ActorSystem * getSystem2() const { return nullptr; }
-    virtual ActorSystemImpl * getSystemImpl() const { return nullptr; }
-    virtual IInternalActorRef * getParent2() const { return self_; }
+    //virtual IActorRef * getSelf() const { return reinterpret_cast<IActorRef *>(self_); }
+    //virtual ActorSystem * getSystem() const { return reinterpret_cast<ActorSystem *>(systemImpl_); }
+    virtual ActorSystemImpl * getSystemImpl() const { return systemImpl_; }
+    virtual IInternalActorRef * getInternalParent() const { return parent_; }
+
+    IInternalActorRef * getInternelSelf() const { return self_; }
 };
 
 } // namespace TiActor

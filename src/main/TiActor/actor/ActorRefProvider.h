@@ -97,7 +97,7 @@ public:
 
     virtual IInternalActorRef * actorOf(ActorSystemImpl * system, Props * props, IInternalActorRef * supervisor,
         ActorPath * path, bool systemService, Deploy * deploy, bool lookupDeploy, bool async) {
-        //
+        return nullptr;
     }
 
     virtual IInternalActorRef * getRootGuardian() const  {
@@ -105,15 +105,15 @@ public:
     }
 
     virtual LocalActorRef * getGuardian() const {
-        //
+        return userGuardian_;
     }
 
     virtual LocalActorRef * getSystemGuardian() const {
-        //
+        return systemGuardian_;
     }
 
     virtual IActorRef * getDeadLetters() const {
-        //
+        return deadLetters_;
     }
 };
 

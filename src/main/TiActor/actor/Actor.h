@@ -46,8 +46,8 @@ protected:
     }
 
 public:
-    int start() {
-        return 0;
+    void start() {
+        //
     }
 };
 

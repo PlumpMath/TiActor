@@ -26,8 +26,8 @@ public:
     ~InternalCurrentActorCellKeeper() {
     }
 
-    static volatile ActorCell * getCurrent() {
-        return current_;
+    static ActorCell * getCurrent() {
+        return (ActorCell *)current_;
     }
 
     static void setCurrent(ActorCell * actorCell) {

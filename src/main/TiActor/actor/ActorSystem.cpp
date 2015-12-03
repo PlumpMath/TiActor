@@ -9,10 +9,15 @@
 #include "TiActor/actor/Deploy.h"
 #include "TiActor/basic/threadlocal.h"
 
+#include "TiActor/actor/IIndirectActorProducer.h"
+#include "TiActor/actor/DefaultProducer.h"
+
 namespace TiActor {
 
 Deploy * Deploy::local_ = new Deploy();
 Deploy * Deploy::none_ = new Deploy();
+
+IIndirectActorProducer * Props::defaultProducer = new DefaultProducer();
 
 volatile TI_THREAD_LOCAL ActorCell * InternalCurrentActorCellKeeper::current_ = nullptr;
 

@@ -6,11 +6,12 @@
 #pragma once
 #endif
 
+#include "TiActor/actor/MessageObject.h"
+
 namespace TiActor {
 
 class TimeSpan;
 class ICanTell;
-class MessageObject;
 class IActorRef;
 class ICancelable;
 

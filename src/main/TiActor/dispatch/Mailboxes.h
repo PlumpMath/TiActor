@@ -22,7 +22,8 @@ private:
     DeadLetterMailbox * deadLetterMailbox_;
 
 public:
-    Mailboxes(ActorSystem * system) : system_(system), deadLetterMailbox_(nullptr) {
+    Mailboxes(ActorSystem * system)
+        : system_(system), deadLetterMailbox_(nullptr) {
         //
     }
 

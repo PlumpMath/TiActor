@@ -159,6 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Action.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActivatorProducer.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Actor.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorBase.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorCell.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRefProvider.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystemImpl.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\DefaultProducer.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Deploy.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ExtendedActorSystem.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IActorContext.h" />
@@ -177,6 +179,7 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ICanTell.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ICell.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IDisposable.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IIndirectActorProducer.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IInternalActorRef.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IMessage.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\INoSerializationVerificationNeeded.h" />
@@ -225,6 +228,7 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\scheduler\IScheduler.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\scheduler\ITellScheduler.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\scheduler\ITimeProvider.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\scheduler\SchedulerBase.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\system\sleep.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\utils\MinMax.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\utils\PowOf2.h" />
@@ -233,6 +237,7 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\utils\ToString.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorCell.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystemImpl.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\system\sleep.c" />

@@ -34,21 +34,19 @@ public:
     typedef std::unordered_map<std::string, ActorSystem *>::const_iterator  const_actorsystem_iter;
     typedef std::pair<std::string, ActorSystem *>                           actorsystem_pair_type;
 
-    typedef std::unordered_map<std::string, Actor *>                    actor_map_type;
-    typedef std::unordered_map<std::string, Actor *>::iterator          actor_iter;
-    typedef std::unordered_map<std::string, Actor *>::const_iterator    const_actor_iter;
-    typedef std::pair<std::string, Actor *>                             actor_pair_type;
+    typedef std::unordered_map<std::string, ActorBase *>                    actor_map_type;
+    typedef std::unordered_map<std::string, ActorBase *>::iterator          actor_iter;
+    typedef std::unordered_map<std::string, ActorBase *>::const_iterator    const_actor_iter;
+    typedef std::pair<std::string, ActorBase *>                             actor_pair_type;
 
-private:
-    //
-
-public:
+protected:
     static actorsystem_map_type actorsystem_map_;
     static actor_map_type       actor_map_;
 
 public:
     ActorSystem(const std::string & name) {}
     ActorSystem(const std::string & name, const Config & withFallBack) {}
+
     ~ActorSystem() {
     }
 
@@ -91,8 +89,8 @@ public:
 
     static IActorRef * findActorRef(const std::string & name);
 
-    static void addActor(const std::string & name, Actor * actor) {
-        actor_pair_type actor_pair(name, actor);
+    static void addActor(const std::string & name, ActorBase * actorCell) {
+        actor_pair_type actor_pair(name, actorCell);
         actor_map_.insert(actor_pair);
     }
 
@@ -103,7 +101,7 @@ public:
     virtual std::string getName() const = 0;
     virtual void setName(const std::string & name) = 0;
 
-    virtual int start() = 0;
+    virtual void start() = 0;
     virtual void stop(IActorRef * actor) = 0;
     virtual void shutdown() = 0;
 };

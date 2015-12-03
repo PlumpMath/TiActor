@@ -134,6 +134,10 @@ public:
         name_ = name;
     }
 
+    virtual void start() {
+        //
+    }
+
     void unhandleMessage(MessageObject message) {
         std::cout << ">>> Unhandle Message, ClassName: " << StringUtils::toString(*this) << "<<<" << std::endl;
         std::cout << "Message Object: " << message << "." << std::endl;

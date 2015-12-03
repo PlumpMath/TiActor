@@ -59,11 +59,20 @@ public:
 	}
 
 private:
-    void initActorSystem(const std::string & name, const Config & withFallBack) {
+    void initActorSystem(const std::string & name, const Config & config) {
         actorsystem_map_.rehash(128);
         actor_map_.rehash(2048);
         name_ = name;
-        config_ = withFallBack;
+        config_ = config;
+
+        configureSettings(config);
+        configureEventStream();
+        configureProvider();
+        configureScheduler();
+        configureSerialization();
+        configureMailboxes();
+        configureDispatchers();
+        configureActorProducerPipeline();
     }
 
 protected:
@@ -71,12 +80,20 @@ protected:
 	ActorSystem * createAndStartSystemImpl(const std::string & name, const Config & config);
 
 public:
-    virtual std::string getName() const {
+virtual std::string getName() const {
         return name_;
     }
 
     virtual void setName(const std::string & name) {
         name_ = name;
+    }
+
+    ActorSystem * getSystem() {
+        return static_cast<ActorSystem *>((ActorSystemImpl *)this);
+    }
+
+    ActorSystemImpl * getSystemImpl() {
+        return const_cast<ActorSystemImpl *>(this);
     }
 
     // ExtendedActorSystem
@@ -115,12 +132,21 @@ public:
         //return deadLetters_;
     }
 
+    void configureSettings(const Config & config);
+    void configureEventStream();
+    void configureProvider();
+    void configureScheduler();
+    void configureSerialization();
+    void configureMailboxes();
+    void configureDispatchers();
+    void configureActorProducerPipeline();
+
     virtual ActorSystem * create() {
         return ActorSystem::create(name_, config_);
     }
 
     // IActorRefFactory
-    IActorRef * actorOf(const Props * props, const std::string & name = "");
+    IActorRef * actorOf(Props * props, const std::string & name = "");
 
     ActorSelection * getActorSelection(const ActorPath * actorPath) const {
         return nullptr;
@@ -136,8 +162,8 @@ public:
     }
 
     // Startup the actor systems
-    virtual int start() {
-        return 0;
+    virtual void start() {
+        //
     }
 
     virtual void stop(IActorRef * actor) {

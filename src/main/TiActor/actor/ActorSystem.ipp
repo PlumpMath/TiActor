@@ -21,7 +21,7 @@ ActorSystem::actor_map_type			ActorSystem::actor_map_;
 
 IActorRef * ActorSystem::findActorRef(const std::string & name) {
     IActorRef * actorRef = nullptr;
-    Actor * actor;
+    ActorBase * actor;
     const_actor_iter actorIter = actor_map_.find(name);
     if (actorIter != actor_map_.end()) {
         actor = actorIter->second;
@@ -54,7 +54,7 @@ void ActorSystem::destroyAll() {
     // Actor HashMap
     actor_iter ait = actor_map_.begin();
     for (ait = actor_map_.begin(); ait != actor_map_.end(); ++ait) {
-        Actor * actor = ait->second;
+        ActorBase * actor = ait->second;
         actor_map_.erase(ait);
         if (actor) {
             delete actor;

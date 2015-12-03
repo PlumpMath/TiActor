@@ -8,29 +8,39 @@
 
 #include <string>
 
-#include <TiActor/actor/Deploy.h>
+#include "TiActor/actor/Deploy.h"
+#include "TiActor/actor/IIndirectActorProducer.h"
+#include "TiActor/actor/DefaultProducer.h"
+#include "TiActor/actor/ActivatorProducer.h"
 
 namespace TiActor {
 
 class Router;
 class Actor;
 class UntypedActor;
+class ActorBase;
+class IIndirectActorProducer;
 
 class Props {
 private:
     std::string name_;
     Deploy * deploy_;
-    Actor * actor_;
+    ActorBase * actor_;
     uint32_t inputType_;
     uint32_t outputType_;
+    IIndirectActorProducer * producer_;
+
+    static IIndirectActorProducer * defaultProducer;
 
 public:
     static bool staticInited;
     static Deploy * defaultDeploy;
 
 protected:
-    Props() : deploy_(nullptr), actor_(nullptr), inputType_(0), outputType_(0) {
+    Props() : deploy_(nullptr), actor_(nullptr), inputType_(0), outputType_(0),
+              producer_(nullptr) {
         deploy_ = defaultDeploy;
+        initProps();
     }
 
     Props(const Props & src) {
@@ -41,22 +51,35 @@ public:
     Props(const Deploy & deploy, uint32_t inputType) : Props() {
         deploy_ = const_cast<Deploy * >(&deploy);
         inputType_ = inputType;
+        initProps();
     }
 
     Props(const Deploy * deploy, uint32_t inputType) : Props() {
         deploy_ = const_cast<Deploy * >(deploy);
         inputType_ = inputType;
+        initProps();
     }
 
-    Props(const Actor * actor) : Props() {
-        actor_ = const_cast<Actor * >(actor);
+    Props(const ActorBase * actor) : Props() {
+        actor_ = const_cast<ActorBase * >(actor);
+        initProps();
     }
 
     Props(const UntypedActor * actor) : Props() {
-        actor_ = reinterpret_cast<Actor * >(const_cast<UntypedActor *>(actor));
+        actor_ = reinterpret_cast<ActorBase * >(const_cast<UntypedActor *>(actor));
+        initProps();
     }
 
     ~Props();
+
+    void initProps() {
+        //
+        producer_ = createProducer();
+    }
+
+    static IIndirectActorProducer * createProducer() {
+        return new ActivatorProducer();
+    }
 
     static void staticInit() {
         if (!staticInited) {
@@ -74,6 +97,13 @@ public:
             }
             staticInited = false;
         }
+    }
+
+    virtual ActorBase * newActor() {
+        if (producer_) {
+            return producer_->produce();
+        }
+        return nullptr;
     }
 
     std::string getName() const {
