@@ -108,6 +108,8 @@ private:
     int numOfMessages_;
     int numOfElements_;
 
+    volatile int numOfResults;
+
     IActorRef * listener_;
     IActorRef * workerRouter_;
 
@@ -118,7 +120,9 @@ public:
 
 public:
     Master(int numOfWorkers, int numOfMessages, int numOfElements, IActorRef * listener)
-        : UntypedActor() {
+        : UntypedActor(), numOfWorkers_(numOfWorkers), numOfMessages_(numOfMessages),
+          numOfElements_(numOfElements), numOfResults(0), listener_(nullptr),
+          workerRouter_(nullptr) {
         this->numOfMessages_ = numOfMessages;
         this->numOfElements_ = numOfElements;
         this->listener_ = listener;
@@ -132,18 +136,22 @@ public:
                     TiActor::Props * props = TiActor::Props::createWithRouter(deploy, 0, routerConfig);
                     if (props) {
                         workerRouter_ = this->getContext()->actorOf(props, "workerRouter");
-                        delete props;
+                        //delete props;
                     }
-                    delete deploy;
+                    //delete deploy;
                 }
-                delete routerConfig;
+                //delete routerConfig;
             }
-            delete router;
+            //delete router;
         }        
     }
 
     ~Master() {
-        listener_ = nullptr;
+        //listener_ = nullptr;
+        if (listener_) {
+            delete listener_;
+            listener_ = nullptr;
+        }
         if (workerRouter_) {
             delete workerRouter_;
             workerRouter_ = nullptr;

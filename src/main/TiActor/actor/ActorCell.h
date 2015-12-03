@@ -83,6 +83,8 @@ public:
         return nullptr;
     }
 
+    virtual bool isTerminated() const { return false; }
+
     // IActorCntext
     virtual Props * getProps() const { return nullptr; }
     virtual IActorRef * getSelf() const { return reinterpret_cast<IActorRef *>(self_); }

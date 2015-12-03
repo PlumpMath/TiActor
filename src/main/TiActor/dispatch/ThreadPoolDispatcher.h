@@ -7,11 +7,13 @@
 #endif
 
 #include "TiActor/dispatch/MessageDispatcher.h"
+//#include "TiActor/actor/Action.h"
 
 namespace TiActor {
 
 class Mailbox;
 class Action;
+class action_type;
 
 class ThreadPoolDispatcher : public MessageDispatcher {
 private:
@@ -25,13 +27,38 @@ public:
         //
     }
 
-    virtual void schedule(Action * run) {
+    virtual void schedule(action_type run) {
         if (isFullTrusted_) {
             //ThreadPool::UnsafeQueueUserWorkItem(wc, null);
         }
         else {
             //ThreadPool::QueueUserWorkItem(wc, null);
         }
+    }
+
+    virtual void schedule(run_func run, void * data) {
+        if (isFullTrusted_) {
+            //ThreadPool::UnsafeQueueUserWorkItem(wc, null);
+        }
+        else {
+            //ThreadPool::QueueUserWorkItem(wc, null);
+        }
+    };
+
+    virtual void dispatch(ActorCell * cell, Envelope * envelope) {
+        //
+    }
+
+    virtual void systemDispatch(ActorCell * cell, Envelope * envelope) {
+        //
+    }
+
+    virtual void attach(ActorCell * cell) {
+        //
+    }
+
+    virtual void detach(ActorCell * cell) {
+        //
     }
 };
 

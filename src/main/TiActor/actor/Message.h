@@ -6,14 +6,18 @@
 #pragma once
 #endif
 
-#include <string>
-
-#include "TiActor/basic/stddef.h"
 #include "TiActor/actor/MessageBase.h"
 
 namespace TiActor {
 
-class ActorPath;
+class IActorRef;
+class IMessage;
+
+class Envelope {
+public:
+    IActorRef * sender;
+    IMessage *  message;
+};
 
 class Message : public MessageBase<Message> {
 private:

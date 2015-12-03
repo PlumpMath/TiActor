@@ -6,10 +6,12 @@
 #pragma once
 #endif
 
+#include "TiActor/actor/Action.h"
+
 namespace TiActor {
 
 class ActorCell;
-class IMessage;
+class Envelope;
 class Action;
 
 class MessageDispatcher {
@@ -32,11 +34,14 @@ public:
         throughput_ = throughput;
     }
 
-    virtual void schedule(Action * run) {
+    virtual void schedule(action_type run) {
     };
 
-    virtual void dispatch(ActorCell * cell, IMessage * message) = 0;
-    virtual void systemDispatch(ActorCell * cell, IMessage * envelope) = 0;
+    virtual void schedule(run_func run, void * data) {
+    };
+
+    virtual void dispatch(ActorCell * cell, Envelope * envelope) = 0;
+    virtual void systemDispatch(ActorCell * cell, Envelope * envelope) = 0;
 
     virtual void attach(ActorCell * cell) = 0;
     virtual void detach(ActorCell * cell) = 0;

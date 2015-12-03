@@ -13,8 +13,14 @@
 
 #include <TiActor/basic/stddef.h>
 #include <TiActor/queue/RingQueue.h>
+#include <TiActor/dispatch/ConcurrentQueueMailbox.h>
+#include <TiActor/actor/Action.h>
 
+#include <TiActor/scheduler/IActionScheduler.h>
 #include <TiActor/config/static_link.h>
+
+#define TI_USE_VLD  1
+#include <TiActor/basic/msvc/vld.h>
 
 void RingQueue_simple_test()
 {
@@ -29,6 +35,15 @@ void RingQueue_simple_test()
     ret = *ret_val;
 
     std::cout << "pop  value: " << ret << std::endl;
+}
+
+void foo_1() {
+    std::cout << "This is foo_1()." << std::endl;
+}
+
+void action_test(action_type action) {
+    std::cout << "This is action_test()." << std::endl;
+    action();
 }
 
 int main(int argn, char * argv[])
@@ -57,6 +72,14 @@ int main(int argn, char * argv[])
     Pi::main(argn, argv);
 
     RingQueue_simple_test();
+
+    std::cout << std::endl;
+
+    ConcurrentQueueMailbox mailbox;
+    mailbox.hasMessages();
+
+    action_type foo = foo_1;
+    action_test(foo);
 
     std::cout << std::endl;
     system("pause");

@@ -81,21 +81,29 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\</OutDir>
     <IntDir>$(SolutionDir)\obj\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\$(ProjectName)\</IntDir>
+    <IncludePath>D:\Program32\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Program32\Visual Leak Detector\lib\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\</OutDir>
     <IntDir>$(SolutionDir)\obj\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\$(ProjectName)\</IntDir>
+    <IncludePath>D:\Program32\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Program32\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\</OutDir>
     <IntDir>$(SolutionDir)\obj\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\$(ProjectName)\</IntDir>
+    <IncludePath>D:\Program32\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Program32\Visual Leak Detector\lib\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\</OutDir>
     <IntDir>$(SolutionDir)\obj\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\$(ProjectName)\</IntDir>
+    <IncludePath>D:\Program32\Visual Leak Detector\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Program32\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

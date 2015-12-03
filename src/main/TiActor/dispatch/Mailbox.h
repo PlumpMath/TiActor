@@ -16,6 +16,7 @@ class IActorRef;
 class IMessage;
 class ActorCell;
 class MessageDispatcher;
+class Envelope;
 
 class Mailbox : public IDisposable {
 public:
@@ -82,7 +83,7 @@ protected:
     }
 
 public:
-    virtual void post(IActorRef * receiver, IMessage * message) = 0;
+    virtual void post(IActorRef * receiver, Envelope * envelope) = 0;
 
     // IDisposable
     void dispose() { }
@@ -97,7 +98,7 @@ public:
     }
 
     bool isSuspended() const {
-        return 0;
+        return (status_ != MailboxSuspendStatus::NotSuspended);
     }
 
     int getStatus() const {

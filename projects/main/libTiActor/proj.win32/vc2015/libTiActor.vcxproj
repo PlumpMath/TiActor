@@ -158,6 +158,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Action.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Actor.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorBase.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorCell.h" />
@@ -183,10 +184,12 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ISurrogated.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ISystemMessage.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IUntypedActorContext.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\LocalActorRef.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Message.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\MessageBase.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\MessageObject.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Props.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\RootGuardianActorRef.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\UntypedActor.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\all.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\inttypes.h" />

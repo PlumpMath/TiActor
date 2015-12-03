@@ -6,6 +6,8 @@
 #pragma once
 #endif
 
+#include "TiActor/actor/Action.h"
+
 namespace TiActor {
 
 class TimeSpan;
@@ -14,10 +16,19 @@ class ICancelable;
 
 class IActionScheduler {
 public:
-    virtual void scheduleOnce(TimeSpan * delay, Action * action, ICancelable * cancelable) = 0;
-    virtual void scheduleOnce(TimeSpan * delay, Action * action) = 0;
-    virtual void scheduleRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, Action * action, ICancelable * cancelable) = 0;
-    virtual void scheduleRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, Action * action) = 0;
+    virtual void scheduleOnce(TimeSpan * delay, action_type action, ICancelable * cancelable) = 0;
+    virtual void scheduleOnce(TimeSpan * delay, action_type action) = 0;
+    virtual void scheduleRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, action_type action, ICancelable * cancelable) = 0;
+    virtual void scheduleRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, action_type action) = 0;
+
+    template <typename T>
+    void scheduleOnce(TimeSpan * delay, action_type_def(T) action, ICancelable * cancelable) {};
+    template <typename T>
+    void scheduleOnce(TimeSpan * delay, action_type_def(T) action) {};
+    template <typename T>
+    void scheduleRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, action_type_def(T) action, ICancelable * cancelable) {};
+    template <typename T>
+    void scheduleRepeatedly(TimeSpan * initialDelay, TimeSpan * interval, action_type_def(T) action) {};
 };
 
 } // namespace TiActor

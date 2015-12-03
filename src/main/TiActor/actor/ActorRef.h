@@ -22,17 +22,18 @@
 
 namespace TiActor {
 
+class ICell;
+class IActorRefProvider;
+
 class ILocalRef : public IActorRefScope {
 public:
-    bool isLocal() const { return true; }
+    virtual bool isLocal() const { return true; }
 };
 
 class IRepointableRef : public IActorRefScope {
 public:
     virtual bool isStarted() const = 0;
 };
-
-class IActorRefProvider;
 
 class ActorRefBase : public IActorRef {
 private:
@@ -119,6 +120,14 @@ public:
 
     // IActorRefScope
     virtual bool isLocal() const { return true; }
+};
+
+class ActorRefWithCell : public InternalActorRefBase {
+public:
+    virtual ICell * getUnderlying() const = 0;
+
+    virtual IInternalActorRef * getChildrens() const = 0;
+    virtual IInternalActorRef * getSingleChild(const std::string & name) const = 0;
 };
 
 class Nobody : public MinimalActorRef {

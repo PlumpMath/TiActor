@@ -13,6 +13,8 @@
 #include "TiActor/config/Config.h"
 #include "TiActor/config/ConfigurationFactory.h"
 
+#include "TiActor/actor/ActorRefProvider.h"
+
 namespace TiActor {
 
 class ActorSystem;
@@ -32,22 +34,23 @@ private:
     std::string name_;
     Config config_;
 
-    Dispatchers * dispatchers_;
-    Mailboxes * mailboxes_;
-    IActorRef * deadLetters_;
-    IScheduler * scheduler_;
+    IActorRefProvider * provider_;
+    Dispatchers *       dispatchers_;
+    Mailboxes *         mailboxes_;
+    IScheduler *        scheduler_;
+    IActorRef *         deadLetters_;
 
 public:
     ActorSystemImpl(const std::string & name) : ExtendedActorSystem(name),
         dispatchers_(nullptr), mailboxes_(nullptr),
-        deadLetters_(nullptr), scheduler_(nullptr) {
+        scheduler_(nullptr), deadLetters_(nullptr) {
         initActorSystem(name, ConfigurationFactory::load());
     }
 
 	ActorSystemImpl(const std::string & name, const Config & withFallBack)
 		: ExtendedActorSystem(name, withFallBack),
           dispatchers_(nullptr), mailboxes_(nullptr),
-          deadLetters_(nullptr), scheduler_(nullptr) {
+          scheduler_(nullptr), deadLetters_(nullptr) {
         initActorSystem(name, withFallBack);
 	}
 
@@ -57,8 +60,8 @@ public:
 
 private:
     void initActorSystem(const std::string & name, const Config & withFallBack) {
-        actorsystem_map_.rehash(256);
-        actor_map_.rehash(512);
+        actorsystem_map_.rehash(128);
+        actor_map_.rehash(2048);
         name_ = name;
         config_ = withFallBack;
     }
@@ -76,6 +79,26 @@ public:
         name_ = name;
     }
 
+    // ExtendedActorSystem
+    IActorRefProvider * getProvider() const {
+        return provider_;
+    }
+
+    IInternalActorRef * getGuardian() const {
+        //
+        return nullptr;
+    }
+
+    IInternalActorRef * getSystemGuardian() const {
+        //
+        return nullptr;
+    }
+
+    IActorRef * systemActorOf(const Props * props, const std::string & name) {
+        //
+        return nullptr;
+    }
+
     virtual Dispatchers * getDispatchers() const {
         return dispatchers_;
     }
@@ -85,7 +108,11 @@ public:
     }
 
     virtual IActorRef * getDeadLetters() const {
-        return deadLetters_;
+        if (provider_ != nullptr) {
+            return provider_->getDeadLetters();
+        }
+        return nullptr;
+        //return deadLetters_;
     }
 
     virtual ActorSystem * create() {
@@ -106,27 +133,6 @@ public:
     // IDisposable
     void dispose() {
         //
-    }
-
-    // ExtendedActorSystem
-    IActorRefProvider * getProvider() const {
-        //
-        return nullptr;
-    }
-
-    IInternalActorRef * getGuardian() const {
-        //
-        return nullptr;
-    }
-
-    IInternalActorRef * getSystemGuardian() const {
-        //
-        return nullptr;
-    }
-
-    IActorRef * systemActorOf(const Props * props, const std::string & name) {
-        //
-        return nullptr;
     }
 
     // Startup the actor systems
