@@ -33,6 +33,7 @@ public:
         else {
             //ThreadPool::QueueUserWorkItem(wc, null);
         }
+        run();
     }
 
     virtual void schedule(run_func run, void * data) {
@@ -42,6 +43,7 @@ public:
         else {
             //ThreadPool::QueueUserWorkItem(wc, null);
         }
+        (*run)(data);
     };
 
     virtual void dispatch(ActorCell * cell, Envelope * envelope) {

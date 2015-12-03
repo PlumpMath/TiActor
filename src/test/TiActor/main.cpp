@@ -19,7 +19,7 @@
 #include <TiActor/scheduler/IActionScheduler.h>
 #include <TiActor/config/static_link.h>
 
-#define TI_USE_VLD  1
+#define TI_USE_VLD  0
 #include <TiActor/basic/msvc/vld.h>
 
 void RingQueue_simple_test()

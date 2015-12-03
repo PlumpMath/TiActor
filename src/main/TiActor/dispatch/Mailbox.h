@@ -58,8 +58,10 @@ public:
 
     Mailbox(const Mailbox & src) {
         this->actorCell_ = src.actorCell_;
+        this->suspendStatus_ = src.suspendStatus_;
         this->status_ = src.status_;
         this->dispatcher = src.dispatcher;
+        this->hasUnscheduledMessages = src.hasUnscheduledMessages;
         this->name_ = src.name_;
     }
 
@@ -98,7 +100,7 @@ public:
     }
 
     bool isSuspended() const {
-        return (status_ != MailboxSuspendStatus::NotSuspended);
+        return (suspendStatus_ != MailboxSuspendStatus::NotSuspended);
     }
 
     int getStatus() const {

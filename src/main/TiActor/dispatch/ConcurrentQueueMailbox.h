@@ -36,7 +36,7 @@ private:
 public:
     ConcurrentQueueMailbox()
         : Mailbox(), systemMessages_(true, true),
-          userMessages_(true, true), isClosed_(true) {
+          userMessages_(true, true), isClosed_(false) {
         //
     }
 
@@ -75,8 +75,9 @@ public:
             this->dispatcher->schedule(&ConcurrentQueueMailbox::run_s, (void *)this);
 #else
             //action_type_def2(ConcurrentQueueMailbox) _run1 = &ConcurrentQueueMailbox::run;
-            action_type _run = std::bind(&ConcurrentQueueMailbox::run, (const ConcurrentQueueMailbox)*this);
-            this->dispatcher->schedule(_run);
+            action_type _run = std::bind(&ConcurrentQueueMailbox::run, this);
+            if (this->dispatcher)
+                this->dispatcher->schedule(_run);
 #endif
         }
     }

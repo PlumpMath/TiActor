@@ -13,7 +13,7 @@
 namespace TiActor {
 
 void ActorCell::init() {
-    if (inited_) {
+    if (!inited_) {
         if (dispatcher_)
             dispatcher_->attach(this);
 
@@ -28,6 +28,7 @@ void ActorCell::init() {
             envelope->message = reinterpret_cast<IMessage *>(new CreateSystemMessage());
             mailbox_->post(self, envelope);
         }
+        inited_ = true;
     }
 }
 
@@ -36,7 +37,7 @@ ActorBase * ActorCell::newActor()
     prepareForNewActor();
 
     ActorBase * instance = nullptr;
-    useThreadContext( [&]() {
+    useThreadContext([&]() {
         state_ = state_->clearBehaviorStack();
         instance = createNewActorInstance();
     });

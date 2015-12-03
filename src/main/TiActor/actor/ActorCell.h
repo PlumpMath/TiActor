@@ -42,15 +42,15 @@ private:
     bool inited_;
 
 public:
-    ActorCell() : self_(nullptr), props_(nullptr), actor_(nullptr), mailbox_(nullptr),
+    ActorCell() : self_(nullptr), parent_(nullptr), props_(nullptr), actor_(nullptr), mailbox_(nullptr),
         dispatcher_(nullptr), systemImpl_(nullptr), uid_(0), actorHasBeenCleared_(false), inited_(false) {
     }
 
     ActorCell(ActorSystemImpl * system, IInternalActorRef * self, Props * props,
         MessageDispatcher * dispatcher, IInternalActorRef * parent = nullptr)
-        : self_(self), props_(props), actor_(nullptr), mailbox_(nullptr),
-          dispatcher_(dispatcher), systemImpl_(system), uid_(0), actorHasBeenCleared_(false),
-          inited_(false) {
+        : self_(self), parent_(parent), props_(props), actor_(nullptr), mailbox_(nullptr),
+        dispatcher_(dispatcher), systemImpl_(system), uid_(0), actorHasBeenCleared_(false),
+        inited_(false) {
     }
 
     ActorCell(const ActorCell & src) {
@@ -100,7 +100,7 @@ public:
     virtual IActorRef * getSender() const { return nullptr; }
     virtual IActorRef * getParent() const { return reinterpret_cast<IActorRef *>(parent_); }
     virtual IActorRef * getChild() const { return nullptr; }
-    virtual ActorSystem * getSystem() const { return reinterpret_cast<ActorSystem *>(systemImpl_);; }
+    virtual ActorSystem * getSystem() const { return reinterpret_cast<ActorSystem *>(systemImpl_); }
 
     virtual void IActorContext::setProps(Props * props) {}
     virtual void IActorContext::setSelf(IActorRef * self) {}
