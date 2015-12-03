@@ -9,6 +9,8 @@
 #include <TiActor/actor/ActorSystem.h>
 #include <TiActor/utils/ToString.h>
 
+#include <TiActor/actor/Props.ipp>
+#include <TiActor/actor/ActorRef.ipp>
 #include <TiActor/actor/ActorSystem.ipp>
 #include <TiActor/config/static_link.h>
 

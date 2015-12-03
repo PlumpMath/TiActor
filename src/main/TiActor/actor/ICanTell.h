@@ -14,7 +14,7 @@ class IActorRef;
 
 class ICanTell {
 public:
-    virtual void tell(MessageObject message, const IActorRef * sender = nullptr) = 0;
+    virtual void tell(MessageObject message, IActorRef * sender = nullptr) = 0;
 };
 
 } // namespace TiActor

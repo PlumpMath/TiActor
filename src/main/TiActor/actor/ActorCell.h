@@ -11,6 +11,7 @@
 #include "TiActor/basic/stdint.h"
 #include "TiActor/actor/IUntypedActorContext.h"
 #include "TiActor/actor/ICell.h"
+#include "TiActor/actor/MessageObject.h"
 #include "TiActor/dispatch/MessageDispatcher.h"
 
 namespace TiActor {
@@ -38,16 +39,18 @@ private:
     IActorState * state_;
     uint64_t uid_;
     bool actorHasBeenCleared_;
+    bool inited_;
 
 public:
     ActorCell() : self_(nullptr), props_(nullptr), actor_(nullptr), mailbox_(nullptr),
-        dispatcher_(nullptr), systemImpl_(nullptr), uid_(0), actorHasBeenCleared_(false) {
+        dispatcher_(nullptr), systemImpl_(nullptr), uid_(0), actorHasBeenCleared_(false), inited_(false) {
     }
 
     ActorCell(ActorSystemImpl * system, IInternalActorRef * self, Props * props,
         MessageDispatcher * dispatcher, IInternalActorRef * parent = nullptr)
         : self_(self), props_(props), actor_(nullptr), mailbox_(nullptr),
-          dispatcher_(dispatcher), systemImpl_(system), uid_(0), actorHasBeenCleared_(false) {
+          dispatcher_(dispatcher), systemImpl_(system), uid_(0), actorHasBeenCleared_(false),
+          inited_(false) {
     }
 
     ActorCell(const ActorCell & src) {
@@ -132,6 +135,8 @@ public:
     virtual IInternalActorRef * getInternalParent() const { return parent_; }
 
     IInternalActorRef * getInternelSelf() const { return self_; }
+
+    virtual void post(IActorRef * sender, MessageObject message);
 };
 
 } // namespace TiActor

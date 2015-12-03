@@ -28,7 +28,7 @@ IInternalActorRef * MinimalActorRef::getParent() const {
     return reinterpret_cast<IInternalActorRef *>(ActorRefs::getNobody());
 }
 
-void ActorRefBase::tell(MessageObject message, const IActorRef * sender) {
+void ActorRefBase::tell(MessageObject message, IActorRef * sender /* = nullptr */) {
     if (sender == nullptr) {
         sender = ActorRefs::getNoSender();
     }

@@ -13,7 +13,6 @@ namespace TiActor {
 
 class Mailbox;
 class Action;
-class action_type;
 
 class ThreadPoolDispatcher : public MessageDispatcher {
 private:

@@ -13,19 +13,21 @@
 namespace TiActor {
 
 void ActorCell::init() {
-    if (dispatcher_)
-        dispatcher_->attach(this);
+    if (inited_) {
+        if (dispatcher_)
+            dispatcher_->attach(this);
 
-    mailbox_ = new ConcurrentQueueMailbox();
-    if (mailbox_) {
-        mailbox_->setup(dispatcher_);
-        mailbox_->setActorCell(this);
+        mailbox_ = new ConcurrentQueueMailbox();
+        if (mailbox_) {
+            mailbox_->setup(dispatcher_);
+            mailbox_->setActorCell(this);
 
-        IActorRef * self = this->getSelf();
-        Envelope * envelope = new Envelope();
-        envelope->sender = self;
-        envelope->message = reinterpret_cast<IMessage *>(new CreateSystemMessage());
-        mailbox_->post(self, envelope);
+            IActorRef * self = this->getSelf();
+            Envelope * envelope = new Envelope();
+            envelope->sender = self;
+            envelope->message = reinterpret_cast<IMessage *>(new CreateSystemMessage());
+            mailbox_->post(self, envelope);
+        }
     }
 }
 
@@ -46,6 +48,15 @@ void ActorCell::start() {
     mailbox_->start();
 }
 
+void ActorCell::post(IActorRef * sender, MessageObject message)
+{
+    if (mailbox_ == nullptr) return;
+    auto envelope = new Envelope();
+    envelope->sender = sender;
+    envelope->message = (IMessage *)message;
+    mailbox_->post(getSelf(), envelope);
+}
+
 void ActorCell::prepareForNewActor()
 {
     state_ = state_->clearBehaviorStack();
@@ -56,7 +67,7 @@ ActorBase * ActorCell::createNewActorInstance()
 {
     ActorBase * actor = nullptr;
     if (props_)
-        actor = props_->newActor();
+        actor = props_->newActor(this->getActorContext());
     return actor;
 }
 

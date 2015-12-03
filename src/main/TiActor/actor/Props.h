@@ -99,9 +99,9 @@ public:
         }
     }
 
-    virtual ActorBase * newActor() {
+    virtual ActorBase * newActor(IActorContext * context) {
         if (producer_) {
-            return producer_->produce();
+            return producer_->produce(context);
         }
         return nullptr;
     }

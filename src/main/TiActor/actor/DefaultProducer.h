@@ -17,7 +17,7 @@ class ActorBase;
 
 class DefaultProducer : public IIndirectActorProducer {
 public:
-    virtual ActorBase * produce() {
+    virtual ActorBase * produce(IActorContext * context) {
         throw std::logic_error("No actor producer specified!");
         return nullptr;
     }

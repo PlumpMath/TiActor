@@ -15,7 +15,7 @@ namespace TiActor {
 
 class ActivatorProducer : public IIndirectActorProducer {
 public:
-    virtual ActorBase * produce() {
+    virtual ActorBase * produce(IActorContext * context) {
         return static_cast<ActorBase *>(new Actor());
     }
 

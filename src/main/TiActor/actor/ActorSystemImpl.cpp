@@ -3,8 +3,10 @@
 #include "TiActor/actor/ActorSystem.h"
 #include "TiActor/actor/ActorSystemImpl.h"
 #include "TiActor/actor/ActorRefProvider.h"
+#include "TiActor/actor/LocalActorRef.h"
 #include "TiActor/dispatch/Mailboxes.h"
 #include "TiActor/dispatch/Dispatchers.h"
+#include "TiActor/dispatch/ThreadPoolDispatcher.h"
 #include "TiActor/scheduler/SchedulerBase.h"
 
 namespace TiActor {
@@ -25,7 +27,10 @@ ActorSystem * ActorSystemImpl::createAndStartSystemImpl(const std::string & name
 // IActorRefFactory
 IActorRef * ActorSystemImpl::actorOf(Props * props, const std::string & name) {
     if (InternalCurrentActorCellKeeper::getCurrent() == nullptr) {
-        ActorCell * actorCell = new ActorCell(this->getSystemImpl(), nullptr, props, nullptr, nullptr);
+        MessageDispatcher * dispatcher = new ThreadPoolDispatcher(nullptr);
+        LocalActorRef * actorRef = new LocalActorRef(this->getSystemImpl(), props, dispatcher, nullptr, nullptr);
+        ActorCell * actorCell = actorRef->getCell();
+        actorCell->init();
         InternalCurrentActorCellKeeper::setCurrent(actorCell);
     }
 
