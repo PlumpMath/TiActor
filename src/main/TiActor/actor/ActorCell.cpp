@@ -54,7 +54,9 @@ void ActorCell::prepareForNewActor()
 
 ActorBase * ActorCell::createNewActorInstance()
 {
-    auto actor = props_->newActor();
+    ActorBase * actor = nullptr;
+    if (props_)
+        actor = props_->newActor();
     return actor;
 }
 
