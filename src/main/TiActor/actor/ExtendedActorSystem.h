@@ -32,7 +32,7 @@ public:
     virtual IInternalActorRef * getGuardian() const = 0;
     virtual IInternalActorRef * getSystemGuardian() const = 0;
 
-    virtual IActorRef * systemActorOf(const Props * props, const std::string & name) = 0;
+    virtual IActorRef * systemActorOf(Props * props, const std::string & name) = 0;
 };
 
 } // namespace TiActor

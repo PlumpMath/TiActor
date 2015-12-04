@@ -30,7 +30,7 @@ public:
                   IInternalActorRef * supervisor, ActorPath * path)
         : system_(nullptr), props_(nullptr),
           dispatcher_(nullptr), path_(nullptr), cell_(nullptr) {
-        system_ = system;
+        system_ = reinterpret_cast<ActorSystem *>(system);
         props_ = props;
         dispatcher_ = dispatcher;
         path_ = path;
@@ -53,8 +53,9 @@ private:
                                 MessageDispatcher * dispatcher,
                                 IInternalActorRef * supervisor) {
         ActorCell * cell = new ActorCell(system, this, props, dispatcher, supervisor);
-        if (cell)
+        if (cell) {
             cell->init();
+        }
         return cell;
     }
 

@@ -47,7 +47,7 @@ private:
     LocalActorRef * systemGuardian_;
     Mailbox * defaultMailbox_;          // TODO: switch to MailboxType
 
-    std::unordered_map<std::string, IInternalActorRef *> extraNames_;   // = new std:;unordered_map<std::string, IInternalActorRef *>();
+    std::unordered_map<std::string, IInternalActorRef *> extraNames_;
 
 protected:
     void inernalInit(const std::string & systemName, Deployer * deployer) {

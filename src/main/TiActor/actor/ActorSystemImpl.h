@@ -8,12 +8,12 @@
 
 #include <string>
 
-#include "TiActor/basic/stddef.h"
 #include "TiActor/actor/ExtendedActorSystem.h"
 #include "TiActor/config/Config.h"
 #include "TiActor/config/ConfigurationFactory.h"
 
 #include "TiActor/actor/ActorRefProvider.h"
+#include "TiActor/actor/LocalActorRef.h"
 
 namespace TiActor {
 
@@ -79,8 +79,19 @@ protected:
 	ActorSystem * createSystemImpl(const std::string & name, const Config & config);
 	ActorSystem * createAndStartSystemImpl(const std::string & name, const Config & config);
 
+    ActorCell * getSystemGuardianCell() const {
+        ActorCell * cell = nullptr;
+        if (provider_) {
+            LocalActorRef * sysGuardian = provider_->getSystemGuardian();
+            if (sysGuardian) {
+                cell = sysGuardian->getCell();
+            }
+        }
+        return cell;
+    }
+
 public:
-virtual std::string getName() const {
+    virtual std::string getName() const {
         return name_;
     }
 
@@ -96,24 +107,45 @@ virtual std::string getName() const {
         return const_cast<ActorSystemImpl *>(this);
     }
 
+    // IActorRefFactory
+    IActorRef * actorOf(Props * props, const std::string & name = "");
+
+    ActorSelection * getActorSelection(const ActorPath * actorPath) const {
+        return nullptr;
+    }
+
+    ActorSelection * getActorSelection(const std::string & actorPath) const {
+        return nullptr;
+    }
+
     // ExtendedActorSystem
     IActorRefProvider * getProvider() const {
         return provider_;
     }
 
     IInternalActorRef * getGuardian() const {
-        //
-        return nullptr;
+        IInternalActorRef * guardian = nullptr;
+        if (provider_) {
+            guardian = reinterpret_cast<IInternalActorRef *>(provider_->getGuardian());
+        }
+        return guardian;
     }
 
     IInternalActorRef * getSystemGuardian() const {
-        //
-        return nullptr;
+        IInternalActorRef * guardian = nullptr;
+        if (provider_) {
+            guardian = reinterpret_cast<IInternalActorRef *>(provider_->getSystemGuardian());
+        }
+        return guardian;
     }
 
-    IActorRef * systemActorOf(const Props * props, const std::string & name) {
-        //
-        return nullptr;
+    IActorRef * systemActorOf(Props * props, const std::string & name) {
+        IActorRef * actor = nullptr;
+        ActorCell * cell = getSystemGuardianCell();
+        if (cell) {
+            actor = cell->actorOf(props, name);
+        }
+        return actor;
     }
 
     virtual Dispatchers * getDispatchers() const {
@@ -125,11 +157,11 @@ virtual std::string getName() const {
     }
 
     virtual IActorRef * getDeadLetters() const {
-        if (provider_ != nullptr) {
-            return provider_->getDeadLetters();
+        IActorRef * deadLetters = nullptr;
+        if (provider_) {
+            deadLetters = provider_->getDeadLetters();
         }
-        return nullptr;
-        //return deadLetters_;
+        return deadLetters;
     }
 
     void configureSettings(const Config & config);
@@ -145,26 +177,13 @@ virtual std::string getName() const {
         return ActorSystem::create(name_, config_);
     }
 
-    // IActorRefFactory
-    IActorRef * actorOf(Props * props, const std::string & name = "");
-
-    ActorSelection * getActorSelection(const ActorPath * actorPath) const {
-        return nullptr;
-    }
-
-    ActorSelection * getActorSelection(const std::string & actorPath) const {
-        return nullptr;
-    }
-
     // IDisposable
     void dispose() {
         //
     }
 
     // Startup the actor systems
-    virtual void start() {
-        //
-    }
+    virtual void start();
 
     virtual void stop(IActorRef * actor) {
         //;

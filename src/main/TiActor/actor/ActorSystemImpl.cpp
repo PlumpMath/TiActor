@@ -1,6 +1,4 @@
 
-#include "TiActor/actor/Actor.h"
-#include "TiActor/actor/ActorSystem.h"
 #include "TiActor/actor/ActorSystemImpl.h"
 #include "TiActor/actor/ActorRefProvider.h"
 #include "TiActor/actor/LocalActorRef.h"
@@ -26,6 +24,14 @@ ActorSystem * ActorSystemImpl::createAndStartSystemImpl(const std::string & name
 
 // IActorRefFactory
 IActorRef * ActorSystemImpl::actorOf(Props * props, const std::string & name) {
+#if 1
+    IActorRef * actor = nullptr;
+    ActorCell * cell = getSystemGuardianCell();
+    if (cell) {
+        actor = cell->actorOf(props, name);
+    }
+    return actor;
+#else
     if (InternalCurrentActorCellKeeper::getCurrent() == nullptr) {
         MessageDispatcher * dispatcher = new ThreadPoolDispatcher(nullptr);
         LocalActorRef * actorRef = new LocalActorRef(this->getSystemImpl(), props, dispatcher, nullptr, nullptr);
@@ -45,6 +51,14 @@ IActorRef * ActorSystemImpl::actorOf(Props * props, const std::string & name) {
         }
     }
     return actorNew;
+#endif
+}
+
+void ActorSystemImpl::start()
+{
+    if (provider_) {
+        provider_->init(this);
+    }
 }
 
 void ActorSystemImpl::configureSettings(const Config & config) {

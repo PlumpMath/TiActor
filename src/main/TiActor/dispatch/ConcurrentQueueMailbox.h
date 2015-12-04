@@ -71,7 +71,7 @@ private:
 public:
     virtual void schedule() {
         if (this->dispatcher) {
-#if 0
+#if 1
             this->dispatcher->schedule(&ConcurrentQueueMailbox::run_s, (void *)this);
 #else
             //action_type_def2(ConcurrentQueueMailbox) _run1 = &ConcurrentQueueMailbox::run;

@@ -7,6 +7,8 @@
 #include "TiActor/actor/IInternalActorRef.h"
 #include "TiActor/actor/ActorState.h"
 #include "TiActor/actor/InternalCurrentActorCellKeeper.h"
+#include "TiActor/actor/ActorSystemImpl.h"
+#include "TiActor/actor/ActorRefProvider.h"
 #include "TiActor/dispatch/Mailbox.h"
 #include "TiActor/dispatch/ConcurrentQueueMailbox.h"
 
@@ -42,6 +44,23 @@ ActorBase * ActorCell::newActor()
         instance = createNewActorInstance();
     });
     return instance;
+}
+
+IInternalActorRef * ActorCell::makeChildActor(Props * props, const std::string & name, bool isAsync, bool isSystemService) {
+    IInternalActorRef * actor = nullptr;
+    // TODO: makeChildActorPath(),  class ChildActorPath()
+    ActorPath * childPath = nullptr;
+    if (systemImpl_) {
+        IActorRefProvider * provider = systemImpl_->getProvider();
+        if (provider) {
+            actor = provider->actorOf(systemImpl_, props, nullptr, childPath, isSystemService, nullptr, false, isAsync);
+            if (actor) {
+                initChildActor(actor);
+                actor->start();
+            }
+        }
+    }
+    return actor;
 }
 
 void ActorCell::start() {

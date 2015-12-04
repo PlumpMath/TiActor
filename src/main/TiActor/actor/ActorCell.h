@@ -53,10 +53,6 @@ public:
         inited_(false) {
     }
 
-    ActorCell(const ActorCell & src) {
-        cloneActorCell(src);
-    }
-
     ~ActorCell() {
     }
 
@@ -71,11 +67,24 @@ private:
         parent_ = parent;
     }
 
-protected:
-    void cloneActorCell(const ActorCell & src) {
-        //
+    IActorRef * actorOf(Props * props, std::string & name, bool isAsync, bool isSystemService) {
+        if (name.empty()) {
+            // TODO: getRandomActorName()
+            name = "getRandomActorName()";
+        }
+        IInternalActorRef * internalActor = makeChildActor(props, name, isAsync, isSystemService);
+        IActorRef * actor = reinterpret_cast<IActorRef *>(internalActor);
+        return actor;
     }
 
+    IInternalActorRef * makeChildActor(Props * props, const std::string & name, bool isAsync, bool isSystemService);
+
+public:
+    void initChildActor(IInternalActorRef * actor) {
+        // TODO:
+    }
+
+protected:
     void prepareForNewActor();
 
 public:
@@ -110,7 +119,10 @@ public:
     virtual void IActorContext::setSystem(ActorSystem * system) {}
 
     // IActorRefFactory
-    virtual IActorRef * actorOf(Props * props, const std::string & name = "") { return nullptr; }
+    virtual IActorRef * actorOf(Props * props, const std::string & name = "") override {
+        return actorOf(props, const_cast<std::string &>(name), false, false);
+    }
+
     virtual ActorSelection * getActorSelection(const ActorPath * actorPath) const { return nullptr; }
     virtual ActorSelection * getActorSelection(const std::string & actorPath) const { return nullptr; }
 
