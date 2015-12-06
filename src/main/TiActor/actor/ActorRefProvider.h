@@ -53,6 +53,21 @@ private:
 
     std::unordered_map<std::string, IInternalActorRef *> extraNames_;
 
+public:
+    LocalActorRefProvider(const std::string & systemName)
+        : deployer_(nullptr), deadLetters_(nullptr), rootPath_(nullptr),
+        tempNode_(nullptr), system_(nullptr), rootGuardian_(nullptr),
+        userGuardian_(nullptr), systemGuardian_(nullptr), defaultMailbox_(nullptr) {
+        inernalInit(systemName, nullptr);
+    }
+
+    LocalActorRefProvider(const std::string & systemName, Deployer * deployer)
+        : LocalActorRefProvider(systemName) {
+        inernalInit(systemName, deployer);
+    }
+
+    virtual void init(ActorSystemImpl * system);
+
 private:
     RootGuardianActorRef * createRootGuardion(ActorSystemImpl * system);
 
@@ -64,6 +79,8 @@ private:
         return nullptr;
     }
 
+    MessageDispatcher * getDefaultDispatcher() const;
+
 protected:
     void inernalInit(const std::string & systemName, Deployer * deployer) {
         deployer_ = deployer;
@@ -72,28 +89,6 @@ protected:
     }
 
 public:
-    LocalActorRefProvider(const std::string & systemName)
-        : deployer_(nullptr), deadLetters_(nullptr), rootPath_(nullptr),
-          tempNode_(nullptr), system_(nullptr), rootGuardian_(nullptr),
-          userGuardian_(nullptr), systemGuardian_(nullptr), defaultMailbox_(nullptr) {
-        inernalInit(systemName, nullptr);
-    }
-
-    LocalActorRefProvider(const std::string & systemName, Deployer * deployer)
-        : LocalActorRefProvider(systemName) {
-        inernalInit(systemName, deployer);
-    }
-
-    virtual void init(ActorSystemImpl * system) {
-        system_ = system;
-        rootGuardian_ = createRootGuardion(system);
-        if (rootGuardian_) {
-            userGuardian_ = createUserGuardion(rootGuardian_);
-            systemGuardian_ = createSystemGuardion(rootGuardian_);
-            //rootGuardian_->start();
-        }
-    }
-
     IInternalActorRef * actorOf(ActorSystemImpl * system, Props * props) {
         return actorOf(system, props, nullptr, nullptr, false, nullptr, false, false);
     }

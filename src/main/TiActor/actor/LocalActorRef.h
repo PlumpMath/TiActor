@@ -10,11 +10,13 @@
 #include <stdexcept>
 
 #include "TiActor/actor/ActorRef.h"
+//#include "TiActor/actor/ActorSystemImpl.h"
 
 namespace TiActor {
 
 class IInternalActorRef;
 class ActorSystem;
+class ActorSystemImpl;
 class Props;
 class ActorCell;
 
@@ -65,20 +67,27 @@ protected:
     Props * getProps() const { return props_; }
     MessageDispatcher * getDispatcher() const { return dispatcher_; }
 
-    virtual IInternalActorRef * getParent() const { return nullptr; }
-    virtual IActorRefProvider * getProvider() const { return nullptr; }
-
-    virtual bool isTerminated() const override {
+    virtual IInternalActorRef * getParent() const override {
         if (cell_)
-            return cell_->isTerminated();
+            return cell_->getInternalParent();
         else
-            return false;
+            return nullptr;
     }
+
+    virtual IActorRefProvider * getProvider() const override;
 
     virtual void tellInternal(IMessage * message, IActorRef * sender = nullptr) override {
         if (cell_) {
             cell_->post(sender, message);
         }
+    }
+
+public:
+    virtual bool isTerminated() const override {
+        if (cell_)
+            return cell_->isTerminated();
+        else
+            return false;
     }
 
     virtual void resume() override {

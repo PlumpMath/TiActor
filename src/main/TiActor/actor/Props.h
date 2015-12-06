@@ -15,11 +15,13 @@
 
 namespace TiActor {
 
+//class Deploy;
 class Router;
 class Actor;
 class UntypedActor;
 class ActorBase;
 class IIndirectActorProducer;
+class RouterConfig;
 
 class Props {
 private:
@@ -33,7 +35,6 @@ private:
     static IIndirectActorProducer * defaultProducer;
 
 public:
-    static bool staticInited;
     static Deploy * defaultDeploy;
 
 protected:
@@ -73,30 +74,11 @@ public:
     ~Props();
 
     void initProps() {
-        //
         producer_ = createProducer();
     }
 
     static IIndirectActorProducer * createProducer() {
         return new ActivatorProducer();
-    }
-
-    static void staticInit() {
-        if (!staticInited) {
-            if (defaultDeploy)
-                delete defaultDeploy;
-            defaultDeploy = new Deploy();
-            staticInited = true;
-        }
-    }
-
-    static void staticFree() {
-        if (staticInited) {
-            if (defaultDeploy) {
-                delete defaultDeploy;
-            }
-            staticInited = false;
-        }
     }
 
     virtual ActorBase * newActor(IActorContext * context) {

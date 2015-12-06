@@ -243,20 +243,17 @@
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorRefProvider.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystemImpl.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\LocalActorRef.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\dispatch\Dispatchers.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\system\sleep.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.ipp">
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.cpp">
       <FileType>Document</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.ipp">
-      <FileType>Document</FileType>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\..\src\main\TiActor\actor\Props.ipp" />
+    <None Include="..\..\..\..\..\src\main\TiActor\actor\Props.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -183,9 +183,6 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\threadlocal.h">
       <Filter>src\basic</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.ipp">
-      <Filter>src\actor</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\utils\ToString.h">
       <Filter>src\utils</Filter>
     </ClInclude>
@@ -212,9 +209,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\static_link.h">
       <Filter>src\config</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.ipp">
-      <Filter>src\actor</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\ActorConfig.h">
       <Filter>src\config</Filter>
@@ -291,6 +285,9 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\SystemMessage.h">
       <Filter>src\actor</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.cpp">
+      <Filter>src\actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.cpp">
@@ -308,9 +305,15 @@
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorRefProvider.cpp">
       <Filter>src\actor</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\LocalActorRef.cpp">
+      <Filter>src\actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\dispatch\Dispatchers.cpp">
+      <Filter>src\dispatch</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\src\main\TiActor\actor\Props.ipp">
+    <None Include="..\..\..\..\..\src\main\TiActor\actor\Props.cpp">
       <Filter>src\actor</Filter>
     </None>
   </ItemGroup>

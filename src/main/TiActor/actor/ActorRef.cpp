@@ -1,11 +1,4 @@
 
-#ifndef TIACTOR_ACTOR_ACTORREF_IPP_
-#define TIACTOR_ACTOR_ACTORREF_IPP_
-
-#if defined(_MSC_VER) && (_MSC_VER >= 1020)
-#pragma once
-#endif
-
 #include <string>
 #include <iostream>
 
@@ -40,5 +33,3 @@ void Nobody::initNobody() {
 }
 
 } // namespace TiActor
-
-#endif  /* TIACTOR_ACTOR_ACTORREF_IPP_ */

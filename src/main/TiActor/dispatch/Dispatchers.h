@@ -37,6 +37,10 @@ public:
         defaultGlobalDispatcher_ = this->lookupDispatcher(kDefaultDispatcherName);
     }
 
+    MessageDispatcher * getDefaultGlobalDispatchers() const {
+        return defaultGlobalDispatcher_;
+    }
+
     bool hasDispatcher(const std::string & name) {
         if (dispatchersMap_) {
             const_map_iter it = dispatchersMap_->find(name);
@@ -71,8 +75,6 @@ public:
         return nullptr;
     }
 };
-
-const char Dispatchers::kDefaultDispatcherName[] = "TiActor.actor.default-dispatcher";
 
 } // namespace TiActor
 
