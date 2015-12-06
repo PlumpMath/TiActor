@@ -11,10 +11,11 @@
 #include <TiActor/actor/Message.h>
 #include <TiActor/actor/IActorContext.h>
 #include <TiActor/actor/ActorBase.h>
-#include <TiActor/actor/Actor.h>
 #include <TiActor/actor/ActorRef.h>
+#include <TiActor/actor/Props.h>
 #include <TiActor/actor/UntypedActor.h>
 #include <TiActor/actor/ActorSystem.h>
+#include <TiActor/actor/ActorSystemImpl.h>
 #include <TiActor/routing/RouterConfig.h>
 #include <TiActor/routing/Router.h>
 #include <TiActor/routing/RoundRobinRouter.h>

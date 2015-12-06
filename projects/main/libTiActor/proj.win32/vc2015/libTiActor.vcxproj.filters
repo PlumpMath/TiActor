@@ -285,9 +285,6 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\SystemMessage.h">
       <Filter>src\actor</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.cpp">
-      <Filter>src\actor</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.cpp">
@@ -311,10 +308,11 @@
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\dispatch\Dispatchers.cpp">
       <Filter>src\dispatch</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\..\..\src\main\TiActor\actor\Props.cpp">
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.cpp">
       <Filter>src\actor</Filter>
-    </None>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\Props.cpp">
+      <Filter>src\actor</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

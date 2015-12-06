@@ -1,4 +1,5 @@
 
+#include <string>
 #include <stdexcept>
 
 #include "TiActor/actor/ActorSystem.h"
@@ -18,8 +19,6 @@ ActorSystem::actor_map_type			ActorSystem::actor_map_;
 
 Deploy * Deploy::local_ = new Deploy();
 Deploy * Deploy::none_ = new Deploy();
-
-IIndirectActorProducer * Props::defaultProducer = new DefaultProducer();
 
 volatile TI_THREAD_LOCAL ActorCell * InternalCurrentActorCellKeeper::current_ = nullptr;
 

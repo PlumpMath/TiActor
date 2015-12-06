@@ -248,12 +248,12 @@
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\system\sleep.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.cpp">
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.cpp">
       <FileType>Document</FileType>
-    </ClInclude>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\src\main\TiActor\actor\Props.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\Props.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

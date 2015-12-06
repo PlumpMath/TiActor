@@ -11,10 +11,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\src\test\TiActor\main.cpp">
+    <ClCompile Include="..\..\..\..\..\src\test\TiActor\Pi.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\src\test\TiActor\Pi.cpp">
+    <ClCompile Include="..\..\..\..\..\src\test\TiActor\TiActorTest.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

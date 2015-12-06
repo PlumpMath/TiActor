@@ -5,9 +5,9 @@
 #include <iostream>
 #include <string>
 
-#include <TiActor/actor/ActorBase.h>
-#include <TiActor/actor/ActorSystem.h>
 #include <TiActor/utils/ToString.h>
+#include <TiActor/actor/ActorSystem.h>
+#include <TiActor/actor/ActorSystemImpl.h>
 
 #include <TiActor/config/static_link.h>
 
@@ -28,7 +28,7 @@ int main(int argn, char * argv[])
     std::cout << "Function toString() Test..." << std::endl << std::endl;
 
     {
-        ActorSystem * system = ActorSystem::create("test");
+        ActorSystem * system = ActorSystem::create("Factorial N");
         std::string className;
         className = StringUtils::toString(*system);
         std::cout << "[ActorSystem] Class Name is: " << className << std::endl;
@@ -41,7 +41,7 @@ int main(int argn, char * argv[])
     std::cout << std::endl;
 
     {
-        ActorSystem * system = ActorSystem::create("test");
+        ActorSystem * system = ActorSystem::create("Factorial N");
         std::string className;
         className = StringUtils::toString2(*system);
         std::cout << "[ActorSystem] Class Name is: " << className << std::endl;

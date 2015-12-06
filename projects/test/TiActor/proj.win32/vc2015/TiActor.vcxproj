@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\src\test\TiActor\main.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\test\TiActor\TiActorTest.cpp" />
     <ClCompile Include="..\..\..\..\..\src\test\TiActor\Pi.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -9,19 +9,17 @@
 #include <string>
 
 #include "TiActor/actor/Deploy.h"
-#include "TiActor/actor/IIndirectActorProducer.h"
-#include "TiActor/actor/DefaultProducer.h"
-#include "TiActor/actor/ActivatorProducer.h"
 
 namespace TiActor {
 
 //class Deploy;
 class Router;
-class Actor;
 class UntypedActor;
 class ActorBase;
 class IIndirectActorProducer;
 class RouterConfig;
+class IActorContext;
+class IInternalActorRef;
 
 class Props {
 private:
@@ -77,16 +75,9 @@ public:
         producer_ = createProducer();
     }
 
-    static IIndirectActorProducer * createProducer() {
-        return new ActivatorProducer();
-    }
+    static IIndirectActorProducer * createProducer();
 
-    virtual ActorBase * newActor(IActorContext * context) {
-        if (producer_) {
-            return producer_->produce(context);
-        }
-        return nullptr;
-    }
+    virtual ActorBase * newActor(IActorContext * context);
 
     std::string getName() const {
         return name_;

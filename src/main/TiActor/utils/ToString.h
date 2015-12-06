@@ -12,6 +12,7 @@
 // See: http://stackoverflow.com/questions/24975147/check-if-class-has-function-with-signature
 //
 
+#undef  DEFINE_METHOD_CHECKER
 #define DEFINE_METHOD_CHECKER(RETURN_TYPE, METHOD_NAME, PARAMETERS)         \
 template<typename T>                                                        \
 class Check ## METHOD_NAME ## FunctionIsExists                              \

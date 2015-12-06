@@ -24,6 +24,7 @@ class Deployer;
 class RootGuardianActorRef;
 class RootActorPath;
 class Mailbox;
+class MessageDispatcher;
 
 class IActorRefProvider {
 public:
@@ -115,7 +116,7 @@ public:
     }
 
     virtual IActorRef * getDeadLetters() const {
-        return deadLetters_;
+        return reinterpret_cast<IActorRef *>(deadLetters_);
     }
 };
 
