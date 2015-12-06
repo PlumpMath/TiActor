@@ -62,6 +62,8 @@ private:
 protected:
     void cloneActor(const ActorBase & src) {
         this->name_ = src.name_;
+        this->clearedSelf_ = src.clearedSelf_;
+        this->context_ = src.context_;
     }
 
     virtual bool receive(IMessage * message) = 0;

@@ -8,6 +8,7 @@
 
 #include <string>
 
+#include "TiActor/basic/stdint.h"
 #include "TiActor/actor/Deploy.h"
 
 namespace TiActor {

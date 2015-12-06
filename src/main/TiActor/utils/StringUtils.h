@@ -19,7 +19,7 @@ namespace TiActor {
 namespace StringUtils {
 
 static TI_THREAD_LOCAL std::string * tlsFormatStr = nullptr;
-static thread_local std::string * tlsFormatStr2 = nullptr;
+//static thread_local std::string * tlsFormatStr2 = nullptr;
 
 static
 std::size_t

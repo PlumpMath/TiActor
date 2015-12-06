@@ -158,42 +158,70 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Action.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActivatorProducer.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Actor.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorBase.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorCell.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorPath.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRefProvider.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorState.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystemImpl.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\BuiltInActors.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\DefaultProducer.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Deploy.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\EmptyLocalActorRef.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ExtendedActorSystem.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IActorContext.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IActorRef.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IActorRefFactory.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IActorRefScope.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ICanTell.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ICell.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IDisposable.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IIndirectActorProducer.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IInternalActorRef.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IMessage.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\INoSerializationVerificationNeeded.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\InternalCurrentActorCellKeeper.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ISurrogated.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ISystemMessage.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IUntypedActorContext.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\LocalActorRef.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Message.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\MessageBase.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\MessageObject.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Props.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\RootGuardianActorRef.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\SystemMessage.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\UntypedActor.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\all.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\inttypes.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\msvc\inttypes.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\msvc\stdbool.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\msvc\stdint.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\msvc\targetver.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\msvc\vld.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\stdbool.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\stddef.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\stdint.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\stdsize.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\threadlocal.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\ActorConfig.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\Config.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\ConfigurationFactory.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\static_link.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\ConcurrentQueueMailbox.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\Dispatchers.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\IMessageQueue.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\Mailbox.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\Mailboxes.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\MessageDispatcher.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\MessageQueueMailbox.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\ThreadPoolDispatcher.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\queue\portable.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\queue\RingQueue.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\routing\RoundRobinRouter.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\routing\Router.h" />
@@ -203,6 +231,8 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\scheduler\IScheduler.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\scheduler\ITellScheduler.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\scheduler\ITimeProvider.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\scheduler\SchedulerBase.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\system\sleep.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\utils\MinMax.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\utils\PowOf2.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\utils\Runtime.h" />
@@ -210,18 +240,15 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\utils\ToString.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorCell.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorRefProvider.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystemImpl.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.ipp">
-      <FileType>Document</FileType>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRef.ipp">
-      <FileType>Document</FileType>
-    </ClInclude>
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\LocalActorRef.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\Props.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\dispatch\Dispatchers.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\system\sleep.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -19,10 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\src\test\TiActor\main.cpp" />
+    <ClInclude Include="..\..\..\..\..\src\test\TiActor\Pi.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\src\test\TiActor\Pi.h" />
+    <ClCompile Include="..\..\..\..\..\src\test\TiActor\Pi.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\test\TiActor\TiActorTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8B1D72B0-C5B1-46FF-BFCE-5333A9F47ED8}</ProjectGuid>

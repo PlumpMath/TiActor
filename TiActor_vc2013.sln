@@ -21,10 +21,19 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unittest", "unittest", "{973CD666-0EA9-4D3E-8F38-1B5DB50C5491}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PowOf2", "projects\unittest\PowOf2\proj.win32\vc2013\PowOf2.vcxproj", "{58057A71-8DFE-4B6F-9648-8B6C09BBBA45}"
+	ProjectSection(ProjectDependencies) = postProject
+		{81832FD0-CA4D-49AA-ABFC-14E072DBB104} = {81832FD0-CA4D-49AA-ABFC-14E072DBB104}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StringFormat", "projects\unittest\StringFormat\proj.win32\vc2013\StringFormat.vcxproj", "{78BA8501-2BC4-4A4D-97EE-1101421BD55E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{81832FD0-CA4D-49AA-ABFC-14E072DBB104} = {81832FD0-CA4D-49AA-ABFC-14E072DBB104}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ToString", "projects\unittest\ToString\proj.win32\vc2013\ToString.vcxproj", "{B177982F-4BEC-468A-AD69-F303562C0958}"
+	ProjectSection(ProjectDependencies) = postProject
+		{81832FD0-CA4D-49AA-ABFC-14E072DBB104} = {81832FD0-CA4D-49AA-ABFC-14E072DBB104}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
