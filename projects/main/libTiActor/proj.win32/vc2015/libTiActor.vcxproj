@@ -168,8 +168,10 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorRefProvider.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystemImpl.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\BuiltInActors.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\DefaultProducer.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Deploy.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\EmptyLocalActorRef.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ExtendedActorSystem.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IActorContext.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IActorRef.h" />
@@ -185,7 +187,7 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\INoSerializationVerificationNeeded.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\InternalCurrentActorCellKeeper.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ISurrogated.h" />
-    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ISystemMessage.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\SystemMessage.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IUntypedActorContext.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\LocalActorRef.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Message.h" />
@@ -238,6 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorCell.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorRefProvider.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystemImpl.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\system\sleep.c" />

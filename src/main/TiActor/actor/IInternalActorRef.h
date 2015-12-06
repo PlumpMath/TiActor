@@ -27,7 +27,7 @@ public:
     virtual void stop() = 0;
     virtual void restart() = 0;
     virtual void suspend() = 0;
-    virtual void sendSystemMessage(const ISystemMessage * message, const IActorRef * sender = nullptr) = 0;
+    virtual void sendSystemMessage(ISystemMessage * message, IActorRef * sender = nullptr) = 0;
 };
 
 } // namespace TiActor

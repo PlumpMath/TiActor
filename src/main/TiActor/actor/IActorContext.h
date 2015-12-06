@@ -44,7 +44,6 @@ public:
 
     // Other operations
     virtual void stop(IActorRef * child) = 0;
-    virtual IActorContext * create() = 0;
     virtual void release() = 0;
 };
 

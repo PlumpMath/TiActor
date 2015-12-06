@@ -16,9 +16,6 @@ class IActorRef;
 class IMessage;
 
 class UntypedActor : public ActorBase {
-private:
-    //
-
 public:
     UntypedActor() : ActorBase() {
     }
@@ -32,8 +29,33 @@ public:
     virtual void onReceive(IMessage * message) = 0;
 
 protected:
+    virtual bool receive(IMessage * message) override {
+        onReceive(message);
+        return true;
+    }
+
     static IUntypedActorContext * getContext() {
         return static_cast<IUntypedActorContext *>(ActorBase::getContext());
+    }
+};
+
+class EmptyUntypedActor : public UntypedActor {
+public:
+    EmptyUntypedActor() : UntypedActor() {
+    }
+
+    EmptyUntypedActor(const std::string & path) : UntypedActor(path) {
+    }
+
+    ~EmptyUntypedActor() {
+    }
+
+    virtual void onReceive(IMessage * message) override { }
+
+protected:
+    virtual bool receive(IMessage * message) override {
+        onReceive(message);
+        return true;
     }
 };
 

@@ -6,9 +6,6 @@
 #pragma once
 #endif
 
-#include <TiActor/basic/stddef.h>
-#include <TiActor/basic/stdint.h>
-
 //#define TIACTOR_USE_STATICLIB
 #include <TiActor/all.h>
 #include <TiActor/actor/Message.h>

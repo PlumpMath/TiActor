@@ -50,16 +50,6 @@ int main(int argn, char * argv[])
 {
     only_test_for_api_export();
 
-    ActorBase * actorBase = new ActorBase();
-    if (actorBase) {
-        IActorContext * context = actorBase->getActorContext();
-        if (context) {
-            context->release();
-            delete context;
-        }
-        delete actorBase;
-    }
-
     ActorSystem * actorSystem = ActorSystem::create("Factorial N");
     if (actorSystem) {
         std::string systemName = actorSystem->getName();

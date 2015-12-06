@@ -9,7 +9,7 @@
 #include <functional>
 
 #include "TiActor/actor/Message.h"
-#include "TiActor/actor/ISystemMessage.h"
+#include "TiActor/actor/SystemMessage.h"
 #include "TiActor/dispatch/Mailbox.h"
 #include "TiActor/queue/RingQueue.h"
 #include "TiActor/dispatch/MessageDispatcher.h"

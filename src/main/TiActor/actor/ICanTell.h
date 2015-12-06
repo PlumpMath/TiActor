@@ -11,10 +11,11 @@
 namespace TiActor {
 
 class IActorRef;
+class IMessage;
 
 class ICanTell {
 public:
-    virtual void tell(MessageObject message, IActorRef * sender = nullptr) = 0;
+    virtual void tell(IMessage * message, IActorRef * sender = nullptr) = 0;
 };
 
 } // namespace TiActor

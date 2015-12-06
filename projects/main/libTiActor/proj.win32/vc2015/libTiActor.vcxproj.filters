@@ -177,9 +177,6 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IActorRefScope.h">
       <Filter>src\actor</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ISystemMessage.h">
-      <Filter>src\actor</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\INoSerializationVerificationNeeded.h">
       <Filter>src\actor</Filter>
     </ClInclude>
@@ -285,6 +282,15 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActivatorProducer.h">
       <Filter>src\actor</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\BuiltInActors.h">
+      <Filter>src\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\EmptyLocalActorRef.h">
+      <Filter>src\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\SystemMessage.h">
+      <Filter>src\actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.cpp">
@@ -297,6 +303,9 @@
       <Filter>src\system</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorCell.cpp">
+      <Filter>src\actor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorRefProvider.cpp">
       <Filter>src\actor</Filter>
     </ClCompile>
   </ItemGroup>

@@ -12,6 +12,9 @@
 #include "TiActor/actor/IUntypedActorContext.h"
 #include "TiActor/actor/ICell.h"
 #include "TiActor/actor/MessageObject.h"
+#include "TiActor/actor/IMessage.h"
+#include "TiActor/actor/SystemMessage.h"
+#include "TiActor/actor/IActorRef.h"
 #include "TiActor/dispatch/MessageDispatcher.h"
 
 namespace TiActor {
@@ -57,10 +60,6 @@ public:
     }
 
 private:
-    void initActorCell(const std::string & name) {
-        //
-    }
-
     ActorBase * newActor();
 
     void setParent(IInternalActorRef * parent) {
@@ -86,6 +85,8 @@ public:
 
 protected:
     void prepareForNewActor();
+
+    virtual void preStart() {}
 
 public:
     void init();
@@ -127,11 +128,7 @@ public:
     virtual ActorSelection * getActorSelection(const std::string & actorPath) const { return nullptr; }
 
     // Other operations
-    virtual IActorContext * create() { return nullptr; }
-    virtual void stop(IActorRef * child) {}
     virtual void release() {}
-
-    virtual void preStart() {}
 
     virtual void start();
 
@@ -149,6 +146,43 @@ public:
     IInternalActorRef * getInternelSelf() const { return self_; }
 
     virtual void post(IActorRef * sender, MessageObject message);
+
+    virtual void stop(IActorRef * child) override {
+        // TODO:
+    }
+
+    void resume() {
+        this->sendSystemMessage(SystemMessage::InnerMessage::Resume);
+    }
+
+    void stop() {
+        this->sendSystemMessage(SystemMessage::InnerMessage::Stop);
+    }
+
+    void restart() {
+        this->sendSystemMessage(SystemMessage::InnerMessage::Restart);
+    }
+
+    void suspend() {
+        this->sendSystemMessage(SystemMessage::InnerMessage::Suspend);
+    }
+
+private:
+    void sendSystemMessage(message_type type) {
+        ISystemMessage * systemMessage = new SystemMessage(type);
+        if (systemMessage)
+            sendSystemMessage(systemMessage);
+    }
+
+    void sendSystemMessage(ISystemMessage * systemMessage) {
+        IActorRef * self = this->getSelf();
+        if (self)
+            self->tell(systemMessage);
+    }
+
+    void kill() {
+        // TODO: throw new ActorKilledException("Kill");
+    }
 };
 
 } // namespace TiActor

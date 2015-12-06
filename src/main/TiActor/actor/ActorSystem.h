@@ -104,6 +104,13 @@ public:
     virtual void start() = 0;
     virtual void stop(IActorRef * actor) = 0;
     virtual void shutdown() = 0;
+
+    virtual IActorRef * actorOf(Props * props, const std::string & name = "") override;
+    virtual ActorSelection * getActorSelection(const ActorPath * actorPath) const override;
+    virtual ActorSelection * getActorSelection(const std::string & actorPath) const override;
+
+    virtual void dispose() override;
+
 };
 
 } // namespace TiActor

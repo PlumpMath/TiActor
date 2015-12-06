@@ -114,6 +114,10 @@ public:
         name_ = name;
     }
 
+    IInternalActorRef * getActorRef() const {
+        return reinterpret_cast<IInternalActorRef *>(actor_);
+    }
+
     Props * withRouter(RouterConfig * routerConfig) {
         Props * copy = new Props();
         if (copy) {

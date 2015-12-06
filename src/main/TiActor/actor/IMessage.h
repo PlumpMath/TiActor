@@ -31,10 +31,13 @@ class IMessage {
 public:
     virtual message_type getType() const = 0;
     virtual void setType(message_type type) = 0;
+
     virtual MessageObject getObject() const = 0;
     virtual void setObject(MessageObject type) = 0;
+
     virtual IActorRef * getSender() const = 0;
     virtual void setSender(IActorRef * sender) = 0;
+
     virtual IActorRef * getReceiver() const = 0;
     virtual void setReceiver(IActorRef * receiver) = 0;
 };

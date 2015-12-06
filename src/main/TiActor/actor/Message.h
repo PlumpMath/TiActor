@@ -20,12 +20,8 @@ public:
 };
 
 class Message : public MessageBase<Message> {
-private:
-    //
-
 public:
-    Message() : MessageBase() {
-        //
+    Message() : MessageBase<Message>() {
     }
 
     ~Message() { }

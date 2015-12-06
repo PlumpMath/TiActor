@@ -1,9 +1,7 @@
 
-#include <stdio.h>
+#include <stdexcept>
 
-#include "TiActor/actor/Actor.h"
 #include "TiActor/actor/ActorSystem.h"
-#include "TiActor/actor/ActorSystemImpl.h"
 
 #include "TiActor/actor/ActorCell.h"
 #include "TiActor/actor/Deploy.h"
@@ -20,5 +18,25 @@ Deploy * Deploy::none_ = new Deploy();
 IIndirectActorProducer * Props::defaultProducer = new DefaultProducer();
 
 volatile TI_THREAD_LOCAL ActorCell * InternalCurrentActorCellKeeper::current_ = nullptr;
+
+IActorRef * ActorSystem::actorOf(Props * props, const std::string & name /*= ""*/)
+{
+    throw std::logic_error("The method or operation is not implemented.");
+}
+
+ActorSelection * ActorSystem::getActorSelection(const ActorPath * actorPath) const
+{
+    throw std::logic_error("The method or operation is not implemented.");
+}
+
+ActorSelection * ActorSystem::getActorSelection(const std::string & actorPath) const
+{
+    throw std::logic_error("The method or operation is not implemented.");
+}
+
+void ActorSystem::dispose()
+{
+    throw std::logic_error("The method or operation is not implemented.");
+}
 
 } // namespace TiActor

@@ -20,6 +20,7 @@
 namespace TiActor {
 
 class ActorSystem;
+class IMessage;
 
 class IInternalActor {
 public:
@@ -62,6 +63,8 @@ protected:
     void cloneActor(const ActorBase & src) {
         this->name_ = src.name_;
     }
+
+    virtual bool receive(IMessage * message) = 0;
 
 public:
     // For IActorContext

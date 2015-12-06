@@ -8,7 +8,6 @@
 
 #include <string>
 
-//#include "TiActor/actor/ActorRef.h"
 #include "TiActor/actor/MessageObject.h"
 #include "TiActor/actor/IMessage.h"
 
@@ -23,16 +22,15 @@ public:
 
 private:
     message_type type_;
-    object_type object_;
-
     IActorRef * sender_;
     IActorRef * receiver_;
+    object_type object_;
 
 public:
-    MessageBase() : type_(_MsgType),
-        object_(nullptr),
-        sender_(nullptr),
-        receiver_(nullptr) {
+    MessageBase() : type_(_MsgType), object_(nullptr), sender_(nullptr), receiver_(nullptr) {
+    }
+
+    MessageBase(message_type type) : type_(type), object_(nullptr), sender_(nullptr), receiver_(nullptr) {
     }
 
     ~MessageBase() { }

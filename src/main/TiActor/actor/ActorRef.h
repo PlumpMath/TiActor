@@ -13,7 +13,7 @@
 #include "TiActor/actor/ActorPath.h"
 #include "TiActor/actor/IActorRef.h"
 #include "TiActor/actor/IActorRefScope.h"
-#include "TiActor/actor/ISystemMessage.h"
+#include "TiActor/actor/SystemMessage.h"
 #include "TiActor/actor/IInternalActorRef.h"
 
 #include "TiActor/actor/IActorContext.h"
@@ -35,24 +35,16 @@ public:
     virtual bool isStarted() const = 0;
 };
 
-class ActorRefBase : public IActorRef {
+class ActorRefBase : public IInternalActorRef {
 private:
     ActorPath * path_;
 
 protected:
-    virtual void tellInternal(MessageObject message, IActorRef * sender = nullptr) = 0;
+    virtual void tellInternal(IMessage * message, IActorRef * sender = nullptr) = 0;
 
 public:
     // ICanTell
-    virtual void tell(MessageObject message, IActorRef * sender = nullptr) override;
-#if 0
-    {
-        if (sender == nullptr) {
-            sender = ActorRefs::getNoSender();
-        }
-        tellInternal(message, sender);
-    }
-#endif
+    virtual void tell(IMessage * message, IActorRef * sender = nullptr) override;
 
     // ISurrogated
     virtual ISurrogated * toSurrogate(const ActorSystem * system) override {
@@ -69,8 +61,7 @@ public:
     }
 };
 
-class InternalActorRefBase : public ActorRefBase,
-                             public IInternalActorRef {
+class InternalActorRefBase : public ActorRefBase {
 private:
     IInternalActorRef * parent_;
     IActorRefProvider * provider_;
@@ -91,13 +82,13 @@ public:
     virtual void restart() = 0;
     virtual void suspend() = 0;
 
-    void sendSystemMessage(ISystemMessage * message, IActorRef * sender /* = nullptr */) {
+    void sendSystemMessage(ISystemMessage * message, IActorRef * sender = nullptr ) {
         int msgType = message->getType();
         if (msgType == ISystemMessage::InnerMessage::Terminate) {
             stop();
         }
         else if (message != nullptr) {
-            this->ActorRefBase::tell((MessageObject)message, sender);
+            this->ActorRefBase::tell(message, sender);
         }
     }
 
@@ -106,24 +97,32 @@ public:
 };
 
 class MinimalActorRef : public InternalActorRefBase, public ILocalRef {
-public:
-    // IInternalActorRef
-    virtual IInternalActorRef * getParent() const;
 
-    virtual bool isTerminated() const { return false; }
-    virtual IActorRef * getChild(const std::string & name) const {
-        return nullptr;
+protected:
+    // For ICanTell
+    virtual void tellInternal(IMessage * message, IActorRef * sender = nullptr) {
     }
 
-    void resume() {};
-    void start() {};
-    void stop() {};
-    void restart() {};
-    void suspend() {};
+public:
+    // IInternalActorRef
+    virtual IInternalActorRef * getParent() const override;
 
-    // For ICanTell
-    void tellInternal(MessageObject message, const IActorRef * sender /* = nullptr */) {
-        //
+    virtual bool isTerminated() const { return false; }
+    virtual IActorRef * getChild(const std::string & name) const override;
+
+    virtual void resume() override {
+    }
+
+    virtual void start() override {
+    }
+
+    virtual void stop() override {
+    }
+
+    virtual void restart() override {
+    }
+
+    virtual void suspend() override {
     }
 
     // IActorRefScope
@@ -153,6 +152,10 @@ private:
 public:
     ~Nobody() { }
 
+protected:
+    virtual void tellInternal(IMessage * message, IActorRef * sender = nullptr) override {
+    }
+
 public:
     static void initNobody();
 
@@ -164,36 +167,11 @@ public:
     IActorRefProvider * getProvider() const { return nullptr; }
 
     // ICanTell
-    void tell(MessageObject message, IActorRef * sender = nullptr) {
-    }
+    //void tell(IMessage * message, IActorRef * sender = nullptr) override {
+    //}
 
     // ISurrogated
-    ISurrogated * toSurrogate(const ActorSystem * system) {
-        return nullptr;
-    }
-
-    virtual void resume() override {
-    }
-
-    virtual void start() override {
-    }
-
-    virtual void stop() override {
-    }
-
-    virtual void restart() override {
-    }
-
-    virtual void suspend() override {
-    }
-
-    virtual void tellInternal(MessageObject message, IActorRef * sender = nullptr) override {
-    }
-
-    virtual void sendSystemMessage(const ISystemMessage * message, const IActorRef * sender = nullptr) override {
-    }
-
-    virtual IInternalActorRef * getParent() const override {
+    ISurrogated * toSurrogate(const ActorSystem * system) override {
         return nullptr;
     }
 
@@ -233,60 +211,6 @@ public:
 
     static IActorRef * getNoSender() {
         return nosender_;
-    }
-};
-
-class ActorRef : public ActorRefBase {
-private:
-    std::string name_;
-    IActorContext * context_;
-
-public:
-    ActorRef() : ActorRefBase() {
-        initActorRef("default");
-    }
-
-    ActorRef(const std::string & name) {
-        initActorRef(name);
-    }
-
-    ActorRef(const ActorRef & src) {
-        cloneActorRef(src);
-    }
-
-    ~ActorRef() {
-    }
-
-private:
-    void initActorRef(const std::string & name) {
-        name_ = name;
-    }
-
-protected:
-    void cloneActorRef(const ActorRef & src) {
-        this->name_ = src.name_;
-    }
-
-public:
-    IActorRef * getSelf() const { return getContext()->getSelf(); }
-    IActorRef * getSender() const { return getContext()->getSender(); }
-    ActorSystem * getSystem() const { return getContext()->getSystem(); }
-    IActorContext * getContext() const { return context_; }
-
-    std::string getName() const {
-        return name_;
-    }
-
-    void setName(const std::string & name) {
-        name_ = name;
-    }
-
-    void tell(void * func, IActorRef * result) const {
-        std::cout << "ActorRef::tell();" << std::endl;
-    }
-
-    int start() {
-        return 0;
     }
 };
 

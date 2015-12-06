@@ -9,14 +9,14 @@
 #include <typeinfo>
 
 #include "TiActor/actor/IIndirectActorProducer.h"
-#include "TiActor/actor/Actor.h"
+#include "TiActor/actor/UntypedActor.h"
 
 namespace TiActor {
 
 class ActivatorProducer : public IIndirectActorProducer {
 public:
     virtual ActorBase * produce(IActorContext * context) {
-        return static_cast<ActorBase *>(new Actor());
+        return static_cast<ActorBase *>(new EmptyUntypedActor());
     }
 
     virtual void release(ActorBase * &actor) {

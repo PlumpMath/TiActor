@@ -2,7 +2,7 @@
 #include "TiActor/actor/ActorCell.h"
 #include "TiActor/actor/Props.h"
 #include "TiActor/actor/IActorRef.h"
-#include "TiActor/actor/ISystemMessage.h"
+#include "TiActor/actor/SystemMessage.h"
 #include "TiActor/actor/Message.h"
 #include "TiActor/actor/IInternalActorRef.h"
 #include "TiActor/actor/ActorState.h"

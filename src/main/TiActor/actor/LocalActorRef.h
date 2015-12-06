@@ -6,6 +6,7 @@
 #pragma once
 #endif
 
+#include <string>
 #include <stdexcept>
 
 #include "TiActor/actor/ActorRef.h"
@@ -27,7 +28,7 @@ private:
 
 public:
     LocalActorRef(ActorSystemImpl * system, Props * props, MessageDispatcher * dispatcher,
-                  IInternalActorRef * supervisor, ActorPath * path)
+                  Mailbox * mailbox, IInternalActorRef * supervisor, ActorPath * path)
         : system_(nullptr), props_(nullptr),
           dispatcher_(nullptr), path_(nullptr), cell_(nullptr) {
         system_ = reinterpret_cast<ActorSystem *>(system);
@@ -67,57 +68,50 @@ protected:
     virtual IInternalActorRef * getParent() const { return nullptr; }
     virtual IActorRefProvider * getProvider() const { return nullptr; }
 
-    virtual bool isTerminated() const {
+    virtual bool isTerminated() const override {
         if (cell_)
             return cell_->isTerminated();
         else
-            return nullptr;
-    }
-    virtual IActorRef * getChild(const std::string & name) const { return nullptr; }
-
-    virtual void tellInternal(MessageObject message, IActorRef * sender = nullptr)
-    {
-        cell_->post(sender, message);
+            return false;
     }
 
-    virtual void resume() override
-    {
-        throw std::logic_error("The method or operation is not implemented.");
+    virtual void tellInternal(IMessage * message, IActorRef * sender = nullptr) override {
+        if (cell_) {
+            cell_->post(sender, message);
+        }
     }
 
-    virtual void start() override
-    {
-        throw std::logic_error("The method or operation is not implemented.");
+    virtual void resume() override {
+        if (cell_)
+            cell_->resume();
     }
 
-    virtual void stop() override
-    {
-        throw std::logic_error("The method or operation is not implemented.");
+    virtual void start() override {
+        if (cell_)
+            cell_->start();
     }
 
-    virtual void restart() override
-    {
-        throw std::logic_error("The method or operation is not implemented.");
+    virtual void stop() override {
+        if (cell_)
+            cell_->stop();
     }
 
-    virtual void suspend() override
-    {
-        throw std::logic_error("The method or operation is not implemented.");
+    virtual void restart() override {
+        if (cell_)
+            cell_->restart();
     }
 
-    virtual bool isLocal() const override
-    {
-        throw std::logic_error("The method or operation is not implemented.");
+    virtual void suspend() override {
+        if (cell_)
+            cell_->suspend();
     }
 
-    virtual ActorPath * getPath() const override
-    {
-        throw std::logic_error("The method or operation is not implemented.");
+    virtual bool isLocal() const override {
+        return true;
     }
 
-    virtual void tell(MessageObject message, IActorRef * sender = nullptr) override
-    {
-        throw std::logic_error("The method or operation is not implemented.");
+    virtual ActorPath * getPath() const override {
+        return path_;
     }
 
     virtual ISurrogated * toSurrogate(const ActorSystem * system) override
@@ -125,10 +119,12 @@ protected:
         throw std::logic_error("The method or operation is not implemented.");
     }
 
-    virtual void sendSystemMessage(const ISystemMessage * message, const IActorRef * sender = nullptr) override
+    virtual void sendSystemMessage(ISystemMessage * message, IActorRef * sender = nullptr) override
     {
         throw std::logic_error("The method or operation is not implemented.");
     }
+
+    virtual IActorRef * getChild(const std::string & name) const { return nullptr; }
 };
 
 } // namespace TiActor

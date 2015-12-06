@@ -9,6 +9,8 @@
 #include <atomic>
 #include <unordered_map>
 
+#include "TiActor/actor/Props.h"
+
 namespace TiActor {
 
 class ActorSystemImpl;
@@ -20,6 +22,8 @@ class ActorPath;
 class Deploy;
 class Deployer;
 class RootGuardianActorRef;
+class RootActorPath;
+class Mailbox;
 
 class IActorRefProvider {
 public:
@@ -49,6 +53,17 @@ private:
 
     std::unordered_map<std::string, IInternalActorRef *> extraNames_;
 
+private:
+    RootGuardianActorRef * createRootGuardion(ActorSystemImpl * system);
+
+    LocalActorRef * createUserGuardion(RootGuardianActorRef * rootGuardian) {
+        return nullptr;
+    }
+
+    LocalActorRef * createSystemGuardion(RootGuardianActorRef * rootGuardian) {
+        return nullptr;
+    }
+
 protected:
     void inernalInit(const std::string & systemName, Deployer * deployer) {
         deployer_ = deployer;
@@ -69,18 +84,6 @@ public:
         inernalInit(systemName, deployer);
     }
 
-    RootGuardianActorRef * createRootGuardion(ActorSystemImpl * system) {
-        return nullptr;
-    }
-
-    LocalActorRef * createUserGuardion(RootGuardianActorRef * rootGuardian) {
-        return nullptr;
-    }
-
-    LocalActorRef * createSystemGuardion(RootGuardianActorRef * rootGuardian) {
-        return nullptr;
-    }
-
     virtual void init(ActorSystemImpl * system) {
         system_ = system;
         rootGuardian_ = createRootGuardion(system);
@@ -97,7 +100,11 @@ public:
 
     virtual IInternalActorRef * actorOf(ActorSystemImpl * system, Props * props, IInternalActorRef * supervisor,
         ActorPath * path, bool systemService, Deploy * deploy, bool lookupDeploy, bool async) {
-        return nullptr;
+        IInternalActorRef * actor = nullptr;
+        if (props) {
+            actor = props->getActorRef();
+        }
+        return actor;
     }
 
     virtual IInternalActorRef * getRootGuardian() const  {
