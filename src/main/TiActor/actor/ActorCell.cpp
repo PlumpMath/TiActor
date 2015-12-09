@@ -46,7 +46,7 @@ ActorBase * ActorCell::newActor()
     return instance;
 }
 
-IInternalActorRef * ActorCell::makeChildActor(Props * props, const std::string & name, bool isAsync, bool isSystemService) {
+IInternalActorRef * ActorCell::makeChild(Props * props, const std::string & name, bool isAsync, bool isSystemService) {
     IInternalActorRef * actor = nullptr;
     // TODO: makeChildActorPath(),  class ChildActorPath()
     ActorPath * childPath = nullptr;

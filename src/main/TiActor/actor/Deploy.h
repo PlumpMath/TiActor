@@ -18,6 +18,9 @@ private:
     Config * config_;
     RouterConfig * routerConfig_;
 
+    std::string dispatcherName_;
+    std::string mailboxName_;
+
 public:
     static Deploy * local_;
     static Deploy * none_;
@@ -54,6 +57,14 @@ public:
 
     Deploy * withRouterConfig(const RouterConfig * routerConfig) {
         routerConfig_ = const_cast<RouterConfig *>(routerConfig);
+    }
+
+    std::string getDispatcherName() const {
+        return dispatcherName_;
+    }
+
+    std::string getMailboxName() const {
+        return mailboxName_;
     }
 };
 

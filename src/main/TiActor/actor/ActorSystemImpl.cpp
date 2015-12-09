@@ -26,7 +26,7 @@ ActorSystem * ActorSystemImpl::createAndStartSystemImpl(const std::string & name
 IActorRef * ActorSystemImpl::actorOf(Props * props, const std::string & name) {
 #if 1
     IActorRef * actor = nullptr;
-    ActorCell * cell = getSystemGuardianCell();
+    ActorCell * cell = getUserGuardianCell();
     if (cell) {
         actor = cell->actorOf(props, name);
     }

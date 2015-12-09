@@ -1,6 +1,7 @@
 
 #include "TiActor/actor/Props.h"
 #include "TiActor/actor/Deploy.h"
+#include "TiActor/actor/IActorRef.h"
 #include "TiActor/actor/ActorBase.h"
 #include "TiActor/actor/DefaultProducer.h"
 #include "TiActor/actor/IIndirectActorProducer.h"
@@ -33,6 +34,23 @@ ActorBase * Props::newActor(IActorContext * context) {
         return producer_->produce(context);
     }
     return nullptr;
+}
+
+IActorRef * Props::getActorRef() const {
+    IActorRef * actorRef = nullptr;
+    IActorContext * context;
+    if (actor_) {
+        context = actor_->getActorContext();
+        if (context) {
+            actorRef = context->getSelf();
+        }
+    }
+    return actorRef;
+}
+
+IInternalActorRef * Props::getInternalActorRef() const {
+    IActorRef * actorRef = getActorRef();
+    return static_cast<IInternalActorRef *>(actorRef);
 }
 
 } // namespace TiActor

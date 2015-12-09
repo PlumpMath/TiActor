@@ -133,7 +133,10 @@ public:
                 if (deploy) {
                     TiActor::Props * props = TiActor::Props::createWithRouter(deploy, 0, routerConfig);
                     if (props) {
-                        workerRouter_ = this->getContext()->actorOf(props, "workerRouter");
+                        IActorContext * context = this->getContext();
+                        if (context) {
+                            workerRouter_ = context->actorOf(props, "workerRouter");
+                        }
                         //delete props;
                     }
                     //delete deploy;

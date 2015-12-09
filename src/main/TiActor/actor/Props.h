@@ -22,6 +22,7 @@ class RouterConfig;
 class IActorContext;
 class IInternalActorRef;
 class SupervisorStrategy;
+class IActorRef;
 
 class Props {
 private:
@@ -93,8 +94,21 @@ public:
         name_ = name;
     }
 
-    IInternalActorRef * getActorRef() const {
-        return reinterpret_cast<IInternalActorRef *>(actor_);
+    IActorRef * getActorRef() const;
+    IInternalActorRef * getInternalActorRef() const;
+
+    std::string getDispatcherName() const {
+        if (deploy_)
+            return deploy_->getDispatcherName();
+        else
+            return "Default.DispatcherName";
+    }
+
+    std::string getMailboxName() const {
+        if (deploy_)
+            return deploy_->getMailboxName();
+        else
+            return "Default.MailboxName";
     }
 
     Props * withRouter(RouterConfig * routerConfig) {

@@ -31,13 +31,11 @@ public:
         return deadLetterMailbox_;
     }
 
-    Mailbox * createMailbox() {
+    Mailbox * createMailbox(const std::string & name) {
         Mailbox * mailbox = nullptr;
         return mailbox;
     }
 };
-
-const char Mailboxes::kDefaultMailboxName[] = "TiActor.actor.default-mailbox";
 
 } // namespace TiActor
 

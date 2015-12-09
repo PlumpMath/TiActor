@@ -58,7 +58,7 @@ public:
 
     virtual void start() override
     {
-        throw std::logic_error("The method or operation is not implemented.");
+        //throw std::logic_error("The method or operation is not implemented.");
     }
 
     virtual void stop() override

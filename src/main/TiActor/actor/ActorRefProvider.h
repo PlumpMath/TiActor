@@ -107,13 +107,7 @@ public:
     }
 
     virtual IInternalActorRef * actorOf(ActorSystemImpl * system, Props * props, IInternalActorRef * supervisor,
-        ActorPath * path, bool systemService, Deploy * deploy, bool lookupDeploy, bool async) {
-        IInternalActorRef * actor = nullptr;
-        if (props) {
-            actor = props->getActorRef();
-        }
-        return actor;
-    }
+        ActorPath * path, bool systemService, Deploy * deploy, bool lookupDeploy, bool async);
 
     virtual IInternalActorRef * getRootGuardian() const  {
         return reinterpret_cast<IInternalActorRef *>(rootGuardian_);

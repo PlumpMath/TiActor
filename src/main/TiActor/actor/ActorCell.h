@@ -71,19 +71,23 @@ private:
             // TODO: getRandomActorName()
             name = "getRandomActorName()";
         }
-        IInternalActorRef * internalActor = makeChildActor(props, name, isAsync, isSystemService);
+        IInternalActorRef * internalActor = makeChild(props, name, isAsync, isSystemService);
         IActorRef * actor = reinterpret_cast<IActorRef *>(internalActor);
         return actor;
     }
 
-    IInternalActorRef * makeChildActor(Props * props, const std::string & name, bool isAsync, bool isSystemService);
+    IInternalActorRef * makeChild(Props * props, const std::string & name, bool isAsync, bool isSystemService);
 
 public:
+    void initChild(IInternalActorRef * actor) {
+        // TODO:
+    }
+
     void reserveChild(const std::string & name) {
         // TODO:
     }
 
-    void initChild(IInternalActorRef * actor) {
+    void unreserveChild(const std::string & name) {
         // TODO:
     }
 

@@ -79,6 +79,17 @@ protected:
 	ActorSystem * createSystemImpl(const std::string & name, const Config & config);
 	ActorSystem * createAndStartSystemImpl(const std::string & name, const Config & config);
 
+    ActorCell * getUserGuardianCell() const {
+        ActorCell * cell = nullptr;
+        if (provider_) {
+            LocalActorRef * userGuardian = provider_->getGuardian();
+            if (userGuardian) {
+                cell = userGuardian->getCell();
+            }
+        }
+        return cell;
+    }
+
     ActorCell * getSystemGuardianCell() const {
         ActorCell * cell = nullptr;
         if (provider_) {

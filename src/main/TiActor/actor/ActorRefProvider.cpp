@@ -4,6 +4,8 @@
 #include "TiActor/actor/RootGuardianActorRef.h"
 #include "TiActor/actor/BuiltInActors.h"
 #include "TiActor/dispatch/Dispatchers.h"
+#include "TiActor/dispatch/Mailbox.h"
+#include "TiActor/dispatch/Mailboxes.h"
 
 #include "TiActor/actor/SupervisorStrategy.h"
 
@@ -97,6 +99,18 @@ LocalActorRef * LocalActorRefProvider::createSystemGuardion(LocalActorRef * root
         }
     }
     return child;
+}
+
+IInternalActorRef * LocalActorRefProvider::actorOf(ActorSystemImpl * system, Props * props, IInternalActorRef * supervisor,
+    ActorPath * path, bool systemService, Deploy * deploy, bool lookupDeploy, bool async) {
+    IInternalActorRef * actor = nullptr;
+    if (props) {
+        //actor = props->getInternalActorRef();
+        MessageDispatcher * dispatcher = system->getDispatchers()->lookupDispatcher(props->getDispatcherName());
+        Mailbox * mailbox = system->getMailboxes()->createMailbox(props->getMailboxName());
+        actor = new LocalActorRef(system, props, dispatcher, mailbox, supervisor, path);
+    }
+    return actor;
 }
 
 } // namespace TiActor
