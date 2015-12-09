@@ -79,7 +79,11 @@ private:
     IInternalActorRef * makeChildActor(Props * props, const std::string & name, bool isAsync, bool isSystemService);
 
 public:
-    void initChildActor(IInternalActorRef * actor) {
+    void reserveChild(const std::string & name) {
+        // TODO:
+    }
+
+    void initChild(IInternalActorRef * actor) {
         // TODO:
     }
 

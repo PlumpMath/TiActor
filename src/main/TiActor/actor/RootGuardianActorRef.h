@@ -26,25 +26,29 @@ public:
 
     ~RootGuardianActorRef() { }
 
-   virtual IInternalActorRef * getParent() const override {
+    IInternalActorRef * getInternalActorRef() const {
         return reinterpret_cast<IInternalActorRef *>((RootGuardianActorRef *)this);
     }
 
-   void setTempContainer(IInternalActorRef  * tempContainer) {
-       tempContainer_ = tempContainer;
-   }
+    virtual IInternalActorRef * getParent() const override {
+        return reinterpret_cast<IInternalActorRef *>((RootGuardianActorRef *)this);
+    }
 
-   virtual IInternalActorRef * getSingleChild(const std::string & name) const override {
-       if (name == "temp") {
-           return tempContainer_;
-       }
-       else if (name == "deadLetters") {
-           return deadLetters_;
-       }
-       else {
-           return LocalActorRef::getSingleChild(name);
-       }
-   }
+    void setTempContainer(IInternalActorRef  * tempContainer) {
+        tempContainer_ = tempContainer;
+    }
+
+    virtual IInternalActorRef * getSingleChild(const std::string & name) const override {
+        if (name == "temp") {
+            return tempContainer_;
+        }
+        else if (name == "deadLetters") {
+            return deadLetters_;
+        }
+        else {
+            return LocalActorRef::getSingleChild(name);
+        }
+    }
 };
 
 } // namespace TiActor

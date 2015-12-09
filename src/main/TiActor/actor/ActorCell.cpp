@@ -55,7 +55,7 @@ IInternalActorRef * ActorCell::makeChildActor(Props * props, const std::string &
         if (provider) {
             actor = provider->actorOf(systemImpl_, props, nullptr, childPath, isSystemService, nullptr, false, isAsync);
             if (actor) {
-                initChildActor(actor);
+                initChild(actor);
                 actor->start();
             }
         }

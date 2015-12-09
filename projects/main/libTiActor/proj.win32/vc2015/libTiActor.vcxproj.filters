@@ -285,6 +285,9 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\SystemMessage.h">
       <Filter>src\actor</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\SupervisorStrategy.h">
+      <Filter>src\actor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.cpp">

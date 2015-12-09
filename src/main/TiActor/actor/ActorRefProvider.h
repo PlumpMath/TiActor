@@ -10,6 +10,8 @@
 #include <unordered_map>
 
 #include "TiActor/actor/Props.h"
+#include "TiActor/actor/SupervisorStrategy.h"
+#include "TiActor/actor/BuiltInActors.h"
 
 namespace TiActor {
 
@@ -25,6 +27,7 @@ class RootGuardianActorRef;
 class RootActorPath;
 class Mailbox;
 class MessageDispatcher;
+class SupervisorStrategy;
 
 class IActorRefProvider {
 public:
@@ -52,6 +55,8 @@ private:
     LocalActorRef * systemGuardian_;
     Mailbox * defaultMailbox_;          // TODO: switch to MailboxType
 
+    SupervisorStrategy * systemGuardianStrategy_;
+
     std::unordered_map<std::string, IInternalActorRef *> extraNames_;
 
 public:
@@ -72,21 +77,28 @@ public:
 private:
     RootGuardianActorRef * createRootGuardion(ActorSystemImpl * system);
 
-    LocalActorRef * createUserGuardion(RootGuardianActorRef * rootGuardian) {
-        return nullptr;
-    }
+    LocalActorRef * userGuardionChildCreator();
 
-    LocalActorRef * createSystemGuardion(RootGuardianActorRef * rootGuardian) {
-        return nullptr;
-    }
+    LocalActorRef * createUserGuardion(LocalActorRef * rootGuardian, const std::string & name);
+
+    LocalActorRef * systemGuardionChildCreator();
+
+    LocalActorRef * createSystemGuardion(LocalActorRef * rootGuardian, const std::string & name,
+        LocalActorRef * userGuardian);
 
     MessageDispatcher * getDefaultDispatcher() const;
+
+    SupervisorStrategy * getUserGuardianSupervisorStrategy() const {
+        return SupervisorStrategy::DefaultStrategy;
+    }
 
 protected:
     void inernalInit(const std::string & systemName, Deployer * deployer) {
         deployer_ = deployer;
         deadLetters_ = nullptr;
         tempNumber_ = 1;
+
+        systemGuardianStrategy_ = SupervisorStrategy::DefaultStrategy;
     }
 
 public:

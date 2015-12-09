@@ -5,14 +5,20 @@
 #include "TiActor/actor/BuiltInActors.h"
 #include "TiActor/dispatch/Dispatchers.h"
 
+#include "TiActor/actor/SupervisorStrategy.h"
+
 namespace TiActor {
+
+IDecider * SupervisorStrategy::DefaultDecider = nullptr;
+SupervisorStrategy * SupervisorStrategy::DefaultStrategy = new OneForOneStrategy(SupervisorStrategy::DefaultDecider);
+OneForOneStrategy * SupervisorStrategy::StoppingStrategy = new OneForOneStrategy(Directive::Stop);
 
 void LocalActorRefProvider::init(ActorSystemImpl * system) {
     system_ = system;
     rootGuardian_ = createRootGuardion(system);
     if (rootGuardian_) {
-        userGuardian_ = createUserGuardion(rootGuardian_);
-        systemGuardian_ = createSystemGuardion(rootGuardian_);
+        userGuardian_ = createUserGuardion(rootGuardian_, "user");
+        systemGuardian_ = createSystemGuardion(rootGuardian_, "system", userGuardian_);
         rootGuardian_->start();
     }
 }
@@ -36,6 +42,61 @@ RootGuardianActorRef * LocalActorRefProvider::createRootGuardion(ActorSystemImpl
     // TODO: profs = Props::create<GuardianActor>(rootGuardianStrategy);
     rootGuardian_ = new RootGuardianActorRef(system, props, dispatcher, defaultMailbox_, supervisor, rootPath_, deadLetters_);
     return rootGuardian_;
+}
+
+LocalActorRef * LocalActorRefProvider::userGuardionChildCreator() {
+    LocalActorRef * userGuardion = nullptr;
+    ActorBase * guardianActor = new GuardianActor();
+    Props * props = new Props(guardianActor, getUserGuardianSupervisorStrategy());
+    if (props) {
+        userGuardion = new LocalActorRef(system_, props, getDefaultDispatcher(),
+            defaultMailbox_, rootGuardian_->getInternalActorRef(), nullptr);
+    }
+    return userGuardion;
+}
+
+LocalActorRef * LocalActorRefProvider::createUserGuardion(LocalActorRef * rootGuardian, const std::string & name) {
+    LocalActorRef * child = nullptr;
+    if (rootGuardian_) {
+        ActorCell * cell = rootGuardian_->getCell();
+        if (cell) {
+            cell->reserveChild(name);
+            child = userGuardionChildCreator();
+            if (child) {
+                cell->initChild(child);
+                child->start();
+            }
+        }
+    }
+    return child;
+}
+
+LocalActorRef * LocalActorRefProvider::systemGuardionChildCreator() {
+    LocalActorRef * systemGuardion = nullptr;
+    ActorBase * guardianActor = new SystemGuardianActor(userGuardian_);
+    Props * props = new Props(guardianActor, getUserGuardianSupervisorStrategy());
+    if (props) {
+        systemGuardion = new LocalActorRef(system_, props, getDefaultDispatcher(),
+            defaultMailbox_, rootGuardian_->getInternalActorRef(), nullptr);
+    }
+    return systemGuardion;
+}
+
+LocalActorRef * LocalActorRefProvider::createSystemGuardion(LocalActorRef * rootGuardian, const std::string & name,
+    LocalActorRef * userGuardian) {
+    LocalActorRef * child = nullptr;
+    if (rootGuardian_) {
+        ActorCell * cell = rootGuardian_->getCell();
+        if (cell) {
+            cell->reserveChild(name);
+            child = systemGuardionChildCreator();
+            if (child) {
+                cell->initChild(child);
+                child->start();
+            }
+        }
+    }
+    return child;
 }
 
 } // namespace TiActor

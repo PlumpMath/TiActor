@@ -20,13 +20,6 @@ class ActorSystem;
 
 class IActorContext : public IActorRefFactory {
 public:
-    // IActorRefFactory
-    /*
-    virtual IActorRef * actorOf(const Props * props, const std::string & name = "") = 0;
-    virtual ActorSelection * getActorSelection(const ActorPath * actorPath) const = 0;
-    virtual ActorSelection * getActorSelection(const std::string & actorPath) const = 0;
-    */
-
     // IActorContext
     virtual Props * getProps() const = 0;
     virtual IActorRef * getSelf() const = 0;

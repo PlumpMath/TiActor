@@ -21,6 +21,7 @@ class IIndirectActorProducer;
 class RouterConfig;
 class IActorContext;
 class IInternalActorRef;
+class SupervisorStrategy;
 
 class Props {
 private:
@@ -31,6 +32,8 @@ private:
     uint32_t outputType_;
     IIndirectActorProducer * producer_;
 
+    SupervisorStrategy * supervisorStrategy_;
+
     static IIndirectActorProducer * defaultProducer;
 
 public:
@@ -38,7 +41,7 @@ public:
 
 protected:
     Props() : deploy_(nullptr), actor_(nullptr), inputType_(0), outputType_(0),
-              producer_(nullptr) {
+              producer_(nullptr), supervisorStrategy_(nullptr) {
         deploy_ = defaultDeploy;
         initProps();
     }
@@ -60,13 +63,15 @@ public:
         initProps();
     }
 
-    Props(const ActorBase * actor) : Props() {
+    Props(const ActorBase * actor, SupervisorStrategy * supervisorStrategy = nullptr) : Props() {
         actor_ = const_cast<ActorBase * >(actor);
+        supervisorStrategy_ = supervisorStrategy;
         initProps();
     }
 
-    Props(const UntypedActor * actor) : Props() {
+    Props(const UntypedActor * actor, SupervisorStrategy * supervisorStrategy = nullptr) : Props() {
         actor_ = reinterpret_cast<ActorBase * >(const_cast<UntypedActor *>(actor));
+        supervisorStrategy_ = supervisorStrategy;
         initProps();
     }
 
@@ -107,12 +112,18 @@ public:
         return props;
     }
 
+    SupervisorStrategy * getSupervisorStrategy() const { return supervisorStrategy_; }
+
 protected:
     void copyProps(const Props & src) {
         this->name_ = src.name_;
         this->deploy_ = src.deploy_;
         this->inputType_ = src.inputType_;
         this->outputType_ = src.outputType_;
+    }
+
+    void setSupervisorStrategy(SupervisorStrategy * supervisorStrategy) {
+        supervisorStrategy_ = supervisorStrategy;
     }
 
 private:

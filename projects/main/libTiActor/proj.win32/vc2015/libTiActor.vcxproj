@@ -187,6 +187,7 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\INoSerializationVerificationNeeded.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\InternalCurrentActorCellKeeper.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ISurrogated.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\SupervisorStrategy.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\SystemMessage.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\IUntypedActorContext.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\LocalActorRef.h" />
