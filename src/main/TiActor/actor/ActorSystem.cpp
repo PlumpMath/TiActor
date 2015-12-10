@@ -54,6 +54,7 @@ void ActorSystem::destroyAll() {
     for (ait = actor_map_.begin(); ait != actor_map_.end(); ++ait) {
         ActorBase * actor = ait->second;
         actor_map_.erase(ait);
+        ait->second = nullptr;
         if (actor) {
             delete actor;
         }
@@ -65,6 +66,7 @@ void ActorSystem::destroyAll() {
     for (it = actorsystem_map_.begin(); it != actorsystem_map_.end(); ++it) {
         ActorSystem * system = it->second;
         actorsystem_map_.erase(it);
+        it->second = nullptr;
         if (system) {
             delete system;
         }

@@ -119,38 +119,18 @@ public:
     }
 
     // IActorRefFactory
-    IActorRef * actorOf(Props * props, const std::string & name = "");
+    virtual IActorRef * actorOf(Props * props, const std::string & name = "") override;
 
-    ActorSelection * getActorSelection(const ActorPath * actorPath) const {
+    virtual ActorSelection * getActorSelection(const ActorPath * actorPath) const override {
         return nullptr;
     }
 
-    ActorSelection * getActorSelection(const std::string & actorPath) const {
+    virtual ActorSelection * getActorSelection(const std::string & actorPath) const override {
         return nullptr;
     }
 
     // ExtendedActorSystem
-    IActorRefProvider * getProvider() const {
-        return provider_;
-    }
-
-    IInternalActorRef * getGuardian() const {
-        IInternalActorRef * guardian = nullptr;
-        if (provider_) {
-            guardian = reinterpret_cast<IInternalActorRef *>(provider_->getGuardian());
-        }
-        return guardian;
-    }
-
-    IInternalActorRef * getSystemGuardian() const {
-        IInternalActorRef * guardian = nullptr;
-        if (provider_) {
-            guardian = reinterpret_cast<IInternalActorRef *>(provider_->getSystemGuardian());
-        }
-        return guardian;
-    }
-
-    IActorRef * systemActorOf(Props * props, const std::string & name) {
+    virtual IActorRef * systemActorOf(Props * props, const std::string & name = "") override {
         IActorRef * actor = nullptr;
         ActorCell * cell = getSystemGuardianCell();
         if (cell) {
@@ -159,15 +139,35 @@ public:
         return actor;
     }
 
-    virtual Dispatchers * getDispatchers() const {
+    virtual IActorRefProvider * getProvider() const override {
+        return provider_;
+    }
+
+    virtual IInternalActorRef * getGuardian() const override {
+        IInternalActorRef * guardian = nullptr;
+        if (provider_) {
+            guardian = reinterpret_cast<IInternalActorRef *>(provider_->getGuardian());
+        }
+        return guardian;
+    }
+
+    virtual IInternalActorRef * getSystemGuardian() const override {
+        IInternalActorRef * guardian = nullptr;
+        if (provider_) {
+            guardian = reinterpret_cast<IInternalActorRef *>(provider_->getSystemGuardian());
+        }
+        return guardian;
+    }
+
+    virtual Dispatchers * getDispatchers() const override {
         return dispatchers_;
     }
 
-    virtual Mailboxes * getMailboxes() const {
+    virtual Mailboxes * getMailboxes() const override {
         return mailboxes_;
     }
 
-    virtual IActorRef * getDeadLetters() const {
+    virtual IActorRef * getDeadLetters() const override {
         IActorRef * deadLetters = nullptr;
         if (provider_) {
             deadLetters = provider_->getDeadLetters();
