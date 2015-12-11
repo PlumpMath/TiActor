@@ -14,8 +14,8 @@
 
 namespace TiActor {
 
-ActorSystem::actorsystem_map_type	ActorSystem::actorsystem_map_;
-ActorSystem::actor_map_type			ActorSystem::actor_map_;
+ActorSystem::actorsystem_map_type   ActorSystem::actorsystem_map_;
+ActorSystem::actor_map_type         ActorSystem::actor_map_;
 
 Deploy * Deploy::local_ = new Deploy();
 Deploy * Deploy::none_ = new Deploy();
@@ -74,7 +74,7 @@ void ActorSystem::destroyAll() {
     actorsystem_map_.clear();
 }
 
-IActorRef * ActorSystem::actorOf(Props * props, const std::string & name /*= ""*/)
+IActorRef * ActorSystem::actorOf(Props * props, const std::string & name /* = "" */)
 {
     throw std::logic_error("The method or operation is not implemented.");
 }

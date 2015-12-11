@@ -46,6 +46,16 @@ ActorBase * ActorCell::newActor()
     return instance;
 }
 
+void ActorCell::invoke(Envelope * envelope)
+{
+
+}
+
+void ActorCell::systemInvoke(Envelope * envelope)
+{
+
+}
+
 IInternalActorRef * ActorCell::makeChild(Props * props, const std::string & name, bool isAsync, bool isSystemService) {
     IInternalActorRef * actor = nullptr;
     // TODO: makeChildActorPath(),  class ChildActorPath()

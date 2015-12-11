@@ -106,7 +106,7 @@ IInternalActorRef * LocalActorRefProvider::actorOf(ActorSystemImpl * system, Pro
     IInternalActorRef * actor = nullptr;
     if (props) {
         //actor = props->getInternalActorRef();
-        MessageDispatcher * dispatcher = system->getDispatchers()->lookupDispatcher(props->getDispatcherName());
+        MessageDispatcher * dispatcher = system->getDispatchers()->lookup(props->getDispatcherName());
         Mailbox * mailbox = system->getMailboxes()->createMailbox(props->getMailboxName());
         actor = new LocalActorRef(system, props, dispatcher, mailbox, supervisor, path);
     }

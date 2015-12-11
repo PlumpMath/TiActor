@@ -76,9 +76,6 @@ private:
     }
 
 protected:
-	ActorSystem * createSystemImpl(const std::string & name, const Config & config);
-	ActorSystem * createAndStartSystemImpl(const std::string & name, const Config & config);
-
     ActorCell * getUserGuardianCell() const {
         ActorCell * cell = nullptr;
         if (provider_) {
@@ -122,10 +119,12 @@ public:
     virtual IActorRef * actorOf(Props * props, const std::string & name = "") override;
 
     virtual ActorSelection * getActorSelection(const ActorPath * actorPath) const override {
+        // TODO:
         return nullptr;
     }
 
     virtual ActorSelection * getActorSelection(const std::string & actorPath) const override {
+        // TODO:
         return nullptr;
     }
 
@@ -194,10 +193,10 @@ public:
     }
 
     // Startup the actor systems
-    virtual void start();
+    virtual void start() override;
 
     virtual void stop(IActorRef * actor) {
-        //;
+        //
     }
 
     virtual void shutdown() {

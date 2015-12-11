@@ -46,6 +46,9 @@
     <Filter Include="src\system">
       <UniqueIdentifier>{098b1cc6-4517-432b-ac15-67d6c44b44fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\actor\children">
+      <UniqueIdentifier>{4354f501-8252-49af-8660-cf3b08956db7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\stddef.h">
@@ -287,6 +290,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\SupervisorStrategy.h">
       <Filter>src\actor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\TaskDispatcher.h">
+      <Filter>src\dispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\DeadLetterMailbox.h">
+      <Filter>src\dispatch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\children\IChildrenContainer.h">
+      <Filter>src\actor\children</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

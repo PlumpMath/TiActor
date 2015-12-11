@@ -34,11 +34,9 @@ public:
         throughput_ = throughput;
     }
 
-    virtual void schedule(action_type run) {
-    };
+    virtual void schedule(action_type run) = 0;
 
-    virtual void schedule(run_func run, void * data) {
-    };
+    virtual void schedule(run_func run, void * data) = 0;
 
     virtual void dispatch(ActorCell * cell, Envelope * envelope) = 0;
     virtual void systemDispatch(ActorCell * cell, Envelope * envelope) = 0;

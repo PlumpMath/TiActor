@@ -7,6 +7,7 @@
 #endif
 
 #include "TiActor/dispatch/MessageDispatcher.h"
+#include "TiActor/actor/ActorCell.h"
 //#include "TiActor/actor/Action.h"
 
 namespace TiActor {
@@ -23,7 +24,9 @@ private:
 public:
     ThreadPoolDispatcher(MessageDispatcher * dispatcher)
         : dispatcher_(dispatcher) {
-        //
+    }
+
+    ~ThreadPoolDispatcher() {
     }
 
     virtual void schedule(action_type run) {
@@ -50,11 +53,15 @@ public:
     };
 
     virtual void dispatch(ActorCell * cell, Envelope * envelope) {
-        //
+        if (cell) {
+            cell->invoke(envelope);
+        }
     }
 
     virtual void systemDispatch(ActorCell * cell, Envelope * envelope) {
-        //
+        if (cell) {
+            cell->systemInvoke(envelope);
+        }
     }
 
     virtual void attach(ActorCell * cell) {

@@ -9,19 +9,6 @@
 
 namespace TiActor {
 
-ActorSystem * ActorSystemImpl::createSystemImpl(const std::string & name, const Config & config) {
-	ActorSystem * system = new ActorSystemImpl(name, config);
-	return system;
-}
-
-ActorSystem * ActorSystemImpl::createAndStartSystemImpl(const std::string & name, const Config & config) {
-	ActorSystem * system = new ActorSystemImpl(name, config);
-	if (system) {
-		system->start();
-	}
-	return system;
-}
-
 // IActorRefFactory
 IActorRef * ActorSystemImpl::actorOf(Props * props, const std::string & name) {
 #if 1

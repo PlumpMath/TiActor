@@ -39,21 +39,18 @@ protected:
     MessageDispatcher * dispatcher;
     volatile bool hasUnscheduledMessages;
 
-private:
-    std::string name_;
-
 public:
     Mailbox() : actorCell_(nullptr), suspendStatus_(MailboxSuspendStatus::NotSuspended),
         status_(MailboxStatus::Busy), dispatcher(nullptr),
         hasUnscheduledMessages(false) {
-        initMailbox("Mailbox Default");
+        initMailbox();
     }
 
     Mailbox(const std::string & name)
         : actorCell_(nullptr), suspendStatus_(MailboxSuspendStatus::NotSuspended),
           status_(MailboxStatus::Busy), dispatcher(nullptr),
           hasUnscheduledMessages(false) {
-        initMailbox(name);
+        initMailbox();
     }
 
     Mailbox(const Mailbox & src) {
@@ -62,14 +59,12 @@ public:
         this->status_ = src.status_;
         this->dispatcher = src.dispatcher;
         this->hasUnscheduledMessages = src.hasUnscheduledMessages;
-        this->name_ = src.name_;
     }
 
     ~Mailbox() { }
 
 private:
-    void initMailbox(const std::string & name) {
-        name_ = name;
+    void initMailbox() {
     }
 
 protected:
@@ -79,8 +74,8 @@ protected:
 public:
     virtual void post(IActorRef * receiver, Envelope * envelope) = 0;
 
-    volatile ActorCell * getActorCell() const {
-        return actorCell_;
+    ActorCell * getActorCell() const {
+        return (ActorCell *)(actorCell_);
     }
 
     void setActorCell(const ActorCell * actorCell) {

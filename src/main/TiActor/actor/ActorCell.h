@@ -29,6 +29,7 @@ class ActorSelection;
 class ActorSystemImpl;
 class Mailbox;
 class IActorState;
+class Envelope;
 
 class ActorCell : public IUntypedActorContext, public ICell {
 private:
@@ -98,6 +99,9 @@ protected:
 
 public:
     void init();
+    
+    void invoke(Envelope * envelope);
+    void systemInvoke(Envelope * envelope);
 
     void useThreadContext(action_type action);
     virtual ActorBase * createNewActorInstance();

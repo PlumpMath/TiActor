@@ -23,6 +23,7 @@ public:
     typedef std::pair<std::string, MessageDispatcher *>                             pair_type;
 
     static const char kDefaultDispatcherName[];
+    static const char kSynchronizedDispatcheName[];
 
 private:
     ActorSystem * system_;
@@ -34,8 +35,10 @@ public:
     Dispatchers(ActorSystem * system)
         : system_(system), defaultGlobalDispatcher_(nullptr) {
         dispatchersMap_ = new map_type();
-        defaultGlobalDispatcher_ = this->lookupDispatcher(kDefaultDispatcherName);
+        defaultGlobalDispatcher_ = this->lookup(kDefaultDispatcherName);
     }
+
+    ~Dispatchers();
 
     MessageDispatcher * getDefaultGlobalDispatchers() const {
         return defaultGlobalDispatcher_;
@@ -60,20 +63,7 @@ public:
         return false;
     }
 
-    MessageDispatcher * lookupDispatcher(const std::string & name) {
-        if (dispatchersMap_) {
-            const_map_iter it = dispatchersMap_->find(name);
-            if (it != dispatchersMap_->end()) {
-                MessageDispatcher * dispatcher = it->second;
-                return dispatcher;
-            }
-            else {
-                pair_type value(name, reinterpret_cast<MessageDispatcher *>(this));
-                dispatchersMap_->insert(value);
-            }
-        }
-        return nullptr;
-    }
+    MessageDispatcher * lookup(const std::string & name);
 };
 
 } // namespace TiActor

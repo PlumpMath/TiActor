@@ -169,6 +169,7 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystem.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystemImpl.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\BuiltInActors.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\children\IChildrenContainer.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\DefaultProducer.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\Deploy.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\EmptyLocalActorRef.h" />
@@ -214,12 +215,14 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\static_link.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\ActorConfig.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\ConcurrentQueueMailbox.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\DeadLetterMailbox.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\Dispatchers.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\IMessageQueue.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\Mailbox.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\Mailboxes.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\MessageDispatcher.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\MessageQueueMailbox.h" />
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\TaskDispatcher.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\dispatch\ThreadPoolDispatcher.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\queue\portable.h" />
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\queue\RingQueue.h" />
