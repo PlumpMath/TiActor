@@ -37,19 +37,10 @@ public:
         props_ = props;
         dispatcher_ = dispatcher;
         path_ = path;
-        cell_ = createActorCell(system, props, dispatcher, supervisor);
+j        cell_ = createActorCell(system, props, dispatcher, supervisor);
     }
 
     ~LocalActorRef() { }
-
-    ActorCell * getCell() const { return cell_; }
-
-    virtual ICell * getUnderlying() const { return reinterpret_cast<ICell *>(cell_); }
-
-    virtual IInternalActorRef * getChildrens() const { return nullptr; }
-    virtual IInternalActorRef * getSingleChild(const std::string & name) const {
-        return nullptr;
-    }
 
 private:
     ActorCell * createActorCell(ActorSystemImpl * system, Props * props,
@@ -83,11 +74,19 @@ protected:
     }
 
 public:
+    ActorCell * getCell() const { return cell_; }
+
+    virtual ICell * getUnderlying() const override {
+        return reinterpret_cast<ICell *>(cell_);
+    }
+
+    virtual IInternalActorRef * getChildrens() const override { return nullptr; }
+    virtual IInternalActorRef * getSingleChild(const std::string & name) const override {
+        return nullptr;
+    }
+
     virtual bool isTerminated() const override {
-        if (cell_)
-            return cell_->isTerminated();
-        else
-            return false;
+        return (cell_ != nullptr) ? cell_->isTerminated() : false;
     }
 
     virtual void resume() override {

@@ -57,20 +57,20 @@ void ActorCell::systemInvoke(Envelope * envelope)
 }
 
 IInternalActorRef * ActorCell::makeChild(Props * props, const std::string & name, bool isAsync, bool isSystemService) {
-    IInternalActorRef * actor = nullptr;
+    IInternalActorRef * actorRef = nullptr;
     // TODO: makeChildActorPath(),  class ChildActorPath()
     ActorPath * childPath = nullptr;
     if (systemImpl_) {
         IActorRefProvider * provider = systemImpl_->getProvider();
         if (provider) {
-            actor = provider->actorOf(systemImpl_, props, nullptr, childPath, isSystemService, nullptr, false, isAsync);
-            if (actor) {
-                initChild(actor);
-                actor->start();
+            actorRef = provider->actorOf(systemImpl_, props, nullptr, childPath, isSystemService, nullptr, false, isAsync);
+            if (actorRef) {
+                initChild(actorRef);
+                actorRef->start();
             }
         }
     }
-    return actor;
+    return actorRef;
 }
 
 void ActorCell::start() {
