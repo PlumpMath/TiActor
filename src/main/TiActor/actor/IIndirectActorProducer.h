@@ -15,7 +15,7 @@ class IActorContext;
 
 class IIndirectActorProducer {
 public:
-    virtual ActorBase * produce(IActorContext * context) = 0;
+    virtual ActorBase * produce(ActorBase * actor) = 0;
     virtual void release(ActorBase * &actor) = 0;
     virtual uint64_t getActorType() = 0;
 };

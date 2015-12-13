@@ -10,12 +10,19 @@
 
 namespace TiActor {
 
-Deploy * Props::defaultDeploy = new Deploy();
-IIndirectActorProducer * Props::defaultProducer = new DefaultProducer();
+Deploy *                    Props::defaultDeploy = new Deploy();
+IIndirectActorProducer *    Props::defaultProducer = new DefaultProducer();
 
 /* static */
 IIndirectActorProducer * Props::createProducer() {
     return new ActivatorProducer();
+}
+
+/* static */
+template <typename T>
+IIndirectActorProducer * TiActor::Props::createProducer(T * actor)
+{
+    return new T();
 }
 
 Props::~Props() {
@@ -29,9 +36,9 @@ Props::~Props() {
     }
 }
 
-ActorBase * Props::newActor(IActorContext * context) {
+ActorBase * Props::newActor(ActorBase * actor) {
     if (producer_) {
-        return producer_->produce(context);
+        return producer_->produce(actor);
     }
     return nullptr;
 }

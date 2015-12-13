@@ -32,6 +32,9 @@ class IActorState;
 class Envelope;
 
 class ActorCell : public IUntypedActorContext, public ICell {
+public:
+    static const int kUndefinedUid = 0;
+
 private:
     IInternalActorRef * self_;
     IInternalActorRef * parent_;

@@ -7,6 +7,7 @@
 #endif
 
 #include <string>
+#include <stdexcept>
 
 #include "TiActor/basic/stdint.h"
 #include "TiActor/actor/Deploy.h"
@@ -84,7 +85,10 @@ public:
 
     static IIndirectActorProducer * createProducer();
 
-    virtual ActorBase * newActor(IActorContext * context);
+    template <typename T>
+    static IIndirectActorProducer * createProducer(T * actor);
+
+    virtual ActorBase * newActor(ActorBase * actor);
 
     std::string getName() const {
         return name_;
@@ -142,6 +146,13 @@ protected:
 
 private:
     //
+};
+
+class TerminatedProps : public Props {
+public:
+    virtual ActorBase * newActor(ActorBase * actor) override {
+        throw std::logic_error("This actor has been terminated");
+    }
 };
 
 } // namespace TiActor

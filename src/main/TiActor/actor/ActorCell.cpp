@@ -96,8 +96,9 @@ void ActorCell::prepareForNewActor()
 ActorBase * ActorCell::createNewActorInstance()
 {
     ActorBase * actor = nullptr;
-    if (props_)
-        actor = props_->newActor(this->getActorContext());
+    if (props_) {
+        actor = props_->newActor(actor_);
+    }
     return actor;
 }
 

@@ -92,7 +92,7 @@ public:
 
     IActorRef * getChild() const    {
         IActorContext * context = this->getContext();
-        return ((context != nullptr) ? context->getChild()  : nullptr);
+        return ((context != nullptr) ? context->getChild() : nullptr);
     }
 
     ActorSystem * getSystem() const {
