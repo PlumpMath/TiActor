@@ -7,7 +7,6 @@
 #endif
 
 #include "TiActor/dispatch/MessageDispatcher.h"
-#include "TiActor/actor/ActorCell.h"
 //#include "TiActor/actor/Action.h"
 
 namespace TiActor {
@@ -51,26 +50,6 @@ public:
         if (count < 5)
             (*run)(data);
     };
-
-    virtual void dispatch(ActorCell * cell, Envelope * envelope) {
-        if (cell) {
-            cell->invoke(envelope);
-        }
-    }
-
-    virtual void systemDispatch(ActorCell * cell, Envelope * envelope) {
-        if (cell) {
-            cell->systemInvoke(envelope);
-        }
-    }
-
-    virtual void attach(ActorCell * cell) {
-        //
-    }
-
-    virtual void detach(ActorCell * cell) {
-        //
-    }
 };
 
 } // namespace TiActor

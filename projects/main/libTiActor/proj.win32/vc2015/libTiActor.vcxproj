@@ -249,6 +249,7 @@
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\ActorSystemImpl.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\LocalActorRef.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\dispatch\Dispatchers.cpp" />
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\dispatch\MessageDispatcher.cpp" />
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\system\sleep.c" />
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,8 @@
 #pragma once
 #endif
 
+#include <string>
+
 #include "TiActor/actor/Action.h"
 
 namespace TiActor {
@@ -20,6 +22,7 @@ public:
 
 private:
     int throughput_;
+    std::string id_;
 
 protected:
     MessageDispatcher() : throughput_(kDefaultThroughput) {
@@ -34,15 +37,24 @@ public:
         throughput_ = throughput;
     }
 
+    std::string getId() const { return id_; }
+    void setId(const std::string & id) { id_ = id; }
+
     virtual void schedule(action_type run) = 0;
 
     virtual void schedule(run_func run, void * data) = 0;
 
-    virtual void dispatch(ActorCell * cell, Envelope * envelope) = 0;
-    virtual void systemDispatch(ActorCell * cell, Envelope * envelope) = 0;
+    virtual void dispatch(ActorCell * cell, Envelope * envelope);
 
-    virtual void attach(ActorCell * cell) = 0;
-    virtual void detach(ActorCell * cell) = 0;
+    virtual void systemDispatch(ActorCell * cell, Envelope * envelope);
+
+    virtual void attach(ActorCell * cell) {
+        // Empty, Do Nothing!
+    }
+
+    virtual void detach(ActorCell * cell) {
+        // Empty, Do Nothing!
+    }
 };
 
 } // namespace TiActor

@@ -37,7 +37,7 @@ public:
         props_ = props;
         dispatcher_ = dispatcher;
         path_ = path;
-j        cell_ = createActorCell(system, props, dispatcher, supervisor);
+        cell_ = createActorCell(system, props, dispatcher, supervisor);
     }
 
     ~LocalActorRef() { }

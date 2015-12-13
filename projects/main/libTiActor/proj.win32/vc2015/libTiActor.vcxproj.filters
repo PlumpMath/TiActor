@@ -329,5 +329,8 @@
     <ClCompile Include="..\..\..\..\..\src\main\TiActor\actor\Props.cpp">
       <Filter>src\actor</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\src\main\TiActor\dispatch\MessageDispatcher.cpp">
+      <Filter>src\dispatch</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
