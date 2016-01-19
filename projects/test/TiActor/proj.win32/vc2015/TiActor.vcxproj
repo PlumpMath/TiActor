@@ -29,6 +29,7 @@
     <ProjectGuid>{8B1D72B0-C5B1-46FF-BFCE-5333A9F47ED8}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>TiActor</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -80,28 +81,28 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\</OutDir>
-    <IntDir>$(SolutionDir)\obj\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)obj\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\$(ProjectName)\</IntDir>
     <IncludePath>D:\Program32\Visual Leak Detector\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Program32\Visual Leak Detector\lib\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\</OutDir>
-    <IntDir>$(SolutionDir)\obj\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)obj\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\$(ProjectName)\</IntDir>
     <IncludePath>D:\Program32\Visual Leak Detector\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Program32\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\</OutDir>
-    <IntDir>$(SolutionDir)\obj\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)obj\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\$(ProjectName)\</IntDir>
     <IncludePath>D:\Program32\Visual Leak Detector\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Program32\Visual Leak Detector\lib\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\</OutDir>
-    <IntDir>$(SolutionDir)\obj\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\$(ProjectName)\</IntDir>
+    <IntDir>$(SolutionDir)obj\$(MsvcPlatformToolset)\$(MsvcPlatformShortName)-$(Configuration)\test\$(ProjectName)\</IntDir>
     <IncludePath>D:\Program32\Visual Leak Detector\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Program32\Visual Leak Detector\lib\Win64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
