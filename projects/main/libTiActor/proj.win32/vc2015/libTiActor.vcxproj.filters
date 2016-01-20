@@ -210,9 +210,6 @@
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\system\sleep.h">
       <Filter>src\system</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\static_link.h">
-      <Filter>src\config</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\config\ActorConfig.h">
       <Filter>src\config</Filter>
     </ClInclude>
@@ -299,6 +296,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\src\main\TiActor\actor\children\IChildrenContainer.h">
       <Filter>src\actor\children</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\src\main\TiActor\basic\static_link.h">
+      <Filter>src\basic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

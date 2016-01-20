@@ -9,7 +9,7 @@
 #include <TiActor/actor/ActorSystem.h>
 #include <TiActor/actor/ActorSystemImpl.h>
 
-#include <TiActor/config/static_link.h>
+#include <TiActor/basic/static_link.h>
 
 using namespace TiActor;
 

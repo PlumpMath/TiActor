@@ -1,6 +1,6 @@
 
-#ifndef TIACTOR_CONFIG_STATIC_LINK_H
-#define TIACTOR_CONFIG_STATIC_LINK_H
+#ifndef TIACTOR_BASIC_STATIC_LINK_H
+#define TIACTOR_BASIC_STATIC_LINK_H
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1020)
 #pragma once
@@ -23,4 +23,4 @@
 // Do nothing!!
 #endif
 
-#endif  /* TIACTOR_CONFIG_STATIC_LINK_H */
+#endif  /* TIACTOR_BASIC_STATIC_LINK_H */
