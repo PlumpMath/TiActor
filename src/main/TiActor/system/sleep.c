@@ -70,7 +70,7 @@ void ti_wsleep(unsigned int millisec)
 /// int sched_yield(void);
 /// See: http://man7.org/linux/man-pages/man2/sched_yield.2.html
 ///
-/// sched_yield()函数 高级进程管理
+/// sched_yield() function
 /// See: http://blog.csdn.net/magod/article/details/7265555
 ///
 int ti_yield()
