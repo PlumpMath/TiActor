@@ -12,35 +12,35 @@
 // See: http://stackoverflow.com/questions/24975147/check-if-class-has-function-with-signature
 //
 
-#undef  DEFINE_METHOD_CHECKER
-#define DEFINE_METHOD_CHECKER(RETURN_TYPE, METHOD_NAME, PARAMETERS)         \
-template<typename T>                                                        \
-class Check ## METHOD_NAME ## FunctionIsExists                              \
-{                                                                           \
-private:                                                                    \
-    typedef char true_type;                                                 \
-    typedef char (&false_type)[2];                                          \
-                                                                            \
-    template <typename U, RETURN_TYPE (U::*)PARAMETERS = &U::METHOD_NAME>   \
-    struct checker {                                                        \
-        typedef true_type type;                                             \
-    };                                                                      \
-                                                                            \
-    template <typename U>                                                   \
-    static typename checker<U>::type tester(const U *);                     \
-                                                                            \
-    static false_type tester(...);                                          \
-                                                                            \
-public:                                                                     \
+#undef  MEMBERFUNCTION_CHECKER_DECLEAR
+#define MEMBERFUNCTION_CHECKER_DECLEAR(RETURN_TYPE, METHOD_NAME, PARAMETERS)    \
+template <typename T>                                                           \
+class MemberFunction ## METHOD_NAME ## IsExists                                 \
+{                                                                               \
+private:                                                                        \
+    typedef char true_type;                                                     \
+    typedef char (&false_type)[2];                                              \
+                                                                                \
+    template <typename U, RETURN_TYPE (U::*)PARAMETERS = &U::METHOD_NAME>       \
+    struct checker {                                                            \
+        typedef true_type type;                                                 \
+    };                                                                          \
+                                                                                \
+    template <typename U>                                                       \
+    static typename checker<U>::type tester(const U *);                         \
+                                                                                \
+    static false_type tester(...);                                              \
+                                                                                \
+public:                                                                         \
     enum { value = (sizeof(tester(static_cast<const T *>(0))) == sizeof(true_type)) }; \
 }
 
-// ChecktoStringFunctionIsExists<T>::value, std::string toString(void) const
-// DEFINE_METHOD_CHECKER(std::string, toString, (void) const);
+#ifndef MemberFunctionIsExists
+#define MemberFunctionIsExists(T, FuncName)    \
+    detail::MemberFunction##FuncName##IsExists<T>::value
+#endif
 
 namespace TiActor {
-
-namespace StringUtils {
 
 //
 // See: http://blog.chinaunix.net/uid-1720597-id-306773.html
@@ -48,11 +48,11 @@ namespace StringUtils {
 
 namespace detail {
 
-// ChecktoStringFunctionIsExists<T>::value, std::string toString(void) const
-DEFINE_METHOD_CHECKER(std::string, toString, (void) const);
+// MemberFunctiontoStringIsExists<T>::value, std::string toString(void) const
+MEMBERFUNCTION_CHECKER_DECLEAR(std::string, toString, (void) const);
 
 template<typename T>
-struct HasToStringFunction {
+struct HasToStringMemberFunction {
     template<typename U, std::string(U::*)() const>
     struct matcher;
 
@@ -65,13 +65,13 @@ struct HasToStringFunction {
     enum { value = (sizeof(helper<T>(nullptr)) == sizeof(char)) };
 };
 
-template <bool>
+template <bool HasMemberFunction>
 struct ToStringWrapper {};
 
 template<>
 struct ToStringWrapper<true> {
     template<typename T>
-    static std::string toString(const T & x) {
+    static std::string toString(T const & x) {
         return x.toString();
     }
 };
@@ -79,21 +79,23 @@ struct ToStringWrapper<true> {
 template<>
 struct ToStringWrapper<false> {
     template<typename T>
-    static std::string toString(const T & x) {
+    static std::string toString(T const & x) {
         return std::string(typeid(x).name());
     }
 };
 
 } // namespace detail */
 
+namespace StringUtils {
+
 template<typename T>
-std::string toString(const T & x) {
-    return detail::ToStringWrapper<detail::ChecktoStringFunctionIsExists<T>::value>::toString(x);
+std::string toString(T const & x) {
+    return detail::ToStringWrapper<MemberFunctionIsExists(T, toString)>::toString(x);
 }
 
 template<typename T>
-std::string toString2(const T & x) {
-    return detail::ToStringWrapper<detail::HasToStringFunction<T>::value>::toString(x);
+std::string toString2(T const & x) {
+    return detail::ToStringWrapper<detail::HasToStringMemberFunction<T>::value>::toString(x);
 }
 
 } // namespace StringUtils

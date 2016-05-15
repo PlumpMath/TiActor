@@ -53,8 +53,8 @@ int main(int argn, char * argv[])
 
     std::cout << std::endl;
 
-    std::cout << StringUtils::detail::ChecktoStringFunctionIsExists<ToStringTest>::value << std::endl;
-    std::cout << StringUtils::detail::ChecktoStringFunctionIsExists<NoToStringTest>::value << std::endl;
+    std::cout << MemberFunctionIsExists(ToStringTest, toString) << std::endl;
+    std::cout << MemberFunctionIsExists(NoToStringTest, toString) << std::endl;
 
     std::cout << std::endl;
     ::system("pause");

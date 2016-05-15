@@ -16,24 +16,28 @@ namespace TiActor {
 namespace math {
 
 template <typename _Ty>
-_Ty (min)(const _Ty & x, const _Ty & y) {
+_Ty (min)(_Ty const & x, _Ty const & y) {
     return (x <= y) ? x : y;
 }
 
 template <typename _Ty>
-_Ty min2(const _Ty x, const _Ty y) {
+_Ty (min2)(_Ty const x, _Ty const y) {
     return (x <= y) ? x : y;
 }
 
 template <typename _Ty>
-_Ty (max)(const _Ty & x, const _Ty & y) {
+_Ty (max)(_Ty const & x, _Ty const & y) {
     return (x >= y) ? x : y;
 }
 
 template <typename _Ty>
-_Ty max2(const _Ty x, const _Ty y) {
+_Ty (max2)( _Ty const x,  _Ty const y) {
     return (x >= y) ? x : y;
 }
+
+} // namespace math
+
+namespace CompilerTime {
 
 template <typename T, T M, T N>
 struct mininum {
@@ -45,7 +49,7 @@ struct maxinum {
     enum { value = ((M >= N) ? M : N) };
 };
 
-} // namespace math
+} // namespace CompilerTime
 
 } // namespace TiActor
 

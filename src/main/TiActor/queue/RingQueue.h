@@ -117,7 +117,7 @@ public:
 
 public:
     //static const size_type  kCapacity   = (size_type)TI_MAX(utils::round_up_to_pow2<Capacity>::value, 2);
-    static const size_type  kCapacity   = (size_type)math::maxinum<size_type, math::round_up_to_pow2<Capacity>::value, 2>::value;
+    static const size_type  kCapacity   = (size_type)CompilerTime::maxinum<size_type, math::round_up_to_pow2<Capacity>::value, 2>::value;
     static const index_type kMask       = (index_type)(kCapacity - 1);
 
 public:
