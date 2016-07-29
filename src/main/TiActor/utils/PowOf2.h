@@ -22,7 +22,7 @@ struct true_type {
     enum { value = 1 };
 };
 
-template<bool condition, class T, class U>
+template <bool condition, class T, class U>
 struct condition_if {
     typedef U type;
 };
@@ -32,7 +32,7 @@ struct condition_if<true, T, U> {
     typedef T type;
 };
 
-template<bool condition>
+template <bool condition>
 struct boolean_if {
     typedef typename condition_if<condition, true_type, false_type>::type type;
     enum { value = type::value };
